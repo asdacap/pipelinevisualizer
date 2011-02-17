@@ -1,0 +1,17 @@
+#ifndef GRAPHITEMCOLLECTION_H
+#define GRAPHITEMCOLLECTION_H
+#include "pipetarget.h"
+#include <QList>
+
+class TargetCollection
+{
+public:
+    TargetCollection();
+    QList<PipeTarget*> getTarget();
+    void addTarget(PipeTarget* t);
+
+private:
+    QList<PipeTarget*> targetcol;
+};
+
+#endif // GRAPHITEMCOLLECTION_H
