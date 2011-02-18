@@ -23,7 +23,15 @@ SOURCES += main.cpp\
     soundsink.cpp \
     soundfeeder.cpp \
     constSetting.cpp \
-    util.cpp
+    util.cpp \
+    mainwindow.cpp \
+    doublegenerator.cpp \
+    simplelinegraph.cpp \
+    booleangenerator.cpp \
+    counterkeeper.cpp \
+    graphabstraction.cpp \
+    doublelabel.cpp \
+    booleanlabel.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -37,6 +45,31 @@ HEADERS  += pvisual.h \
     soundsink.h \
     soundfeeder.h \
     constSetting.h \
-    util.h
+    util.h \
+    mainwindow.h \
+    doublegenerator.h \
+    simplelinegraph.h \
+    booleangenerator.h \
+    counterkeeper.h \
+    graphabstraction.h \
+    doublelabel.h \
+    booleanlabel.h
 
-FORMS    += pvisual.ui
+FORMS    += pvisual.ui \
+    mainwindow.ui
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../qwt-5.2.1/qwt-build-desktop/lib/ -lqwt5
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../qwt-5.2.1/qwt-build-desktop/lib/ -lqwt5
+else:symbian: LIBS += -lqwt
+else:unix: LIBS += -L$$PWD/../qwt-5.2.1/lib/ -lqwt
+
+unix:INCLUDEPATH += $$PWD/../qwt-5.2.1/src
+unix:DEPENDPATH += $$PWD/../qwt-5.2.1/src
+
+win32:INCLUDEPATH += $$PWD/../qwt-5.2.1/qwt-5.2.1/src
+win32:DEPENDPATH += $$PWD/../qwt-5.2.1/qwt-5.2.1/src
+
+LIBS += -L$$PWD/../fftw-3.2.2/.libs/ -lfftw3
+
+INCLUDEPATH += $$PWD/../fftw-3.2.2/api
+DEPENDPATH += $$PWD/../fftw-3.2.2/api

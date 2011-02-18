@@ -17,6 +17,26 @@ void SignalDistributer::feedData(QVector<double> dat, int counter){
     }
 }
 
+void SignalDistributer::feedBoolData(bool dat, int counter){
+    int i=0;
+    while(i<collec.count()){
+        SPWrapper* wrap=collec.at(i);
+        wrap->sp->feedBoolData(dat,counter,wrap->channel);
+
+        i=i+1;
+    }
+}
+
+void SignalDistributer::feedDoubleData(double dat, int counter){
+    int i=0;
+    while(i<collec.count()){
+        SPWrapper* wrap=collec.at(i);
+        wrap->sp->feedBoolData(dat,counter,wrap->channel);
+
+        i=i+1;
+    }
+}
+
 bool SignalDistributer::isExist(SignalProcessor *proc, int channel){
     int i=0;
     while(i<collec.count()){
@@ -112,7 +132,7 @@ void SignalProcessor::unsetBoolOutput(int outchannel, SignalProcessor *proc, int
     bool_output_collection.at(i)->removeOutput(proc,inchannel);
 }
 
-void SignalProcessor::feedBoolData(QVector<double> dat, int counter, int channel){
+void SignalProcessor::feedBoolData(bool dat, int counter, int channel){
 
 }
 
@@ -142,7 +162,7 @@ void SignalProcessor::unsetDoubleOutput(int outchannel, SignalProcessor *proc, i
     double_output_collection.at(i)->removeOutput(proc,inchannel);
 }
 
-void SignalProcessor::feedDoubleData(QVector<double> dat, int counter, int channel){
+void SignalProcessor::feedDoubleData(double dat, int counter, int channel){
 
 }
 

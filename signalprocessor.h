@@ -18,6 +18,8 @@ public:
     void addOutput(SignalProcessor* proc,int channel);
     void removeOutput(SignalProcessor* proc,int channel);
     void feedData(QVector<double> dat,int counter);
+    void feedBoolData(bool dat,int counter);
+    void feedDoubleData(double dat,int counter);
     bool isExist(SignalProcessor* proc,int channel);
 private:
     QList<SPWrapper*> collec;
@@ -36,12 +38,12 @@ public:
     //Boolean Method
     virtual void setBoolOutput(int outchannel,SignalProcessor* proc,int inchannel);
     virtual void unsetBoolOutput(int outchannel,SignalProcessor* proc,int inchannel);
-    virtual void feedBoolData(QVector<double> dat,int counter,int channel);
+    virtual void feedBoolData(bool dat,int counter,int channel);
     virtual void setBoolOutputNum(int num);
     //Double Method
     virtual void setDoubleOutput(int outchannel,SignalProcessor* proc,int inchannel);
     virtual void unsetDoubleOutput(int outchannel,SignalProcessor* proc,int inchannel);
-    virtual void feedDoubleData(QVector<double> dat,int counter,int channel);
+    virtual void feedDoubleData(double dat,int counter,int channel);
     virtual void setDoubleOutputNum(int num);
 
     virtual void start();
