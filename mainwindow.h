@@ -56,10 +56,11 @@ public slots:
 
 class GraphAbstractionProvider:public PipeProcessGraphicsProvider{
 public:
-    GraphAbstractionProvider(MainWindow* mw);
+    GraphAbstractionProvider(MainWindow* mw,PVisual* pvs);
     QString getName();
     ProcessGraphics* newInstance();
     MainWindow* cmw;
+    PVisual* pv;
 };
 
 #endif // MAINWINDOW_H

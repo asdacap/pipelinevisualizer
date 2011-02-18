@@ -4,7 +4,7 @@
 
 #include "pipeprovider.h"
 
-PipeFeed::PipeFeed(PipeProvider* prov):QGraphicsEllipseItem()
+PipeFeed::PipeFeed(PipeProvider* prov,TargetCollection* tg):QGraphicsEllipseItem()
 {
     setFlag(QGraphicsItem::ItemIsMovable,true);
     setFlag(ItemSendsGeometryChanges);
@@ -20,6 +20,7 @@ PipeFeed::PipeFeed(PipeProvider* prov):QGraphicsEllipseItem()
     isset=false;
 
     provider=prov;
+    target_collection=tg;
 
 }
 

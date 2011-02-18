@@ -4,13 +4,14 @@
 #include "processgraphics.h"
 #include "pipefeed.h"
 #include "pipetarget.h"
+#include "targetcollection.h"
 
 typedef struct ProcessGraphics ProcessGraphics;
 
 class PipeProvider:public QGraphicsEllipseItem
 {
 public:
-    PipeProvider(ProcessGraphics* par,int id);
+    PipeProvider(ProcessGraphics* par,int id,TargetCollection* tg);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
@@ -24,6 +25,7 @@ public:
 
 private:
     int cid;
+    TargetCollection* target_collection;
     ProcessGraphics* pgraph;
     QList<PipeTarget*> inputlist;
     QList<PipeFeed*> feedlist;

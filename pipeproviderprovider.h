@@ -3,6 +3,8 @@
 #include <QString>
 #include <processgraphics.h>
 
+typedef struct ProcessGraphics ProcessGraphics;
+
 class PipeProcessGraphicsProvider
 {
 public:

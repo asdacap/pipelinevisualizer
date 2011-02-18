@@ -10,6 +10,9 @@
 #include <QComboBox>
 #include <QLineEdit>
 #include "pipeproviderprovider.h"
+#include "targetcollection.h"
+
+typedef struct PipeProcessGraphicsProvider PipeProcessGraphicsProvider;
 
 namespace Ui {
     class PVisual;
@@ -27,6 +30,10 @@ public:
     void addPG(ProcessGraphics* pg);
     bool isExistPGName(QString name);
 
+    TargetCollection* getSignalTargetCollection();
+    TargetCollection* getDoubleTargetCollection();
+    TargetCollection* getBoolTargetCollection();
+
 private:
     QGraphicsScene* scene;
     QList<PipeProcessGraphicsProvider*> provider_list;
@@ -34,6 +41,9 @@ private:
     Ui::PVisual *ui;
     QComboBox* cbox;
     QLineEdit* le;
+    TargetCollection* sigcol;
+    TargetCollection* doubcol;
+    TargetCollection* boolcol;
 
 public slots:
     void addButton();

@@ -34,7 +34,7 @@ void MainWindow::InitializeGraph(){
 
 void MainWindow::InitializePVisual(){
     PVisual* pv=new PVisual();
-    pv->addProvider(new GraphAbstractionProvider(this));
+    pv->addProvider(new GraphAbstractionProvider(this,pv));
     cwid->addTab(pv,"PipeLineGraph");
 }
 
@@ -143,8 +143,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-GraphAbstractionProvider::GraphAbstractionProvider(MainWindow *mw){
+GraphAbstractionProvider::GraphAbstractionProvider(MainWindow *mw,PVisual* pvs){
     cmw=mw;
+    pv=pvs;
 }
 
 QString GraphAbstractionProvider::getName(){
@@ -160,7 +161,7 @@ ProcessGraphics* GraphAbstractionProvider::newInstance(){
      if (ok && !text.isEmpty()){
          GraphAbstraction* sf=new GraphAbstraction(text);
          cmw->addGraph(sf);
-         ProcessGraphics* pg=new ProcessGraphics(sf,text,2,1);
+         ProcessGraphics* pg=new ProcessGraphics(sf,text,2,1,pv);
          return pg;
      }else{
          std::cout<<"Fail to get processor name"<<std::endl;

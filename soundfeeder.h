@@ -29,8 +29,10 @@ public slots:
 
 class SoundFeederProvider:public PipeProcessGraphicsProvider{
 public:
+    SoundFeederProvider(PVisual* pvs);
     QString getName();
     ProcessGraphics* newInstance();
+    PVisual* pv;
 };
 
 #endif // SOUNDFEEDER_H

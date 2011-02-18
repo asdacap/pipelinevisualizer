@@ -36,13 +36,17 @@ PVisual::PVisual(QWidget *parent) :
     thislayout->addWidget(topbar);
     thislayout->addWidget(view);
 
+    sigcol=new TargetCollection();
+    doubcol=new TargetCollection();
+    boolcol=new TargetCollection();
+
     InitializeProvider();
 
 }
 
 void PVisual::InitializeProvider(){
-    addProvider(new SoundSinkProvider());
-    addProvider(new SoundFeederProvider());
+    addProvider(new SoundSinkProvider(this));
+    addProvider(new SoundFeederProvider(this));
 }
 
 void PVisual::addProvider(PipeProcessGraphicsProvider *prov){
@@ -85,3 +89,8 @@ PVisual::~PVisual()
 {
     delete ui;
 }
+
+TargetCollection* PVisual::getSignalTargetCollection(){
+    return sigcol;
+}
+

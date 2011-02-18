@@ -3,19 +3,19 @@
 #include <QGraphicsItem>
 #include <QGraphicsEllipseItem>
 #include "targetcollection.h"
-#include "StaticData.h"
 
 typedef struct PipeProvider PipeProvider;
 
 class PipeFeed:public QGraphicsEllipseItem
 {
 public:
-    PipeFeed(PipeProvider* prov);
+    PipeFeed(PipeProvider* prov,TargetCollection* tg);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void realign();
 
+    TargetCollection* target_collection;
     PipeTarget* curtarget;
     PipeProvider* provider;
 private:

@@ -3,6 +3,8 @@
 #include "pipetarget.h"
 #include <QList>
 
+typedef struct PipeTarget PipeTarget;
+
 class TargetCollection
 {
 public:

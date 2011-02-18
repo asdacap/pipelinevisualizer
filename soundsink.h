@@ -27,8 +27,10 @@ public slots:
 
 class SoundSinkProvider:public PipeProcessGraphicsProvider{
 public:
+    SoundSinkProvider(PVisual* pvs);
     QString getName();
     ProcessGraphics* newInstance();
+    PVisual* pv;
 };
 
 #endif // SOUNDSINK_H

@@ -61,7 +61,6 @@ qint64 SoundFeeder::readData(char *data, qint64 maxlen){
     return 0;
 }
 
-
 void SoundFeeder::auStateChanged(QAudio::State s){
 
     QString message;
@@ -72,6 +71,10 @@ void SoundFeeder::auStateChanged(QAudio::State s){
     case QAudio::IdleState:message="idle";break;
     }
     debugMessage("state changed:"+QString(message));
+}
+
+SoundFeederProvider::SoundFeederProvider(PVisual *pvs){
+    pv=pvs;
 }
 
 QString SoundFeederProvider::getName(){
@@ -86,7 +89,7 @@ ProcessGraphics* SoundFeederProvider::newInstance(){
                                               cand, &ok);
      if (ok && !text.isEmpty()){
          SoundFeeder* sf=new SoundFeeder();
-         ProcessGraphics* pg=new ProcessGraphics(sf,text,0,1);
+         ProcessGraphics* pg=new ProcessGraphics(sf,text,0,1,pv);
          return pg;
      }else{
          std::cout<<"Fail to get processor name"<<std::endl;

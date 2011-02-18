@@ -3,9 +3,10 @@
 #include "pipefeed.h"
 #include "QGraphicsScene"
 
-PipeProvider::PipeProvider(ProcessGraphics* pg,int id):QGraphicsEllipseItem()
+PipeProvider::PipeProvider(ProcessGraphics* pg,int id,TargetCollection* tg):QGraphicsEllipseItem()
 {
     pgraph=pg;
+    target_collection=tg;
     cid=id;
     setRect(0,0,20,20);
     setBrush(Qt::lightGray);
@@ -28,7 +29,7 @@ ProcessGraphics* PipeProvider::getProcessGraphics(){
 }
 
 void PipeProvider::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
-    PipeFeed* pf=new PipeFeed(this);
+    PipeFeed* pf=new PipeFeed(this,target_collection);
 
     pf->setPos(scenePos());
 

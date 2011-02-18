@@ -17,7 +17,6 @@ SOURCES += main.cpp\
     processgraphics.cpp \
     targetcollection.cpp \
     pipeprovider.cpp \
-    StaticData.cpp \
     pipeproviderprovider.cpp \
     signalprocessor.cpp \
     soundsink.cpp \
@@ -31,7 +30,7 @@ SOURCES += main.cpp\
     counterkeeper.cpp \
     graphabstraction.cpp \
     doublelabel.cpp \
-    booleanlabel.cpp
+    booleanlabel.cpp \
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -39,7 +38,6 @@ HEADERS  += pvisual.h \
     processgraphics.h \
     targetcollection.h \
     pipeprovider.h \
-    StaticData.h \
     pipeproviderprovider.h \
     signalprocessor.h \
     soundsink.h \
@@ -53,7 +51,7 @@ HEADERS  += pvisual.h \
     counterkeeper.h \
     graphabstraction.h \
     doublelabel.h \
-    booleanlabel.h
+    booleanlabel.h \
 
 FORMS    += pvisual.ui \
     mainwindow.ui

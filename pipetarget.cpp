@@ -1,11 +1,10 @@
 #include "pipetarget.h"
 #include "pipefeed.h"
 #include "QBrush"
-#include "StaticData.h"
 #include "pipeprovider.h"
 #include "signalprocessor.h"
 
-PipeTarget::PipeTarget(int id,SignalProcessor* process)
+PipeTarget::PipeTarget(int id,SignalProcessor* process,TargetCollection* target_collection)
 {
     QRect geom(0,0,20,20);
     setRect(geom);

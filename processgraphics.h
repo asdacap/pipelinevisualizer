@@ -5,13 +5,15 @@
 #include "pipetarget.h"
 #include "pipeprovider.h"
 #include "signalprocessor.h"
+#include "pvisual.h"
 
 typedef struct PipeProvider PipeProvider;
+typedef struct PVisual PVisual;
 
 class ProcessGraphics:public QGraphicsRectItem
 {
 public:
-    ProcessGraphics(SignalProcessor* theprocessor,QString name,int inputNum,int outputNum);
+    ProcessGraphics(SignalProcessor* theprocessor,QString name,int inputNum,int outputNum,PVisual* pvis);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     SignalProcessor* getProcessor();
     QString getName();
