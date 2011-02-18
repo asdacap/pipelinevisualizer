@@ -1,5 +1,5 @@
 SignalPipelineProcessor TODO
--Boolean PipelineVisual.
+-Boolean PipelineVisual.#DONE#
 -ProcessGraphic integration with boolean and double pipeline.
 -Boolean and double pipeline testing.
 -Saving technique.
