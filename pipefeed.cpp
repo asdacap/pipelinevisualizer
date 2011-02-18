@@ -4,13 +4,10 @@
 
 #include "pipeprovider.h"
 
-PipeFeed::PipeFeed(PipeProvider* prov,TargetCollection* tg):QGraphicsEllipseItem()
+PipeFeed::PipeFeed(PipeProvider* prov,TargetCollection* tg):QGraphicsItem()
 {
     setFlag(QGraphicsItem::ItemIsMovable,true);
     setFlag(ItemSendsGeometryChanges);
-    QRect geom(0,0,20,20);
-    setRect(geom);
-    setBrush(QBrush(QColor(20,20,100,100)));
     setZValue(100);
 
     theline=new QGraphicsLineItem(this);
@@ -56,7 +53,7 @@ void PipeFeed::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
             if(colled->ApplyFeed(this)){
             isset=true;
             curtarget=colled;
-            return QGraphicsEllipseItem::mouseReleaseEvent(event);
+            return QGraphicsItem::mouseReleaseEvent(event);
             }else{
                 std::cout<<"Target already contain feed"<<std::endl;
             }

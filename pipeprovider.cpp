@@ -2,14 +2,13 @@
 #include <iostream>
 #include "pipefeed.h"
 #include "QGraphicsScene"
+#include "signalpipefeed.h"
 
-PipeProvider::PipeProvider(ProcessGraphics* pg,int id,TargetCollection* tg):QGraphicsEllipseItem()
+PipeProvider::PipeProvider(ProcessGraphics* pg,int id,TargetCollection* tg):QGraphicsItem()
 {
     pgraph=pg;
     target_collection=tg;
     cid=id;
-    setRect(0,0,20,20);
-    setBrush(Qt::lightGray);
     setAcceptHoverEvents(true);
     QGraphicsSimpleTextItem* sti=new QGraphicsSimpleTextItem(this);
     sti->setText(QVariant(id).toString());
@@ -29,7 +28,7 @@ ProcessGraphics* PipeProvider::getProcessGraphics(){
 }
 
 void PipeProvider::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
-    PipeFeed* pf=new PipeFeed(this,target_collection);
+    PipeFeed* pf=getNewFeed();
 
     pf->setPos(scenePos());
 
@@ -48,6 +47,10 @@ void PipeProvider::realign(){
         feedlist.at(i)->realign();
         i=i+1;
     }
+}
+
+QRectF PipeProvider::boundingRect() const{
+    return QRectF(0,0,20,20);
 }
 
 void PipeProvider::FeedFail(PipeFeed *feed){

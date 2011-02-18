@@ -8,7 +8,7 @@
 
 typedef struct ProcessGraphics ProcessGraphics;
 
-class PipeProvider:public QGraphicsEllipseItem
+class PipeProvider:public QGraphicsItem
 {
 public:
     PipeProvider(ProcessGraphics* par,int id,TargetCollection* tg);
@@ -17,13 +17,14 @@ public:
     void dragEnterEvent(QGraphicsSceneDragDropEvent *event);
     void FeedFail(PipeFeed* feed);
     void realign();
-
+    virtual PipeFeed* getNewFeed()=0;
+    QRectF boundingRect() const;
     void registerTarget(PipeTarget* target);
     void unregisterTarget(PipeTarget* target);
     int getId();
     ProcessGraphics* getProcessGraphics();
 
-private:
+protected:
     int cid;
     TargetCollection* target_collection;
     ProcessGraphics* pgraph;

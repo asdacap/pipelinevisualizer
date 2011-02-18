@@ -6,9 +6,6 @@
 
 PipeTarget::PipeTarget(int id,SignalProcessor* process,TargetCollection* target_collection)
 {
-    QRect geom(0,0,20,20);
-    setRect(geom);
-    setBrush(QBrush(Qt::white));
 
     cid=id;
     proc=process;
@@ -25,14 +22,7 @@ PipeTarget::PipeTarget(int id,SignalProcessor* process,TargetCollection* target_
     isAvail=true;
 }
 
-bool PipeTarget::ApplyFeed(PipeFeed *feed){
-    if(!isAvail)return 0;
-    isAvail=false;
-    currentFeed=feed;
-    currentFeed->provider->getProcessGraphics()->getProcessor()->setOutput(currentFeed->provider->getId(),proc,cid);
-    realign();
-    return 1;
-}
+
 
 void PipeTarget::realign(){
     if(isAvail)return;
@@ -41,7 +31,6 @@ void PipeTarget::realign(){
 
 }
 
-void PipeTarget::removeFeed(PipeFeed *feed){
-    isAvail=true;
-    currentFeed->provider->getProcessGraphics()->getProcessor()->unsetOutput(currentFeed->provider->getId(),proc,cid);
+QRectF PipeTarget::boundingRect() const{
+    return QRectF(0,0,20,20);
 }

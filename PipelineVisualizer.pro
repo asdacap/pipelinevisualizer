@@ -31,6 +31,9 @@ SOURCES += main.cpp\
     graphabstraction.cpp \
     doublelabel.cpp \
     booleanlabel.cpp \
+    signalpipefeed.cpp \
+    signalpipeprovider.cpp \
+    signalpipetarget.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -52,6 +55,9 @@ HEADERS  += pvisual.h \
     graphabstraction.h \
     doublelabel.h \
     booleanlabel.h \
+    signalpipefeed.h \
+    signalpipeprovider.h \
+    signalpipetarget.h
 
 FORMS    += pvisual.ui \
     mainwindow.ui

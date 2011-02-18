@@ -3,6 +3,8 @@
 #include "pipeprovider.h"
 #include "QBrush"
 #include "pvisual.h"
+#include "signalpipeprovider.h"
+#include "signalpipetarget.h"
 
 const int Margin=10;
 
@@ -23,7 +25,7 @@ ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,QString name, int
 
     int i=0;
     while(i<in){
-        PipeTarget* targ=new PipeTarget(i,processor,pvis->getSignalTargetCollection());
+        PipeTarget* targ=new SignalPipeTarget(i,processor,pvis->getSignalTargetCollection());
         targ->setParentItem(this);
         targ->setPos(0,i*20);
         targetlist.append(targ);
@@ -32,7 +34,7 @@ ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,QString name, int
 
     i=0;
     while(i<on){
-        PipeProvider* targ=new PipeProvider(this,i,pvis->getSignalTargetCollection());
+        PipeProvider* targ=new SignalPipeProvider(this,i,pvis->getSignalTargetCollection());
         targ->setParentItem(this);
         targ->setPos(20+text->boundingRect().width()+Margin*2,i*20);
         providerlist.append(targ);

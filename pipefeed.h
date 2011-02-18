@@ -6,7 +6,7 @@
 
 typedef struct PipeProvider PipeProvider;
 
-class PipeFeed:public QGraphicsEllipseItem
+class PipeFeed:public QGraphicsItem
 {
 public:
     PipeFeed(PipeProvider* prov,TargetCollection* tg);
