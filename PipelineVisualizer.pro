@@ -33,7 +33,10 @@ SOURCES += main.cpp\
     booleanlabel.cpp \
     signalpipefeed.cpp \
     signalpipeprovider.cpp \
-    signalpipetarget.cpp
+    signalpipetarget.cpp \
+    doublepipetarget.cpp \
+    doublepipeprovider.cpp \
+    doublepipefeed.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -57,7 +60,10 @@ HEADERS  += pvisual.h \
     booleanlabel.h \
     signalpipefeed.h \
     signalpipeprovider.h \
-    signalpipetarget.h
+    signalpipetarget.h \
+    doublepipetarget.h \
+    doublepipeprovider.h \
+    doublepipefeed.h
 
 FORMS    += pvisual.ui \
     mainwindow.ui
