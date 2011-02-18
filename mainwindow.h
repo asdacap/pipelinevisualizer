@@ -7,6 +7,8 @@
 #include "doublegenerator.h"
 #include "booleangenerator.h"
 #include "QComboBox"
+#include "pipeproviderprovider.h"
+#include "pvisual.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +23,7 @@ public:
     ~MainWindow();
     void InitializeGraph();
     void InitializeInterfacePage();
+    void InitializePVisual();
 
     void registerVariable(DoubleGenerator* var,double min,double mac,double cur,double increm,QString name);
     void registerVariable(BooleanGenerator* var,QString name,bool editable=true);
@@ -49,6 +52,14 @@ public slots:
     void cboxAchanged(QString box);
     void cboxBchanged(QString box);
 
+};
+
+class GraphAbstractionProvider:public PipeProcessGraphicsProvider{
+public:
+    GraphAbstractionProvider(MainWindow* mw);
+    QString getName();
+    ProcessGraphics* newInstance();
+    MainWindow* cmw;
 };
 
 #endif // MAINWINDOW_H

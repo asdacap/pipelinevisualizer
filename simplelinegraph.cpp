@@ -96,7 +96,7 @@ void SimpleLineGraph::timerElapsed(){
     if(!enab)return;
 
     gdata->lock();
-    cCurve->setData(gdata->ydata,gdata->xdata);
+    cCurve->setData(gdata->xdata,gdata->ydata);
     gdata->unlock();
     ploter->repaint();
 }
