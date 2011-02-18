@@ -33,7 +33,7 @@ SoundFeeder::SoundFeeder():QIODevice(),SignalProcessor()
 }
 
 void SoundFeeder::start(){
-    std::cout<<"Start"<<std::endl;
+    debugMessage("Start");
     open(QBuffer::WriteOnly);
     inputAu->start(this);
 }
@@ -64,14 +64,14 @@ qint64 SoundFeeder::readData(char *data, qint64 maxlen){
 
 void SoundFeeder::auStateChanged(QAudio::State s){
 
-    std::string message;
+    QString message;
     switch(s){
     case QAudio::ActiveState:message="active";break;
     case QAudio::SuspendedState:message="suspended";break;
     case QAudio::StoppedState:message="stopped";break;
     case QAudio::IdleState:message="idle";break;
     }
-    std::cout<<"state changed:"<<message<<std::endl;
+    debugMessage("state changed:"+QString(message));
 }
 
 QString SoundFeederProvider::getName(){
@@ -80,9 +80,10 @@ QString SoundFeederProvider::getName(){
 
 ProcessGraphics* SoundFeederProvider::newInstance(){
     bool ok;
+    QString cand=nameCandidate();
     QString text = QInputDialog::getText(0, QString("Name the new processor"),
                                               QString("Processor name:"), QLineEdit::Normal,
-                                              "Test", &ok);
+                                              cand, &ok);
      if (ok && !text.isEmpty()){
          SoundFeeder* sf=new SoundFeeder();
          ProcessGraphics* pg=new ProcessGraphics(sf,text,0,1);

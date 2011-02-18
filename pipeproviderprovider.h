@@ -9,6 +9,9 @@ public:
     PipeProcessGraphicsProvider();
     virtual QString getName();
     virtual ProcessGraphics* newInstance();
+    QString nameCandidate();
+private:
+    int counter;
 };
 
 #endif // PIPEPROVIDERPROVIDER_H

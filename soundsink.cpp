@@ -39,14 +39,14 @@ SoundSink::~SoundSink(){
 void SoundSink::timerElapsed(){
     if(out->error()==QAudio::NoError){
     }else{
-        std::cout<<"error"<<out->error()<<std::endl;
+        debugMessage("error"+out->error());
         out->start(this);
     }
 }
 
 void SoundSink::feedData(QVector<double> dat, int counter, int channel){
     if(!enable){
-        std::cout<<"Not enabled"<<std::endl;
+        debugMessage("Not enabled");
         return;
     }
 
@@ -96,9 +96,10 @@ QString SoundSinkProvider::getName(){
 
 ProcessGraphics* SoundSinkProvider::newInstance(){
     bool ok;
+    QString cand=nameCandidate();
     QString text = QInputDialog::getText(0,QString("Name the new processor"),
                                               QString("Processor name:"), QLineEdit::Normal,
-                                              QDir::home().dirName(), &ok);
+                                              cand, &ok);
      if (ok && !text.isEmpty()){
          SoundSink* sf=new SoundSink();
          ProcessGraphics* pg=new ProcessGraphics(sf,text,1,0);
