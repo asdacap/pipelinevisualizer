@@ -50,6 +50,21 @@ void PVisual::addProvider(PipeProcessGraphicsProvider *prov){
     cbox->addItem(prov->getName());
 }
 
+void PVisual::addPG(ProcessGraphics* newpg){
+    if(isExistPGName(newpg->getName()))return ;
+    scene->addItem(newpg);
+    pgraphics_list.append(newpg);
+}
+
+bool PVisual::isExistPGName(QString name){
+    int i=0;
+    while(i<pgraphics_list.count()){
+        if(pgraphics_list.at(i)->getName()==name)return true;
+        i=i+1;
+    }
+    return false;
+}
+
 void PVisual::addButton(){
     QString name=cbox->currentText();
     if(name.isEmpty()){
@@ -60,7 +75,7 @@ void PVisual::addButton(){
         if(provider_list.at(i)->getName()==name){
             ProcessGraphics* newpg=provider_list.at(i)->newInstance();
             if(newpg==0)return;
-            scene->addItem(newpg);
+            addPG(newpg);
         }
         i=i+1;
     }

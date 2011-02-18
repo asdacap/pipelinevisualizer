@@ -40,6 +40,10 @@ ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,QString name, int
 
 }
 
+QString ProcessGraphics::getName(){
+    return thename;
+}
+
 SignalProcessor* ProcessGraphics::getProcessor(){
     return processor;
 }

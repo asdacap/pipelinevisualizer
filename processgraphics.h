@@ -14,6 +14,7 @@ public:
     ProcessGraphics(SignalProcessor* theprocessor,QString name,int inputNum,int outputNum);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     SignalProcessor* getProcessor();
+    QString getName();
 
 private:
     QList<PipeTarget*> targetlist;

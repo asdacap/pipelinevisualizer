@@ -24,10 +24,13 @@ public:
     void InitializeProvider();
     ~PVisual();
     void addProvider(PipeProcessGraphicsProvider* prov);
+    void addPG(ProcessGraphics* pg);
+    bool isExistPGName(QString name);
 
 private:
     QGraphicsScene* scene;
     QList<PipeProcessGraphicsProvider*> provider_list;
+    QList<ProcessGraphics*> pgraphics_list;
     Ui::PVisual *ui;
     QComboBox* cbox;
     QLineEdit* le;
