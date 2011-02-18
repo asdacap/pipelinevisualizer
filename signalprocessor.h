@@ -31,6 +31,8 @@ public:
     virtual void setOutput(int outchannel,SignalProcessor* proc,int inchannel);
     virtual void unsetOutput(int outchannel,SignalProcessor* proc,int inchannel);
     virtual void feedData(QVector<double> dat,int counter,int channel);
+    virtual void start();
+    virtual void stop();
     void enableDebug(QString uniquename);
     void debugMessage(QString mess);
 protected:

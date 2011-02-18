@@ -90,3 +90,11 @@ void SignalProcessor::unsetOutput(int outchannel, SignalProcessor *proc, int inc
 void SignalProcessor::feedData(QVector<double> dat, int counter, int channel){
 
 }
+
+void SignalProcessor::start(){
+
+}
+
+void SignalProcessor::stop(){
+
+}
