@@ -6,8 +6,9 @@
 #include "constSetting.h"
 #include "QInputDialog"
 
-SoundFeeder::SoundFeeder():QIODevice(),SignalProcessor(1)
+SoundFeeder::SoundFeeder():QIODevice(),SignalProcessor()
 {
+    setOutputNum(1);
     curcounter=0;
     QAudioFormat format;
    // set up the format you want, eg.

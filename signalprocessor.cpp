@@ -50,14 +50,9 @@ void SignalDistributer::removeOutput(SignalProcessor *proc, int channel){
     }
 }
 
-SignalProcessor::SignalProcessor(int OutputNum){
+SignalProcessor::SignalProcessor(){
     debugEnab=false;
-    int i=0;
-    while(i<OutputNum){
-        SignalDistributer* sdist=new SignalDistributer();
-        output_collection.append(sdist);
-        i=i+1;
-    }
+
 }
 
 void SignalProcessor::enableDebug(QString uniquename){
@@ -89,6 +84,75 @@ void SignalProcessor::unsetOutput(int outchannel, SignalProcessor *proc, int inc
 
 void SignalProcessor::feedData(QVector<double> dat, int counter, int channel){
 
+}
+
+void SignalProcessor::setOutputNum(int num){
+    int i=0;
+    while(i<num){
+        SignalDistributer* sdist=new SignalDistributer();
+        output_collection.append(sdist);
+        i=i+1;
+    }
+}
+
+void SignalProcessor::setBoolOutput(int outchannel, SignalProcessor *proc, int inchannel){
+    if(outchannel>=bool_output_collection.count()){
+        debugMessage("set output error invalid index");
+
+        return;}
+    int i=outchannel;
+    bool_output_collection.at(i)->addOutput(proc,inchannel);
+}
+
+void SignalProcessor::unsetBoolOutput(int outchannel, SignalProcessor *proc, int inchannel){
+    if(outchannel>=bool_output_collection.count()){
+        debugMessage("unset output error invalid index");
+        return;}
+    int i=outchannel;
+    bool_output_collection.at(i)->removeOutput(proc,inchannel);
+}
+
+void SignalProcessor::feedBoolData(QVector<double> dat, int counter, int channel){
+
+}
+
+void SignalProcessor::setBoolOutputNum(int num){
+    int i=0;
+    while(i<num){
+        SignalDistributer* sdist=new SignalDistributer();
+        bool_output_collection.append(sdist);
+        i=i+1;
+    }
+}
+
+void SignalProcessor::setDoubleOutput(int outchannel, SignalProcessor *proc, int inchannel){
+    if(outchannel>=double_output_collection.count()){
+        debugMessage("set output error invalid index");
+
+        return;}
+    int i=outchannel;
+    double_output_collection.at(i)->addOutput(proc,inchannel);
+}
+
+void SignalProcessor::unsetDoubleOutput(int outchannel, SignalProcessor *proc, int inchannel){
+    if(outchannel>=double_output_collection.count()){
+        debugMessage("unset output error invalid index");
+        return;}
+    int i=outchannel;
+    double_output_collection.at(i)->removeOutput(proc,inchannel);
+}
+
+void SignalProcessor::feedDoubleData(QVector<double> dat, int counter, int channel){
+
+}
+
+void SignalProcessor::setDoubleOutputNum(int num){
+    int i=0;
+    while(i<num){
+        SignalDistributer* sdist=new SignalDistributer();
+        double_output_collection.append(sdist);
+        i=i+1;
+    }
 }
 
 void SignalProcessor::start(){

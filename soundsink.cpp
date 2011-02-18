@@ -2,7 +2,7 @@
 #include <iostream>
 #include "QInputDialog"
 
-SoundSink::SoundSink():QIODevice(),SignalProcessor(0)
+SoundSink::SoundSink():QIODevice(),SignalProcessor()
 {
     QAudioFormat format;
    // set up the format you want, eg.
