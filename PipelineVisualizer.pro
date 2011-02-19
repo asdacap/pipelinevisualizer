@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     booleanpipefeed.cpp \
     variabledoublegeneratorprovider.cpp \
     variabledoublegeneratorproviderdialog.cpp \
-    signalscaler.cpp
+    signalscaler.cpp \
+    booleangeneratorprovider.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -75,7 +76,8 @@ HEADERS  += pvisual.h \
     booleanpipefeed.h \
     variabledoublegeneratorprovider.h \
     variabledoublegeneratorproviderdialog.h \
-    signalscaler.h
+    signalscaler.h \
+    booleangeneratorprovider.h
 
 FORMS    += pvisual.ui \
     mainwindow.ui \

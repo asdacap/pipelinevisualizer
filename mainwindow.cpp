@@ -11,6 +11,7 @@
 #include "QInputDialog"
 #include "variabledoublegeneratorprovider.h"
 #include "signalscaler.h"
+#include "booleangeneratorprovider.h"
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
@@ -39,6 +40,7 @@ void MainWindow::InitializePVisual(){
     pv->addProvider(new GraphAbstractionProvider(this,pv));
     pv->addProvider(new VariableDoubleGeneratorProvider(this,pv));
     pv->addProvider(new SignalScalerProvider(pv));
+    pv->addProvider(new BooleanGeneratorProvider(this,pv));
     cwid->addTab(pv,"PipeLineGraph");
 }
 
