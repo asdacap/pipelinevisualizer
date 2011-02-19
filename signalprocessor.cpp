@@ -72,7 +72,7 @@ void SignalDistributer::removeOutput(SignalProcessor *proc, int channel){
 
 SignalProcessor::SignalProcessor(){
     debugEnab=false;
-
+    helperEnab=false;
 }
 
 void SignalProcessor::enableDebug(QString uniquename){
@@ -102,10 +102,6 @@ void SignalProcessor::unsetOutput(int outchannel, SignalProcessor *proc, int inc
     output_collection.at(i)->removeOutput(proc,inchannel);
 }
 
-void SignalProcessor::feedData(QVector<double> dat, int counter, int channel){
-
-}
-
 void SignalProcessor::setOutputNum(int num){
     int i=0;
     while(i<num){
@@ -132,9 +128,6 @@ void SignalProcessor::unsetBoolOutput(int outchannel, SignalProcessor *proc, int
     bool_output_collection.at(i)->removeOutput(proc,inchannel);
 }
 
-void SignalProcessor::feedBoolData(bool dat, int counter, int channel){
-
-}
 
 void SignalProcessor::setBoolOutputNum(int num){
     int i=0;
@@ -163,6 +156,78 @@ void SignalProcessor::unsetDoubleOutput(int outchannel, SignalProcessor *proc, i
 }
 
 void SignalProcessor::feedDoubleData(double dat, int counter, int channel){
+    if(helperEnab){
+        if(channel>=doubinput||channel<0){
+            debugMessage("Helper funtion error, double input channel out of bound");
+            return;
+        }
+        double* datp=new double();
+        *datp=dat;
+        int channelnum=channel+siginput;
+        thekeeper->addKey(channelnum,counter,datp);
+        if(thekeeper->isAvail(counter)){
+            dataReady(counter);
+        }
+    }
+}
+
+void SignalProcessor::feedBoolData(bool dat, int counter, int channel){
+    if(helperEnab){
+        if(channel>=boolinput||channel<0){
+            debugMessage("Helper funtion error, bool input channel out of bound");
+            return;
+        }
+        bool* boolp=new bool();
+        *boolp=dat;
+        int channelnum=channel+siginput+doubinput;
+        thekeeper->addKey(channelnum,counter,boolp);
+        if(thekeeper->isAvail(counter)){
+            dataReady(counter);
+        }
+    }
+}
+
+void SignalProcessor::feedData(QVector<double> dat, int counter, int channel){
+    if(helperEnab){
+        if(channel>=siginput||channel<0){
+            debugMessage("Helper funtion error, signal input channel out of bound");
+            return;
+        }
+        QVector<double>* datp=new QVector<double>(dat);
+        thekeeper->addKey(channel,counter,datp);
+        if(thekeeper->isAvail(counter)){
+            dataReady(counter);
+        }
+    }
+}
+
+void SignalProcessor::dataReady(int counter){
+    void** data=thekeeper->getObject(counter);
+    QVector<QVector<double> > sigdat;
+    QVector<double> doubdat;
+    QVector<bool> booldat;
+    int i=0;
+    while(i<thekeeper->theLength()){
+        if(i<siginput){
+            QVector<double>* dat=(QVector<double>*)data[i];
+            sigdat.append(*dat);
+            delete dat;
+        }else if(i<doubinput+siginput){
+            double* dat=(double*)data[i];
+            doubdat.append(*dat);
+            delete dat;
+        }else{
+            bool* dat=(bool*)data[i];
+            booldat.append(*dat);
+            delete dat;
+        }
+        i=i+1;
+    }
+    delete [] data;
+    feedData(sigdat,doubdat,booldat);
+}
+
+void SignalProcessor::feedData(QVector<QVector<double> > dat, QVector<double> doubdat, QVector<bool> booldat){
 
 }
 
@@ -173,6 +238,14 @@ void SignalProcessor::setDoubleOutputNum(int num){
         double_output_collection.append(sdist);
         i=i+1;
     }
+}
+
+void SignalProcessor::enableHelper(int siginput,int doubinput,int boolinput){
+    helperEnab=true;
+    this->siginput=siginput;
+    this->doubinput=doubinput;
+    this->boolinput=boolinput;
+    thekeeper=new CounterKeeper(siginput+doubinput+boolinput);
 }
 
 void SignalProcessor::start(){

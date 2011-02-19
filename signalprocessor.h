@@ -2,6 +2,7 @@
 #define SIGNALPROCESSOR_H
 #include <QVector>
 #include <QString>
+#include "counterkeeper.h"
 
 typedef struct SignalProcessor SignalProcessor;
 
@@ -46,10 +47,22 @@ public:
     virtual void feedDoubleData(double dat,int counter,int channel);
     virtual void setDoubleOutputNum(int num);
 
+    //Helper method
+    virtual void feedData(QVector<QVector<double> > dat,QVector<double> doubdat,QVector<bool> booldat);
+
     virtual void start();
     virtual void stop();
     void enableDebug(QString uniquename);
+    void enableHelper(int s,int d,int b);
     void debugMessage(QString mess);
+private:
+    void dataReady(int counter);
+    bool helperEnab;
+    CounterKeeper* thekeeper;
+    int siginput;
+    int doubinput;
+    int boolinput;
+
 protected:
     QString uname;
     bool debugEnab;

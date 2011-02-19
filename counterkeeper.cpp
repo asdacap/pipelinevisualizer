@@ -27,6 +27,10 @@ bool CounterKeeper::isAvail(int index, int counter){
     return false;
 }
 
+int CounterKeeper::theLength(){
+    return clength;
+}
+
 void CounterKeeper::addKey(int index, int counter, void *data){
     if(index>=clength)return;
     if(isAvail(index,counter)){

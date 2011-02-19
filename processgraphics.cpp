@@ -30,7 +30,6 @@ ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,
     setBrush(QBrush(Qt::cyan));
     QGraphicsSimpleTextItem* text=new QGraphicsSimpleTextItem(this);
     text->setText(thename);
-    text->setPos(20+Margin,0);
     int maxnum=inputNum;
     if(on>maxnum)maxnum=on;
 
@@ -39,6 +38,16 @@ ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,
     if(inputNum>0)signalinputwidth=20;
     int signaloutputwidth=0;
     if(outputNum>0)signaloutputwidth=20;
+    int boldoubsiginputheight=0;
+    if(doubleinputNum+boolInputNum>0){
+        boldoubsiginputheight=20+Margin;
+    }else{
+        boldoubsiginputheight=0;
+    }
+    int boldoubsigoutputheigt=0;
+    if(doubleOutputNum+boolOutputNum>0){
+        boldoubsigoutputheigt=20+Margin;
+    }
 
     //Calculate width
     int width=0;
@@ -62,14 +71,14 @@ ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,
     if(outputNum>0)width=width+20;
     width=width+(Margin*2);
 
+    //Text pos
+    text->setPos(signalinputwidth+Margin,boldoubsiginputheight);
+
     //CalculateHeight
     int height=0;
     int iheight=inputNum*20;
     int oheight=outputNum*20;
-    int theight=text->boundingRect().height();
-    if(boolInputNum+doubleinputNum>0)theight=theight+20;
-    if(boolOutputNum+doubleOutputNum>0)theight=theight+20;
-    theight=theight+(Margin*2);
+    int theight=text->boundingRect().height()+boldoubsiginputheight+boldoubsigoutputheigt;
     if(iheight>oheight){
         height=iheight;
     }else{
@@ -95,7 +104,7 @@ ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,
     while(i<on){
         SignalPipeProvider* targ=new SignalPipeProvider(this,i,pvis->getSignalTargetCollection());
         targ->setParentItem(this);
-        targ->setPos(20+text->boundingRect().width()+Margin*2,i*20);
+        targ->setPos(boundingRect().width()-20,i*20);
         providerlist.append(targ);
         i=i+1;
     }
