@@ -2,6 +2,7 @@
 #include "QPainter"
 #include "pipefeed.h"
 #include "pipeprovider.h"
+#include "processgraphics.h"
 
 SignalPipeTarget::SignalPipeTarget(int id, SignalProcessor *process, TargetCollection *tg):
     PipeTarget(id,process,tg){

@@ -1,12 +1,11 @@
 #ifndef PIPEPROVIDER_H
 #define PIPEPROVIDER_H
 #include <QGraphicsItem>
-#include "processgraphics.h"
 #include "pipefeed.h"
 #include "pipetarget.h"
 #include "targetcollection.h"
 
-typedef struct ProcessGraphics ProcessGraphics;
+class ProcessGraphics;
 
 class PipeProvider:public QGraphicsItem
 {

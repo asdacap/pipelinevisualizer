@@ -161,7 +161,7 @@ ProcessGraphics* GraphAbstractionProvider::newInstance(){
      if (ok && !text.isEmpty()){
          GraphAbstraction* sf=new GraphAbstraction(text);
          cmw->addGraph(sf);
-         ProcessGraphics* pg=new ProcessGraphics(sf,text,2,1,pv);
+         ProcessGraphics* pg=new ProcessGraphics(sf,text,2,1,0,0,0,0,pv);
          return pg;
      }else{
          std::cout<<"Fail to get processor name"<<std::endl;

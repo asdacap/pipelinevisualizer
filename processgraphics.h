@@ -13,7 +13,15 @@ typedef struct PVisual PVisual;
 class ProcessGraphics:public QGraphicsRectItem
 {
 public:
-    ProcessGraphics(SignalProcessor* theprocessor,QString name,int inputNum,int outputNum,PVisual* pvis);
+    ProcessGraphics(SignalProcessor* theprocessor,
+                    QString name,
+                    int inputNum,
+                    int outputNum,
+                    int doubleinputNum,
+                    int doubleOutputNum,
+                    int boolInputNum,
+                    int boolOutputNum,
+                    PVisual* pvis);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     SignalProcessor* getProcessor();
     QString getName();
@@ -21,6 +29,7 @@ public:
 private:
     QList<PipeTarget*> targetlist;
     QList<PipeProvider*> providerlist;
+
     SignalProcessor* processor;
     QString thename;
     int in;

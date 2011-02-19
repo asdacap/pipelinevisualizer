@@ -2,6 +2,7 @@
 #define DOUBLEPIPETARGET_H
 #include "pipetarget.h"
 
+
 class DoublePipeTarget:public PipeTarget
 {
 public:

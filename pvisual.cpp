@@ -94,3 +94,10 @@ TargetCollection* PVisual::getSignalTargetCollection(){
     return sigcol;
 }
 
+TargetCollection* PVisual::getDoubleTargetCollection(){
+    return doubcol;
+}
+
+TargetCollection* PVisual::getBoolTargetCollection(){
+    return boolcol;
+}

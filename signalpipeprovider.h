@@ -2,7 +2,6 @@
 #define SIGNALPIPEPROVIDER_H
 #include "pipeprovider.h"
 
-
 class SignalPipeProvider:public PipeProvider
 {
 public:

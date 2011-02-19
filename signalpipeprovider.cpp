@@ -1,5 +1,6 @@
 #include "signalpipeprovider.h"
 #include "signalpipefeed.h"
+#include <QPainter>
 
 SignalPipeProvider::SignalPipeProvider(ProcessGraphics *par, int id, TargetCollection *tg):
     PipeProvider(par,id,tg){

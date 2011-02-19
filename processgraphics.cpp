@@ -5,10 +5,22 @@
 #include "pvisual.h"
 #include "signalpipeprovider.h"
 #include "signalpipetarget.h"
+#include "doublepipeprovider.h"
+#include "doublepipetarget.h"
+#include "booleanpipetarget.h"
+#include "booleanpipeprovider.h"
 
 const int Margin=10;
 
-ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,QString name, int inputNum, int outputNum,PVisual* pvis){
+ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,
+                                 QString name,
+                                 int inputNum,
+                                 int outputNum,
+                                 int doubleinputNum,
+                                 int doubleOutputNum,
+                                 int boolInputNum,
+                                 int boolOutputNum,
+                                 PVisual* pvis){
     thename=name;
     processor=theprocessor;
     in=inputNum;
@@ -21,11 +33,58 @@ ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,QString name, int
     text->setPos(20+Margin,0);
     int maxnum=inputNum;
     if(on>maxnum)maxnum=on;
-    setRect(0,0,text->boundingRect().width()+40+Margin*2,maxnum*20);
+
+    //Posutil.
+    int signalinputwidth=0;
+    if(inputNum>0)signalinputwidth=20;
+    int signaloutputwidth=0;
+    if(outputNum>0)signaloutputwidth=20;
+
+    //Calculate width
+    int width=0;
+    int twidth=text->boundingRect().width();
+    int iwidth=(boolInputNum+doubleinputNum)*20;
+    int owidth=(boolOutputNum+doubleOutputNum)*20;
+    if(twidth>iwidth){
+        if(owidth>twidth){
+            width=owidth;
+        }else{
+            width=twidth;
+        }
+    }else{
+        if(owidth>iwidth){
+            width=owidth;
+        }else{
+            width=iwidth;
+        }
+    }
+    if(inputNum>0)width=width+20;
+    if(outputNum>0)width=width+20;
+    width=width+(Margin*2);
+
+    //CalculateHeight
+    int height=0;
+    int iheight=inputNum*20;
+    int oheight=outputNum*20;
+    int theight=text->boundingRect().height();
+    if(boolInputNum+doubleinputNum>0)theight=theight+20;
+    if(boolOutputNum+doubleOutputNum>0)theight=theight+20;
+    theight=theight+(Margin*2);
+    if(iheight>oheight){
+        height=iheight;
+    }else{
+        height=oheight;
+    }
+    if(theight>height){
+        height=theight;
+    }
+
+    setRect(0,0,width,height);
+
 
     int i=0;
     while(i<in){
-        PipeTarget* targ=new SignalPipeTarget(i,processor,pvis->getSignalTargetCollection());
+        SignalPipeTarget* targ=new SignalPipeTarget(i,processor,pvis->getSignalTargetCollection());
         targ->setParentItem(this);
         targ->setPos(0,i*20);
         targetlist.append(targ);
@@ -34,10 +93,46 @@ ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,QString name, int
 
     i=0;
     while(i<on){
-        PipeProvider* targ=new SignalPipeProvider(this,i,pvis->getSignalTargetCollection());
+        SignalPipeProvider* targ=new SignalPipeProvider(this,i,pvis->getSignalTargetCollection());
         targ->setParentItem(this);
         targ->setPos(20+text->boundingRect().width()+Margin*2,i*20);
         providerlist.append(targ);
+        i=i+1;
+    }
+
+    i=0;
+    while(i<doubleinputNum){
+        DoublePipeTarget* dtarg=new DoublePipeTarget(i,processor,pvis->getDoubleTargetCollection());
+        dtarg->setParentItem(this);
+        dtarg->setPos(signalinputwidth+Margin+(i*20),0);
+        targetlist.append(dtarg);
+        i=i+1;
+    }
+
+    i=0;
+    while(i<doubleOutputNum){
+        DoublePipeProvider* dtarg=new DoublePipeProvider(this,i,pvis->getDoubleTargetCollection());
+        dtarg->setParentItem(this);
+        dtarg->setPos(signalinputwidth+Margin+(i*20),boundingRect().height()-20);
+        providerlist.append(dtarg);
+        i=i+1;
+    }
+
+    i=0;
+    while(i<boolInputNum){
+        PipeTarget* dtarg=new BooleanPipeTarget(i,processor,pvis->getBoolTargetCollection());
+        dtarg->setParentItem(this);
+        dtarg->setPos(boundingRect().width()-(signaloutputwidth+20+Margin+(i*20)),0);
+        targetlist.append(dtarg);
+        i=i+1;
+    }
+
+    i=0;
+    while(i<boolOutputNum){
+        BooleanPipeProvider* dtarg=new BooleanPipeProvider(this,i,pvis->getBoolTargetCollection());
+        dtarg->setParentItem(this);
+        dtarg->setPos(boundingRect().width()-(signaloutputwidth+20+Margin+(i*20)),boundingRect().height()-20);
+        providerlist.append(dtarg);
         i=i+1;
     }
 

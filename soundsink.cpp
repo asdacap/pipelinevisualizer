@@ -106,7 +106,7 @@ ProcessGraphics* SoundSinkProvider::newInstance(){
                                               cand, &ok);
      if (ok && !text.isEmpty()){
          SoundSink* sf=new SoundSink();
-         ProcessGraphics* pg=new ProcessGraphics(sf,text,1,0,pv);
+         ProcessGraphics* pg=new ProcessGraphics(sf,text,1,0,0,0,0,0,pv);
          return pg;
      }else{
          std::cout<<"Fail to get processor name"<<std::endl;

@@ -1,5 +1,6 @@
 #include "doublepipefeed.h"
 #include "doublepipeprovider.h"
+#include <QPainter>
 
 DoublePipeProvider::DoublePipeProvider(ProcessGraphics *par, int id, TargetCollection *tg):
     PipeProvider(par,id,tg){

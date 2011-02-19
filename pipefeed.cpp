@@ -1,8 +1,8 @@
+
 #include "pipefeed.h"
 #include <QGraphicsScene>
 #include <iostream>
 
-#include "pipeprovider.h"
 
 PipeFeed::PipeFeed(PipeProvider* prov,TargetCollection* tg):QGraphicsItem()
 {

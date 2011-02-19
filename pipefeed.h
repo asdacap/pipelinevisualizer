@@ -3,8 +3,9 @@
 #include <QGraphicsItem>
 #include <QGraphicsEllipseItem>
 #include "targetcollection.h"
+#include "pipeprovider.h"
 
-typedef struct PipeProvider PipeProvider;
+class PipeProvider;
 
 class PipeFeed:public QGraphicsItem
 {
