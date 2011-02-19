@@ -1,9 +1,10 @@
 #include "booleangenerator.h"
 
-BooleanGenerator::BooleanGenerator()
+BooleanGenerator::BooleanGenerator():SignalProcessor()
 {
     cdat=0;
-    setDoubleOutputNum(1);
+    enableHelper(1,0,0);
+    setBoolOutputNum(1);
 }
 
 void BooleanGenerator::setValue(bool val){
