@@ -9,6 +9,8 @@
 #include "QGroupBox"
 #include "QCheckBox"
 #include "QInputDialog"
+#include "variabledoublegeneratorprovider.h"
+#include "signalscaler.h"
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
@@ -35,6 +37,8 @@ void MainWindow::InitializeGraph(){
 void MainWindow::InitializePVisual(){
     PVisual* pv=new PVisual();
     pv->addProvider(new GraphAbstractionProvider(this,pv));
+    pv->addProvider(new VariableDoubleGeneratorProvider(this,pv));
+    pv->addProvider(new SignalScalerProvider(pv));
     cwid->addTab(pv,"PipeLineGraph");
 }
 

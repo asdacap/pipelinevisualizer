@@ -2,9 +2,11 @@ SignalPipelineProcessor TODO
 -Boolean PipelineVisual.#DONE#
 -ProcessGraphic integration with boolean and double pipeline.#DONE#
 -SignalProcessor helper method.#DONE#.
--Test the helper function;
--Boolean and double pipeline testing.
+-Test the helper function#DONE#;
+-Boolean and double pipeline testing.#Double testing done#
+-Start and stop button.
 -Enable the removal of pipeline.
 -Saving technique.
 -Loading technique.
+-Tooltip technique.
 -Plugin support.

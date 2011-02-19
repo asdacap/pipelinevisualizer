@@ -1,5 +1,6 @@
 #include "booleanpipeprovider.h"
 #include "booleanpipefeed.h"
+#include "QPainter"
 
 BooleanPipeProvider::BooleanPipeProvider(ProcessGraphics *par, int id, TargetCollection *tg):
     PipeProvider(par,id,tg){

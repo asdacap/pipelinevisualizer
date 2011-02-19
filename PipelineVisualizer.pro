@@ -39,7 +39,10 @@ SOURCES += main.cpp\
     doublepipefeed.cpp \
     booleanpipetarget.cpp \
     booleanpipeprovider.cpp \
-    booleanpipefeed.cpp
+    booleanpipefeed.cpp \
+    variabledoublegeneratorprovider.cpp \
+    variabledoublegeneratorproviderdialog.cpp \
+    signalscaler.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -69,10 +72,14 @@ HEADERS  += pvisual.h \
     doublepipefeed.h \
     booleanpipetarget.h \
     booleanpipeprovider.h \
-    booleanpipefeed.h
+    booleanpipefeed.h \
+    variabledoublegeneratorprovider.h \
+    variabledoublegeneratorproviderdialog.h \
+    signalscaler.h
 
 FORMS    += pvisual.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    variabledoublegeneratorproviderdialog.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../qwt-5.2.1/qwt-build-desktop/lib/ -lqwt5
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../qwt-5.2.1/qwt-build-desktop/lib/ -lqwt5

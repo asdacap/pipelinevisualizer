@@ -48,7 +48,7 @@ public:
     virtual void setDoubleOutputNum(int num);
 
     //Helper method
-    virtual void feedData(QVector<QVector<double> > dat,QVector<double> doubdat,QVector<bool> booldat);
+    virtual void feedData(QVector<QVector<double> > dat,QVector<double> doubdat,QVector<bool> booldat,int counter);
 
     virtual void start();
     virtual void stop();

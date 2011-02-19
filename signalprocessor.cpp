@@ -31,7 +31,7 @@ void SignalDistributer::feedDoubleData(double dat, int counter){
     int i=0;
     while(i<collec.count()){
         SPWrapper* wrap=collec.at(i);
-        wrap->sp->feedBoolData(dat,counter,wrap->channel);
+        wrap->sp->feedDoubleData(dat,counter,wrap->channel);
 
         i=i+1;
     }
@@ -224,10 +224,10 @@ void SignalProcessor::dataReady(int counter){
         i=i+1;
     }
     delete [] data;
-    feedData(sigdat,doubdat,booldat);
+    feedData(sigdat,doubdat,booldat,counter);
 }
 
-void SignalProcessor::feedData(QVector<QVector<double> > dat, QVector<double> doubdat, QVector<bool> booldat){
+void SignalProcessor::feedData(QVector<QVector<double> > dat, QVector<double> doubdat, QVector<bool> booldat,int counter){
 
 }
 
