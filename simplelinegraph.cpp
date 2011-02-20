@@ -30,8 +30,8 @@ SimpleLineGraph::SimpleLineGraph(QWidget *parent) :
     cCurve->attach(ploter);
 
     ploter->setAutoReplot(true);
-    ploter->canvas()->setPaintAttribute(QwtPlotCanvas::PaintCached, false);
-    ploter->canvas()->setPaintAttribute(QwtPlotCanvas::PaintPacked, false);
+    //ploter->canvas()->setPaintAttribute(QwtPlotCanvas::PaintCached, false);
+    //ploter->canvas()->setPaintAttribute(QwtPlotCanvas::PaintPacked, false);
 
     QwtPlotPanner* panner=new QwtPlotPanner(ploter->canvas());
     QwtPlotMagnifier* magni=new QwtPlotMagnifier(ploter->canvas());
