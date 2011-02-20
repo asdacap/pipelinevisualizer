@@ -60,6 +60,14 @@ void PipeFeed::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
         }
         i=i+1;
     }
+    removeMe();
+}
+
+void PipeFeed::removeMe(){
+    if(isset){
+        curtarget->removeFeed(this);
+        isset=false;
+    }
     provider->FeedFail(this);
     scene()->removeItem(this);
     setParentItem(0);

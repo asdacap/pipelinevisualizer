@@ -22,6 +22,7 @@ public:
     void unregisterTarget(PipeTarget* target);
     int getId();
     ProcessGraphics* getProcessGraphics();
+    void removeAllFeed();
 
 protected:
     int cid;

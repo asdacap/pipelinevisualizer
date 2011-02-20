@@ -15,6 +15,7 @@ public:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void realign();
+    void removeMe();
 
     TargetCollection* target_collection;
     PipeTarget* curtarget;

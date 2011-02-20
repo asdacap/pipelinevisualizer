@@ -11,6 +11,7 @@ public:
     TargetCollection();
     QList<PipeTarget*> getTarget();
     void addTarget(PipeTarget* t);
+    void removeTarget(PipeTarget* t);
 
 private:
     QList<PipeTarget*> targetcol;

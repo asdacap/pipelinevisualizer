@@ -18,8 +18,18 @@ PipeTarget::PipeTarget(int id,SignalProcessor* process,TargetCollection* target_
                 ,boundingRect().height()/2-sti->boundingRect().height()/2);
 
     target_collection->addTarget(this);
+    tc=target_collection;
 
     isAvail=true;
+}
+
+PipeTarget::~PipeTarget(){
+    tc->removeTarget(this);
+}
+
+void PipeTarget::removeFeed(){
+    if(isAvail)return;
+    currentFeed->removeMe();
 }
 
 

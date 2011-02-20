@@ -10,6 +10,8 @@
 #include "booleanpipetarget.h"
 #include "booleanpipeprovider.h"
 #include "iostream"
+#include "QMenu"
+#include "QGraphicsSceneContextMenuEvent"
 
 const int Margin=10;
 
@@ -25,6 +27,7 @@ ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,
 QGraphicsObject(){
     thename=name;
     processor=theprocessor;
+    pv=pvis;
     in=inputNum;
     on=outputNum;
     setFlag(ItemIsMovable,true);
@@ -152,6 +155,9 @@ QGraphicsObject(){
     reftimer.setSingleShot(false);
     QObject::connect(&reftimer,SIGNAL(timeout()),this,SLOT(timerElapsed()));
     reftimer.start();
+
+    removeAction=new QAction("remove",this);
+    QObject::connect(removeAction,SIGNAL(triggered()),this,SLOT(removeMe()));
 }
 
 QRectF ProcessGraphics::boundingRect() const{
@@ -209,3 +215,23 @@ void ProcessGraphics::timerElapsed(){
     }
 }
 
+void ProcessGraphics::removeMe(){
+    int i=0;
+    while(i<targetlist.count()){
+        targetlist.at(i)->removeFeed();
+        i=i+1;
+    }
+    i=0;
+    while(i<providerlist.count()){
+        providerlist.at(i)->removeAllFeed();
+        i=i+1;
+    }
+    pv->removePG(this);
+}
+
+void ProcessGraphics::contextMenuEvent(QGraphicsSceneContextMenuEvent *event){
+    QList<QAction*> actionlist;
+    actionlist.append(removeAction);
+
+    QMenu::exec(actionlist,event->screenPos(),0);
+}

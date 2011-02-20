@@ -28,6 +28,7 @@ public:
     ~PVisual();
     void addProvider(PipeProcessGraphicsProvider* prov);
     void addPG(ProcessGraphics* pg);
+    void removePG(ProcessGraphics* pg);
     bool isExistPGName(QString name);
 
     TargetCollection* getSignalTargetCollection();

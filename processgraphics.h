@@ -8,6 +8,7 @@
 #include "signalprocessor.h"
 #include "pvisual.h"
 #include <QTimer>
+#include "QAction"
 
 typedef struct PipeProvider PipeProvider;
 typedef struct PVisual PVisual;
@@ -30,6 +31,7 @@ public:
     QString getName();
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
 private:
     QList<PipeTarget*> targetlist;
@@ -43,8 +45,11 @@ private:
     bool prevstatus;
     int thewidth;
     int theheight;
+    QAction* removeAction;
+    PVisual* pv;
 public slots:
     void timerElapsed();
+    void removeMe();
 };
 
 #endif // PROCESSGRAPHICS_H

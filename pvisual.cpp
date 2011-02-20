@@ -89,6 +89,13 @@ void PVisual::addPG(ProcessGraphics* newpg){
     pgraphics_list.append(newpg);
 }
 
+void PVisual::removePG(ProcessGraphics *pg){
+    scene->removeItem(pg);
+    pgraphics_list.removeAll(pg);
+    pg->setParent(0);
+    delete pg;
+}
+
 bool PVisual::isExistPGName(QString name){
     int i=0;
     while(i<pgraphics_list.count()){

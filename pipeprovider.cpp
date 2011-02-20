@@ -63,3 +63,11 @@ void PipeProvider::mousePressEvent(QGraphicsSceneMouseEvent *event){
 void PipeProvider::dragEnterEvent(QGraphicsSceneDragDropEvent *event){
     std::cout<<"mouse drag event"<<std::endl;
 }
+
+void PipeProvider::removeAllFeed(){
+    int i=0;
+    while(i<feedlist.count()){
+        feedlist.at(i)->removeMe();
+        i=i+1;
+    }
+}

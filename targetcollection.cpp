@@ -11,3 +11,7 @@ QList<PipeTarget*> TargetCollection::getTarget(){
 void TargetCollection::addTarget(PipeTarget *t){
     targetcol.append(t);
 }
+
+void TargetCollection::removeTarget(PipeTarget *t){
+    targetcol.removeAll(t);
+}
