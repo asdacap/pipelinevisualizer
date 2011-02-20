@@ -23,7 +23,6 @@ SOURCES += main.cpp\
     soundfeeder.cpp \
     constSetting.cpp \
     util.cpp \
-    mainwindow.cpp \
     doublegenerator.cpp \
     simplelinegraph.cpp \
     booleangenerator.cpp \
@@ -62,7 +61,6 @@ HEADERS  += pvisual.h \
     soundfeeder.h \
     constSetting.h \
     util.h \
-    mainwindow.h \
     doublegenerator.h \
     simplelinegraph.h \
     booleangenerator.h \
@@ -90,7 +88,6 @@ HEADERS  += pvisual.h \
     graphicproxywidgetgraphhack.h
 
 FORMS    += pvisual.ui \
-    mainwindow.ui \
     variabledoublegeneratorproviderdialog.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../qwt-5.2.1/qwt-build-desktop/lib/ -lqwt5
