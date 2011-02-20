@@ -1,6 +1,7 @@
 #include "conditionaloutputsignalpipe.h"
 #include <QInputDialog>
 #include <iostream>
+#include "widgetedprocessgraphics.h"
 
 ConditionalOutputSignalPipe::ConditionalOutputSignalPipe():SignalProcessor()
 {
@@ -35,7 +36,7 @@ ProcessGraphics* ConditionalOutputSignalPipeProvider::newInstance(){
      if (ok && !text.isEmpty()){
          ConditionalOutputSignalPipe* sf=new ConditionalOutputSignalPipe();
 
-         ProcessGraphics* pg=new ProcessGraphics(sf,text,1,2,0,0,1,0,PV);
+         ProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,1,2,0,0,1,0,PV);
          return pg;
      }else{
          std::cout<<"Fail to get processor name"<<std::endl;

@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     variabledoublegeneratorproviderdialog.cpp \
     signalscaler.cpp \
     booleangeneratorprovider.cpp \
-    conditionaloutputsignalpipe.cpp
+    conditionaloutputsignalpipe.cpp \
+    widgetedprocessgraphics.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -79,7 +80,8 @@ HEADERS  += pvisual.h \
     variabledoublegeneratorproviderdialog.h \
     signalscaler.h \
     booleangeneratorprovider.h \
-    conditionaloutputsignalpipe.h
+    conditionaloutputsignalpipe.h \
+    widgetedprocessgraphics.h
 
 FORMS    += pvisual.ui \
     mainwindow.ui \

@@ -1,6 +1,7 @@
 #include "variabledoublegeneratorprovider.h"
 #include "ui_variabledoublegeneratorprovider.h"
 #include "variabledoublegeneratorproviderdialog.h"
+#include "widgetedprocessgraphics.h"
 
 VariableDoubleGeneratorProvider::VariableDoubleGeneratorProvider(MainWindow* mw, PVisual* pv)
 
@@ -23,7 +24,7 @@ ProcessGraphics* VariableDoubleGeneratorProvider::newInstance(){
     double Current=dialog->getCurrent();
     DoubleGenerator* dg=new DoubleGenerator();
     MW->registerVariable(dg,Minim,Maxim,Current,Increment,name);
-    ProcessGraphics* pg=new ProcessGraphics(dg,name,1,0,0,1,0,0,PV);
+    ProcessGraphics* pg=new WidgetedProcessGraphics(dg,name,1,0,0,1,0,0,PV);
     return pg;
     }
     return 0;
