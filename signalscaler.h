@@ -15,7 +15,7 @@ class SignalScalerProvider:public PipeProcessGraphicsProvider
 public:
     SignalScalerProvider(PVisual* pv);
     QString getName();
-    ProcessGraphics* newInstance();
+    ProcessGraphics* newInstance(QString text);
     PVisual* PV;
 };
 

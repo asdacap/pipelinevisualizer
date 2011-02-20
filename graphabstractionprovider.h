@@ -8,7 +8,7 @@ class GraphAbstractionProvider:public PipeProcessGraphicsProvider{
 public:
     GraphAbstractionProvider(PVisual* pvs);
     QString getName();
-    ProcessGraphics* newInstance();
+    ProcessGraphics* newInstance(QString name);
     PVisual* pv;
 };
 

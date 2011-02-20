@@ -16,7 +16,7 @@ public:
     ConditionalOutputSignalPipeProvider(PVisual* pv);
     PVisual* PV;
     QString getName();
-    ProcessGraphics* newInstance();
+    ProcessGraphics* newInstance(QString text);
 };
 
 #endif // CONDITIONALOUTPUTSIGNALPIPE_H

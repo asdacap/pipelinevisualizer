@@ -2,6 +2,7 @@
 #include "QInputDialog"
 #include "iostream"
 #include "QVariant"
+#include "processgraphics.h"
 
 PipeProcessGraphicsProvider::PipeProcessGraphicsProvider(){
     counter=0;
@@ -33,4 +34,14 @@ ProcessGraphics* PipeProcessGraphicsProvider::newInstance(QString name){
 QString PipeProcessGraphicsProvider::nameCandidate(){
     counter=counter+1;
     return getName()+QVariant(counter).toString();
+}
+
+QMap<QString,QString> PipeProcessGraphicsProvider::getSettings(ProcessGraphics *pg){
+    QMap<QString,QString> settings;
+    settings["Name"]=pg->getName();
+    return settings;
+}
+
+ProcessGraphics* PipeProcessGraphicsProvider::newInstance(QMap<QString, QString> setting){
+    return newInstance(setting["Name"]);
 }

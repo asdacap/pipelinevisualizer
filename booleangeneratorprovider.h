@@ -10,7 +10,7 @@ class BooleanGeneratorProvider:public PipeProcessGraphicsProvider
 public:
     BooleanGeneratorProvider(PVisual* pv);
     QString getName();
-    ProcessGraphics* newInstance();
+    ProcessGraphics* newInstance(QString text);
 
     PVisual* PV;
 };

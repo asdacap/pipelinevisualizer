@@ -29,18 +29,10 @@ QString SignalScalerProvider::getName(){
     return "Signal Scale";
 }
 
-ProcessGraphics* SignalScalerProvider::newInstance(){
-    bool ok;
-    QString cand=nameCandidate();
-    QString text = QInputDialog::getText(0,QString("Name the new processor"),
-                                              QString("Processor name:"), QLineEdit::Normal,
-                                              cand, &ok);
-     if (ok && !text.isEmpty()){
-         SignalScaler* sf=new SignalScaler();
-         ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,1,1,1,0,0,0,PV,this);
-         return pg;
-     }else{
-         std::cout<<"Fail to get processor name"<<std::endl;
-         return 0;
-     }
+ProcessGraphics* SignalScalerProvider::newInstance(QString text){
+
+     SignalScaler* sf=new SignalScaler();
+     ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,1,1,1,0,0,0,PV,this);
+     return pg;
+
 }
