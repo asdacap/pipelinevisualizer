@@ -4,7 +4,6 @@
 #include <QWidget>
 #include "pipeproviderprovider.h"
 #include "doublegenerator.h"
-#include "mainwindow.h"
 #include "pvisual.h"
 
 namespace Ui {
@@ -14,7 +13,7 @@ namespace Ui {
 class VariableDoubleGeneratorProvider : public PipeProcessGraphicsProvider
 {
 public:
-    explicit VariableDoubleGeneratorProvider(MainWindow* mw,
+    explicit VariableDoubleGeneratorProvider(
                                              PVisual* pv);
     ~VariableDoubleGeneratorProvider();
 
@@ -22,7 +21,6 @@ public:
     QString getName();
 
 private:
-    MainWindow* MW;
     PVisual* PV;
 };
 

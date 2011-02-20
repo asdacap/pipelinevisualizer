@@ -4,10 +4,9 @@
 #include "widgetedprocessgraphics.h"
 #include "qwt_slider.h"
 
-VariableDoubleGeneratorProvider::VariableDoubleGeneratorProvider(MainWindow* mw, PVisual* pv)
+VariableDoubleGeneratorProvider::VariableDoubleGeneratorProvider( PVisual* pv)
 
 {
-    MW=mw;
     PV=pv;
 }
 
