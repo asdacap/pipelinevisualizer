@@ -5,7 +5,7 @@
 #include "QDateTime"
 #include "constSetting.h"
 #include "QInputDialog"
-#include "widgetedprocessgraphics.h"
+#include "defaultprocessgraphics.h"
 
 SoundFeeder::SoundFeeder():QIODevice(),SignalProcessor()
 {
@@ -99,7 +99,7 @@ ProcessGraphics* SoundFeederProvider::newInstance(){
                                               cand, &ok);
      if (ok && !text.isEmpty()){
          SoundFeeder* sf=new SoundFeeder();
-         ProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,0,1,0,0,0,0,pv);
+         ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,0,1,0,0,0,0,pv);
          return pg;
      }else{
          std::cout<<"Fail to get processor name"<<std::endl;

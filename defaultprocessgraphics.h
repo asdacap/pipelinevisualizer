@@ -1,5 +1,6 @@
-#ifndef WIDGETEDWidgetedProcessGraphics_H
-#define WIDGETEDWidgetedProcessGraphics_H
+#ifndef DEFAULTPROCESSGRAPHICS_H
+#define DEFAULTPROCESSGRAPHICS_H
+
 #include <QWidget>
 #include "processgraphics.h"
 #include "QRect"
@@ -17,11 +18,11 @@ typedef struct PipeProvider PipeProvider;
 typedef struct PVisual PVisual;
 
 
-class WidgetedProcessGraphics:public ProcessGraphics
+class DefaultProcessGraphics:public ProcessGraphics
 {
     Q_OBJECT
 public:
-    WidgetedProcessGraphics(SignalProcessor* theprocessor,
+    DefaultProcessGraphics(SignalProcessor* theprocessor,
                     QString name,
                     int inputNum,
                     int outputNum,
@@ -29,13 +30,10 @@ public:
                     int doubleOutputNum,
                     int boolInputNum,
                     int boolOutputNum,
-                    PVisual* pvis,
-                    QWidget* widget,
-                    QRectF rect);
+                    PVisual* pvis);
     virtual void InitializeUi(int sInputNum,int sOutputNum,
                              int dInputNum, int dOutputNum,
-                             int bInputNum, int bOutputNum,
-                              QWidget* wid,QRectF rect);
+                             int bInputNum, int bOutputNum);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     SignalProcessor* getProcessor();
     QString getName();
@@ -61,4 +59,5 @@ public slots:
     void timerElapsed();
     void removeMe();
 };
-#endif // WIDGETEDWidgetedProcessGraphics_H
+
+#endif // DEFAULTPROCESSGRAPHICS_H

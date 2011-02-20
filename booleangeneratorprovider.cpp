@@ -1,7 +1,7 @@
 #include "booleangeneratorprovider.h"
 #include "QInputDialog"
 #include <iostream>
-#include "widgetedprocessgraphics.h"
+#include "defaultprocessgraphics.h"
 
 BooleanGeneratorProvider::BooleanGeneratorProvider(MainWindow *mw, PVisual *pv){
     MW=mw;
@@ -21,7 +21,7 @@ ProcessGraphics* BooleanGeneratorProvider::newInstance(){
      if (ok && !text.isEmpty()){
          BooleanGenerator* sf=new BooleanGenerator();
          MW->registerVariable(sf,text);
-         ProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,1,0,0,0,0,1,PV);
+         ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,1,0,0,0,0,1,PV);
          return pg;
      }else{
          std::cout<<"Fail to get processor name"<<std::endl;

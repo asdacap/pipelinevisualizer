@@ -1,4 +1,4 @@
-#include "widgetedprocessgraphics.h"
+#include "defaultprocessgraphics.h"
 #include "processgraphics.h"
 #include "pipetarget.h"
 #include "pipeprovider.h"
@@ -13,11 +13,10 @@
 #include "iostream"
 #include "QMenu"
 #include "QGraphicsSceneContextMenuEvent"
-#include "QGraphicsProxyWidget"
 
 const int Margin=10;
 
-WidgetedProcessGraphics::WidgetedProcessGraphics(SignalProcessor* theprocessor,
+DefaultProcessGraphics::DefaultProcessGraphics(SignalProcessor* theprocessor,
                                  QString name,
                                  int inputNum,
                                  int outputNum,
@@ -25,9 +24,7 @@ WidgetedProcessGraphics::WidgetedProcessGraphics(SignalProcessor* theprocessor,
                                  int doubleOutputNum,
                                  int boolInputNum,
                                  int boolOutputNum,
-                                 PVisual* pvis,
-                                 QWidget* wid,
-                                 QRectF rect):
+                                 PVisual* pvis):
 ProcessGraphics(){
     thename=name;
     processor=theprocessor;
@@ -37,7 +34,7 @@ ProcessGraphics(){
     setFlag(ItemIsMovable,true);
     setFlag(ItemSendsGeometryChanges,true);
 
-    InitializeUi(inputNum,outputNum,doubleinputNum,doubleOutputNum,boolInputNum,boolOutputNum,wid,rect);
+    InitializeUi(inputNum,outputNum,doubleinputNum,doubleOutputNum,boolInputNum,boolOutputNum);
 
     prevstatus=true;
     reftimer.setInterval(500);
@@ -49,7 +46,7 @@ ProcessGraphics(){
     QObject::connect(removeAction,SIGNAL(triggered()),this,SLOT(removeMe()));
 }
 
-void WidgetedProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dInputNum, int dOutputNum, int bInputNum, int bOutputNum,QWidget* wid,QRectF rec){
+void DefaultProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dInputNum, int dOutputNum, int bInputNum, int bOutputNum){
     int inputNum=sInputNum;
     int outputNum=sOutputNum;
     int doubleinputNum=dInputNum;
@@ -84,12 +81,19 @@ void WidgetedProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dI
     int twidth=text->boundingRect().width();
     int iwidth=(boolInputNum+doubleinputNum)*20;
     int owidth=(boolOutputNum+doubleOutputNum)*20;
-    int wwidth=rec.width();
-    if(twidth>width)width=twidth;
-    if(iwidth>width)width=iwidth;
-    if(owidth>width)width=owidth;
-    if(wwidth>width)width=wwidth;
-
+    if(twidth>iwidth){
+        if(owidth>twidth){
+            width=owidth;
+        }else{
+            width=twidth;
+        }
+    }else{
+        if(owidth>iwidth){
+            width=owidth;
+        }else{
+            width=iwidth;
+        }
+    }
     if(inputNum>0)width=width+20;
     if(outputNum>0)width=width+20;
     width=width+(Margin*2);
@@ -97,17 +101,11 @@ void WidgetedProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dI
     //Text pos
     text->setPos(signalinputwidth+Margin,boldoubsiginputheight);
 
-    //Put Widget
-    QGraphicsProxyWidget* proxy=new QGraphicsProxyWidget(this);
-    proxy->setWidget(wid);
-    proxy->setGeometry(rec);
-    proxy->setPos(signalinputwidth+Margin,boldoubsiginputheight+text->boundingRect().height());
-
     //CalculateHeight
     int height=0;
     int iheight=inputNum*20;
     int oheight=outputNum*20;
-    int theight=text->boundingRect().height()+boldoubsiginputheight+boldoubsigoutputheigt+rec.height();
+    int theight=text->boundingRect().height()+boldoubsiginputheight+boldoubsigoutputheigt;
     if(iheight>oheight){
         height=iheight;
     }else{
@@ -175,11 +173,11 @@ void WidgetedProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dI
     }
 }
 
-QRectF WidgetedProcessGraphics::boundingRect() const{
+QRectF DefaultProcessGraphics::boundingRect() const{
     return QRectF(0,0,thewidth,theheight);
 }
 
-void WidgetedProcessGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+void DefaultProcessGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
     if(prevstatus){
         painter->setBrush(QBrush(Qt::cyan));
     }else{
@@ -188,15 +186,15 @@ void WidgetedProcessGraphics::paint(QPainter *painter, const QStyleOptionGraphic
     painter->drawRect(boundingRect());
 }
 
-QString WidgetedProcessGraphics::getName(){
+QString DefaultProcessGraphics::getName(){
     return thename;
 }
 
-SignalProcessor* WidgetedProcessGraphics::getProcessor(){
+SignalProcessor* DefaultProcessGraphics::getProcessor(){
     return processor;
 }
 
-QVariant WidgetedProcessGraphics::itemChange(GraphicsItemChange change, const QVariant &value){
+QVariant DefaultProcessGraphics::itemChange(GraphicsItemChange change, const QVariant &value){
     switch (change) {
      case ItemPositionHasChanged:{
          int i=0;
@@ -217,7 +215,7 @@ QVariant WidgetedProcessGraphics::itemChange(GraphicsItemChange change, const QV
      return QGraphicsItem::itemChange(change, value);
 }
 
-void WidgetedProcessGraphics::timerElapsed(){
+void DefaultProcessGraphics::timerElapsed(){
     if(prevstatus!=processor->isStarted()){
         prevstatus=processor->isStarted();
         if(prevstatus){
@@ -230,7 +228,7 @@ void WidgetedProcessGraphics::timerElapsed(){
     }
 }
 
-void WidgetedProcessGraphics::removeMe(){
+void DefaultProcessGraphics::removeMe(){
     int i=0;
     while(i<targetlist.count()){
         targetlist.at(i)->removeFeed();
@@ -244,7 +242,7 @@ void WidgetedProcessGraphics::removeMe(){
     pv->removePG(this);
 }
 
-void WidgetedProcessGraphics::contextMenuEvent(QGraphicsSceneContextMenuEvent *event){
+void DefaultProcessGraphics::contextMenuEvent(QGraphicsSceneContextMenuEvent *event){
     QList<QAction*> actionlist;
     actionlist.append(removeAction);
 

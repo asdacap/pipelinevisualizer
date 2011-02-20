@@ -1,7 +1,7 @@
 #include "soundsink.h"
 #include <iostream>
 #include "QInputDialog"
-#include "widgetedprocessgraphics.h"
+#include "defaultprocessgraphics.h"
 
 SoundSink::SoundSink():QIODevice(),SignalProcessor()
 {
@@ -118,7 +118,7 @@ ProcessGraphics* SoundSinkProvider::newInstance(){
                                               cand, &ok);
      if (ok && !text.isEmpty()){
          SoundSink* sf=new SoundSink();
-         ProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,1,0,0,0,0,0,pv);
+         ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,1,0,0,0,0,0,pv);
          return pg;
      }else{
          std::cout<<"Fail to get processor name"<<std::endl;

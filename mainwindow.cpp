@@ -13,7 +13,7 @@
 #include "signalscaler.h"
 #include "booleangeneratorprovider.h"
 #include "conditionaloutputsignalpipe.h"
-#include "widgetedprocessgraphics.h"
+#include "defaultprocessgraphics.h"
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
@@ -170,7 +170,7 @@ ProcessGraphics* GraphAbstractionProvider::newInstance(){
      if (ok && !text.isEmpty()){
          GraphAbstraction* sf=new GraphAbstraction(text);
          cmw->addGraph(sf);
-         ProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,2,1,0,0,0,0,pv);
+         ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,2,1,0,0,0,0,pv);
          return pg;
      }else{
          std::cout<<"Fail to get processor name"<<std::endl;
