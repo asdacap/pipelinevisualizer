@@ -11,6 +11,7 @@ public:
     PipeProcessGraphicsProvider();
     virtual QString getName();
     virtual ProcessGraphics* newInstance();
+    virtual ProcessGraphics* newInstance(QString name);
     QString nameCandidate();
 private:
     int counter;
