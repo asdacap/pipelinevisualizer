@@ -65,9 +65,8 @@ void PipeProvider::dragEnterEvent(QGraphicsSceneDragDropEvent *event){
 }
 
 void PipeProvider::removeAllFeed(){
-    int i=0;
-    while(i<feedlist.count()){
-        feedlist.at(i)->removeMe();
-        i=i+1;
+    while(0<feedlist.count()){
+        feedlist.at(0)->removeMe();
+        continue;
     }
 }
