@@ -7,15 +7,13 @@
 #include <QGraphicsObject>
 #include <QObject>
 #include "targetcollection.h"
-#include "pipetarget.h"
-#include "pipeprovider.h"
-#include "signalprocessor.h"
 #include "pvisual.h"
 #include <QTimer>
 #include "QAction"
 
-typedef struct PipeProvider PipeProvider;
-typedef struct PVisual PVisual;
+class PipeProvider;
+class PVisual;
+class SignalProcessor;
 
 
 class DefaultProcessGraphics:public ProcessGraphics
@@ -30,7 +28,8 @@ public:
                     int doubleOutputNum,
                     int boolInputNum,
                     int boolOutputNum,
-                    PVisual* pvis);
+                    PVisual* pvis,
+                    PipeProcessGraphicsProvider* prov);
     virtual void InitializeUi(int sInputNum,int sOutputNum,
                              int dInputNum, int dOutputNum,
                              int bInputNum, int bOutputNum);
@@ -40,8 +39,12 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+    PipeProcessGraphicsProvider* getProvider();
+    QList<PipeTarget*> getTarget();
+    QList<PipeProvider*> getPipeProvider();
 
 private:
+    PipeProcessGraphicsProvider* provider;
     QList<PipeTarget*> targetlist;
     QList<PipeProvider*> providerlist;
 

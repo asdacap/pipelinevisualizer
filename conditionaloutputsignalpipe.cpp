@@ -36,7 +36,7 @@ ProcessGraphics* ConditionalOutputSignalPipeProvider::newInstance(){
      if (ok && !text.isEmpty()){
          ConditionalOutputSignalPipe* sf=new ConditionalOutputSignalPipe();
 
-         ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,1,2,0,0,1,0,PV);
+         ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,1,2,0,0,1,0,PV,this);
          return pg;
      }else{
          std::cout<<"Fail to get processor name"<<std::endl;

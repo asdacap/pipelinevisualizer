@@ -27,6 +27,7 @@ WidgetedProcessGraphics::WidgetedProcessGraphics(SignalProcessor* theprocessor,
                                  int boolInputNum,
                                  int boolOutputNum,
                                  PVisual* pvis,
+                                 PipeProcessGraphicsProvider* prov,
                                  QWidget* wid,
                                  QRectF rect):
 ProcessGraphics(){
@@ -35,6 +36,7 @@ ProcessGraphics(){
     pv=pvis;
     in=inputNum;
     on=outputNum;
+    provider=prov;
     setFlag(ItemIsMovable,true);
     setFlag(ItemSendsGeometryChanges,true);
     setAcceptHoverEvents(true);
@@ -49,6 +51,18 @@ ProcessGraphics(){
 
     removeAction=new QAction("remove",this);
     QObject::connect(removeAction,SIGNAL(triggered()),this,SLOT(removeMe()));
+}
+
+PipeProcessGraphicsProvider* WidgetedProcessGraphics::getProvider(){
+    return provider;
+}
+
+QList<PipeTarget*> WidgetedProcessGraphics::getTarget(){
+    return targetlist;
+}
+
+QList<PipeProvider*> WidgetedProcessGraphics::getPipeProvider(){
+    return providerlist;
 }
 
 void WidgetedProcessGraphics::mouseMoveEvent(QGraphicsSceneMouseEvent *event){

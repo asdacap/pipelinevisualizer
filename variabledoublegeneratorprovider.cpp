@@ -32,7 +32,7 @@ ProcessGraphics* VariableDoubleGeneratorProvider::newInstance(){
     propslider->setValue(cur);
     //
 
-    ProcessGraphics* pg=new WidgetedProcessGraphics(dg,name,1,0,0,1,0,0,PV,propslider,QRect(0,0,500,40));
+    ProcessGraphics* pg=new WidgetedProcessGraphics(dg,name,1,0,0,1,0,0,PV,this,propslider,QRect(0,0,500,40));
     return pg;
     }
     return 0;

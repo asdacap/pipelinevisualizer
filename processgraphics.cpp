@@ -11,3 +11,4 @@ QRectF ProcessGraphics::boundingRect() const{
 void ProcessGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
 
 }
+

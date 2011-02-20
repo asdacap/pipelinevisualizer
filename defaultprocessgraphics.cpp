@@ -1,7 +1,5 @@
 #include "defaultprocessgraphics.h"
 #include "processgraphics.h"
-#include "pipetarget.h"
-#include "pipeprovider.h"
 #include "QBrush"
 #include "pvisual.h"
 #include "signalpipeprovider.h"
@@ -24,13 +22,16 @@ DefaultProcessGraphics::DefaultProcessGraphics(SignalProcessor* theprocessor,
                                  int doubleOutputNum,
                                  int boolInputNum,
                                  int boolOutputNum,
-                                 PVisual* pvis):
+                                 PVisual* pvis,
+                                 PipeProcessGraphicsProvider* prov):
 ProcessGraphics(){
     thename=name;
     processor=theprocessor;
     pv=pvis;
     in=inputNum;
     on=outputNum;
+    provider=prov;
+
     setFlag(ItemIsMovable,true);
     setFlag(ItemSendsGeometryChanges,true);
 
@@ -44,6 +45,18 @@ ProcessGraphics(){
 
     removeAction=new QAction("remove",this);
     QObject::connect(removeAction,SIGNAL(triggered()),this,SLOT(removeMe()));
+}
+
+PipeProcessGraphicsProvider* DefaultProcessGraphics::getProvider(){
+    return provider;
+}
+
+QList<PipeTarget*> DefaultProcessGraphics::getTarget(){
+    return targetlist;
+}
+
+QList<PipeProvider*> DefaultProcessGraphics::getPipeProvider(){
+    return providerlist;
 }
 
 void DefaultProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dInputNum, int dOutputNum, int bInputNum, int bOutputNum){

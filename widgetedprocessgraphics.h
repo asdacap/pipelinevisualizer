@@ -14,9 +14,9 @@
 #include "QAction"
 #include "graphicproxywidgetgraphhack.h"
 
-typedef struct PipeProvider PipeProvider;
-typedef struct PVisual PVisual;
-
+class PipeProvider;
+class PVisual;
+class PipeProcessGraphicsProvider;
 
 class WidgetedProcessGraphics:public ProcessGraphics
 {
@@ -31,6 +31,7 @@ public:
                     int boolInputNum,
                     int boolOutputNum,
                     PVisual* pvis,
+                    PipeProcessGraphicsProvider* prov,
                     QWidget* widget,
                     QRectF rect);
     virtual void InitializeUi(int sInputNum,int sOutputNum,
@@ -46,11 +47,15 @@ public:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    QList<PipeTarget*> targetlist;
-    QList<PipeProvider*> providerlist;
+    PipeProcessGraphicsProvider* getProvider();
+    QList<PipeTarget*> getTarget();
+    QList<PipeProvider*> getPipeProvider();
 
 private:
 
+    PipeProcessGraphicsProvider* provider;
+    QList<PipeTarget*> targetlist;
+    QList<PipeProvider*> providerlist;
     QGraphicsProxyWidget* theproxwid;
     SignalProcessor* processor;
     QString thename;

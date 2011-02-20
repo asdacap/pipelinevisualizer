@@ -1,9 +1,9 @@
 #ifndef PIPEPROVIDERPROVIDER_H
 #define PIPEPROVIDERPROVIDER_H
 #include <QString>
-#include <processgraphics.h>
 
-typedef struct ProcessGraphics ProcessGraphics;
+class ProcessGraphics;
+class PVisual;
 
 class PipeProcessGraphicsProvider
 {

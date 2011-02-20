@@ -1,6 +1,7 @@
 #include "pipeproviderprovider.h"
 #include "QInputDialog"
 #include "iostream"
+#include "QVariant"
 
 PipeProcessGraphicsProvider::PipeProcessGraphicsProvider(){
     counter=0;

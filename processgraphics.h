@@ -2,15 +2,13 @@
 #define PROCESSGRAPHICS_H
 #include <QGraphicsObject>
 #include <QObject>
-#include "targetcollection.h"
-#include "pipetarget.h"
-#include "pipeprovider.h"
-#include "signalprocessor.h"
-#include "pvisual.h"
 #include <QTimer>
 #include "QAction"
 
-
+class PipeProcessGraphicsProvider;
+class PipeTarget;
+class PipeProvider;
+class SignalProcessor;
 
 class ProcessGraphics:public QGraphicsObject
 {
@@ -22,6 +20,9 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     void removeMe();
+    virtual PipeProcessGraphicsProvider* getProvider()=0;
+    virtual QList<PipeTarget*> getTarget()=0;
+    virtual QList<PipeProvider*> getPipeProvider()=0;
 };
 
 #endif // PROCESSGRAPHICS_H
