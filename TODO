@@ -5,7 +5,7 @@ SignalPipelineProcessor TODO
 -Test the helper function#DONE#;
 -Boolean and double pipeline testing.#DONE#
 -Start and stop button.#DONE#
--Enable the removal of pipeline.
+-Enable the removal of pipeline.#DONE#
 -Saving technique.
 -Loading technique.
 -Tooltip technique.
