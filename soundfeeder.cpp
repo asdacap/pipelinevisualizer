@@ -29,7 +29,6 @@ SoundFeeder::SoundFeeder():QIODevice(),SignalProcessor()
     inputAu=new QAudioInput(format,this);
     QObject::connect(inputAu,SIGNAL(stateChanged(QAudio::State)),this,SLOT(auStateChanged(QAudio::State)));
 
-    start();
 }
 
 void SoundFeeder::start(){
@@ -73,6 +72,16 @@ void SoundFeeder::auStateChanged(QAudio::State s){
     debugMessage("state changed:"+QString(message));
 }
 
+void SoundFeeder::stop(){
+    debugMessage("Stopped");
+    inputAu->stop();
+}
+
+bool SoundFeeder::isStarted(){
+
+    return (inputAu->state()==QAudio::ActiveState);
+}
+
 SoundFeederProvider::SoundFeederProvider(PVisual *pvs){
     pv=pvs;
 }
@@ -96,3 +105,4 @@ ProcessGraphics* SoundFeederProvider::newInstance(){
          return 0;
      }
 }
+

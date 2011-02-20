@@ -255,3 +255,7 @@ void SignalProcessor::start(){
 void SignalProcessor::stop(){
 
 }
+
+bool SignalProcessor::isStarted(){
+    return true;
+}

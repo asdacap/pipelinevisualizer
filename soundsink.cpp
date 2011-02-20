@@ -21,19 +21,30 @@ SoundSink::SoundSink():QIODevice(),SignalProcessor()
    }
    timer=new QTimer();
    timer->setSingleShot(false);
-   timer->setInterval(200);
+   timer->setInterval(500);
    QObject::connect(timer,SIGNAL(timeout()),this,SLOT(timerElapsed()));
    timer->start();
    enable=true;
     out=new QAudioOutput(format,this);
     //out->setBufferSize(1024*20);
     open(QIODevice::ReadWrite);
-    out->start(this);
 }
 
 SoundSink::~SoundSink(){
     //out->stop();
     //close();
+}
+
+bool SoundSink::isStarted(){
+    return (out->state()==QAudio::ActiveState);
+}
+
+void SoundSink::start(){
+    out->start(this);
+}
+
+void SoundSink::stop(){
+    out->stop();
 }
 
 void SoundSink::timerElapsed(){

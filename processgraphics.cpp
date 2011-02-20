@@ -9,6 +9,7 @@
 #include "doublepipetarget.h"
 #include "booleanpipetarget.h"
 #include "booleanpipeprovider.h"
+#include "iostream"
 
 const int Margin=10;
 
@@ -20,14 +21,14 @@ ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,
                                  int doubleOutputNum,
                                  int boolInputNum,
                                  int boolOutputNum,
-                                 PVisual* pvis){
+                                 PVisual* pvis):
+QGraphicsObject(){
     thename=name;
     processor=theprocessor;
     in=inputNum;
     on=outputNum;
     setFlag(ItemIsMovable,true);
     setFlag(ItemSendsGeometryChanges,true);
-    setBrush(QBrush(Qt::cyan));
     QGraphicsSimpleTextItem* text=new QGraphicsSimpleTextItem(this);
     text->setText(thename);
     int maxnum=inputNum;
@@ -88,7 +89,8 @@ ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,
         height=theight;
     }
 
-    setRect(0,0,width,height);
+    thewidth=width;
+    theheight=height;
 
 
     int i=0;
@@ -145,6 +147,24 @@ ProcessGraphics::ProcessGraphics(SignalProcessor* theprocessor,
         i=i+1;
     }
 
+    prevstatus=true;
+    reftimer.setInterval(500);
+    reftimer.setSingleShot(false);
+    QObject::connect(&reftimer,SIGNAL(timeout()),this,SLOT(timerElapsed()));
+    reftimer.start();
+}
+
+QRectF ProcessGraphics::boundingRect() const{
+    return QRectF(0,0,thewidth,theheight);
+}
+
+void ProcessGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+    if(prevstatus){
+        painter->setBrush(QBrush(Qt::cyan));
+    }else{
+        painter->setBrush(QBrush(Qt::magenta));
+    }
+    painter->drawRect(boundingRect());
 }
 
 QString ProcessGraphics::getName(){
@@ -175,3 +195,17 @@ QVariant ProcessGraphics::itemChange(GraphicsItemChange change, const QVariant &
 
      return QGraphicsItem::itemChange(change, value);
 }
+
+void ProcessGraphics::timerElapsed(){
+    if(prevstatus!=processor->isStarted()){
+        prevstatus=processor->isStarted();
+        if(prevstatus){
+
+            update();
+        }else{
+
+            update();
+        }
+    }
+}
+

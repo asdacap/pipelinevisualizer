@@ -50,8 +50,11 @@ public:
     //Helper method
     virtual void feedData(QVector<QVector<double> > dat,QVector<double> doubdat,QVector<bool> booldat,int counter);
 
+    //Start stop interface
     virtual void start();
     virtual void stop();
+    virtual bool isStarted();
+    
     void enableDebug(QString uniquename);
     void enableHelper(int s,int d,int b);
     void debugMessage(QString mess);

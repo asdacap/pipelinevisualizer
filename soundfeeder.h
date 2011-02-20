@@ -13,6 +13,8 @@ class SoundFeeder:QIODevice,public SignalProcessor
 public:
     SoundFeeder();
     void start();
+    void stop();
+    bool isStarted();
 
 private:
     int curcounter;

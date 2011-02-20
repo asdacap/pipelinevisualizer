@@ -31,10 +31,23 @@ PVisual::PVisual(QWidget *parent) :
     toplayout->addWidget(addbutton);
     QObject::connect(addbutton,SIGNAL(clicked()),this,SLOT(addButton()));
 
+    QWidget* bottombar=new QWidget(this);
+    QHBoxLayout* vlayout=new QHBoxLayout();
+    bottombar->setLayout(vlayout);
+    QPushButton* startbut=new QPushButton(bottombar);
+    startbut->setText("Start All");
+    QObject::connect(startbut,SIGNAL(clicked()),this,SLOT(startButton()));
+    vlayout->addWidget(startbut);
+    QPushButton* stopbutton=new QPushButton(bottombar);
+    stopbutton->setText("Stop All");
+    QObject::connect(stopbutton,SIGNAL(clicked()),this,SLOT(stopButton()));
+    vlayout->addWidget(stopbutton);
+
     QBoxLayout* thislayout=new QBoxLayout(QBoxLayout::BottomToTop,this);
     this->setLayout(thislayout);
     thislayout->addWidget(topbar);
     thislayout->addWidget(view);
+    thislayout->addWidget(bottombar);
 
     sigcol=new TargetCollection();
     doubcol=new TargetCollection();
@@ -42,6 +55,22 @@ PVisual::PVisual(QWidget *parent) :
 
     InitializeProvider();
 
+}
+
+void PVisual::startButton(){
+    int i=0;
+    while(i<pgraphics_list.count()){
+        pgraphics_list.at(i)->getProcessor()->start();
+        i=i+1;
+    }
+}
+
+void PVisual::stopButton(){
+    int i=0;
+    while(i<pgraphics_list.count()){
+        pgraphics_list.at(i)->getProcessor()->stop();
+        i=i+1;
+    }
 }
 
 void PVisual::InitializeProvider(){

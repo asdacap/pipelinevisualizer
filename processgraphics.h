@@ -1,17 +1,20 @@
 #ifndef PROCESSGRAPHICS_H
 #define PROCESSGRAPHICS_H
-#include <QGraphicsRectItem>
+#include <QGraphicsObject>
+#include <QObject>
 #include "targetcollection.h"
 #include "pipetarget.h"
 #include "pipeprovider.h"
 #include "signalprocessor.h"
 #include "pvisual.h"
+#include <QTimer>
 
 typedef struct PipeProvider PipeProvider;
 typedef struct PVisual PVisual;
 
-class ProcessGraphics:public QGraphicsRectItem
+class ProcessGraphics:public QGraphicsObject
 {
+    Q_OBJECT
 public:
     ProcessGraphics(SignalProcessor* theprocessor,
                     QString name,
@@ -25,6 +28,8 @@ public:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     SignalProcessor* getProcessor();
     QString getName();
+    QRectF boundingRect() const;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 private:
     QList<PipeTarget*> targetlist;
@@ -32,8 +37,14 @@ private:
 
     SignalProcessor* processor;
     QString thename;
+    QTimer reftimer;
     int in;
     int on;
+    bool prevstatus;
+    int thewidth;
+    int theheight;
+public slots:
+    void timerElapsed();
 };
 
 #endif // PROCESSGRAPHICS_H

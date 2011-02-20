@@ -47,6 +47,8 @@ private:
 
 public slots:
     void addButton();
+    void startButton();
+    void stopButton();
 };
 
 #endif // PVISUAL_H
