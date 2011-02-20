@@ -2,7 +2,8 @@
 #define BOOLEANGENERATORPROVIDER_H
 #include "booleangenerator.h"
 #include "pipeproviderprovider.h"
-#include "pvisual.h"
+
+class PVisual;
 
 class BooleanGeneratorProvider:public PipeProcessGraphicsProvider
 {

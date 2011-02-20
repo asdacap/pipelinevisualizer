@@ -28,8 +28,6 @@ SOURCES += main.cpp\
     booleangenerator.cpp \
     counterkeeper.cpp \
     graphabstraction.cpp \
-    doublelabel.cpp \
-    booleanlabel.cpp \
     signalpipefeed.cpp \
     signalpipeprovider.cpp \
     signalpipetarget.cpp \
@@ -66,8 +64,6 @@ HEADERS  += pvisual.h \
     booleangenerator.h \
     counterkeeper.h \
     graphabstraction.h \
-    doublelabel.h \
-    booleanlabel.h \
     signalpipefeed.h \
     signalpipeprovider.h \
     signalpipetarget.h \
