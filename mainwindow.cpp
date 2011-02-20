@@ -14,6 +14,7 @@
 #include "booleangeneratorprovider.h"
 #include "conditionaloutputsignalpipe.h"
 #include "defaultprocessgraphics.h"
+#include "graphabstractionprovider.h"
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
@@ -39,7 +40,7 @@ void MainWindow::InitializeGraph(){
 
 void MainWindow::InitializePVisual(){
     PVisual* pv=new PVisual();
-    pv->addProvider(new GraphAbstractionProvider(this,pv));
+    pv->addProvider(new GraphAbstractionProvider(pv));
     pv->addProvider(new VariableDoubleGeneratorProvider(this,pv));
     pv->addProvider(new SignalScalerProvider(pv));
     pv->addProvider(new BooleanGeneratorProvider(this,pv));
@@ -152,29 +153,4 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-GraphAbstractionProvider::GraphAbstractionProvider(MainWindow *mw,PVisual* pvs){
-    cmw=mw;
-    pv=pvs;
-}
-
-QString GraphAbstractionProvider::getName(){
-    return "Graph";
-}
-
-ProcessGraphics* GraphAbstractionProvider::newInstance(){
-    bool ok;
-    QString cand=nameCandidate();
-    QString text = QInputDialog::getText(0,QString("Name the new processor"),
-                                              QString("Processor name:"), QLineEdit::Normal,
-                                              cand, &ok);
-     if (ok && !text.isEmpty()){
-         GraphAbstraction* sf=new GraphAbstraction(text);
-         cmw->addGraph(sf);
-         ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,2,1,0,0,0,0,pv);
-         return pg;
-     }else{
-         std::cout<<"Fail to get processor name"<<std::endl;
-         return 0;
-     }
-}
 

@@ -46,7 +46,8 @@ SOURCES += main.cpp\
     booleangeneratorprovider.cpp \
     conditionaloutputsignalpipe.cpp \
     widgetedprocessgraphics.cpp \
-    defaultprocessgraphics.cpp
+    defaultprocessgraphics.cpp \
+    graphabstractionprovider.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -83,7 +84,8 @@ HEADERS  += pvisual.h \
     booleangeneratorprovider.h \
     conditionaloutputsignalpipe.h \
     widgetedprocessgraphics.h \
-    defaultprocessgraphics.h
+    defaultprocessgraphics.h \
+    graphabstractionprovider.h
 
 FORMS    += pvisual.ui \
     mainwindow.ui \
