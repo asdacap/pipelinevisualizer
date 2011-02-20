@@ -47,7 +47,8 @@ SOURCES += main.cpp\
     conditionaloutputsignalpipe.cpp \
     widgetedprocessgraphics.cpp \
     defaultprocessgraphics.cpp \
-    graphabstractionprovider.cpp
+    graphabstractionprovider.cpp \
+    graphicproxywidgetgraphhack.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -85,7 +86,8 @@ HEADERS  += pvisual.h \
     conditionaloutputsignalpipe.h \
     widgetedprocessgraphics.h \
     defaultprocessgraphics.h \
-    graphabstractionprovider.h
+    graphabstractionprovider.h \
+    graphicproxywidgetgraphhack.h
 
 FORMS    += pvisual.ui \
     mainwindow.ui \

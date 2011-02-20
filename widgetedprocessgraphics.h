@@ -12,6 +12,7 @@
 #include "pvisual.h"
 #include <QTimer>
 #include "QAction"
+#include "graphicproxywidgetgraphhack.h"
 
 typedef struct PipeProvider PipeProvider;
 typedef struct PVisual PVisual;
@@ -42,11 +43,15 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
-
-private:
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     QList<PipeTarget*> targetlist;
     QList<PipeProvider*> providerlist;
 
+private:
+
+    QGraphicsProxyWidget* theproxwid;
     SignalProcessor* processor;
     QString thename;
     QTimer reftimer;

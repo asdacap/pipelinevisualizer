@@ -8,6 +8,7 @@
 #include "qwt_plot_magnifier.h"
 #include <QAction>
 #include "qwt_scale_div.h"
+#include "qwt_plot_zoomer.h"
 
 SimpleLineGraph::SimpleLineGraph(QWidget *parent) :
     QWidget(parent)
@@ -31,9 +32,10 @@ SimpleLineGraph::SimpleLineGraph(QWidget *parent) :
 
     ploter->setAutoReplot(true);
     //ploter->canvas()->setPaintAttribute(QwtPlotCanvas::PaintCached, false);
-    //ploter->canvas()->setPaintAttribute(QwtPlotCanvas::PaintPacked, false);
+    ploter->canvas()->setPaintAttribute(QwtPlotCanvas::PaintPacked, false);
 
     QwtPlotPanner* panner=new QwtPlotPanner(ploter->canvas());
+   // QwtPlotZoomer* zomer=new QwtPlotZoomer(ploter->canvas());
     QwtPlotMagnifier* magni=new QwtPlotMagnifier(ploter->canvas());
 
     setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);

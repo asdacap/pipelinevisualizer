@@ -22,7 +22,7 @@ ProcessGraphics* GraphAbstractionProvider::newInstance(){
          GraphAbstraction* sf=new GraphAbstraction(text);
          SimpleLineGraph* slg=new SimpleLineGraph();
          slg->setGraphData(sf);
-         ProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,2,1,0,0,0,0,pv,slg,QRect(0,0,400,400));
+         WidgetedProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,2,1,0,0,0,0,pv,slg,QRect(0,0,400,400));
          return pg;
      }else{
          std::cout<<"Fail to get processor name"<<std::endl;

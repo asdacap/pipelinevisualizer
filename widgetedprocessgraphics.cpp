@@ -14,6 +14,7 @@
 #include "QMenu"
 #include "QGraphicsSceneContextMenuEvent"
 #include "QGraphicsProxyWidget"
+#include <iostream>
 
 const int Margin=10;
 
@@ -36,6 +37,7 @@ ProcessGraphics(){
     on=outputNum;
     setFlag(ItemIsMovable,true);
     setFlag(ItemSendsGeometryChanges,true);
+    setAcceptHoverEvents(true);
 
     InitializeUi(inputNum,outputNum,doubleinputNum,doubleOutputNum,boolInputNum,boolOutputNum,wid,rect);
 
@@ -47,6 +49,32 @@ ProcessGraphics(){
 
     removeAction=new QAction("remove",this);
     QObject::connect(removeAction,SIGNAL(triggered()),this,SLOT(removeMe()));
+}
+
+void WidgetedProcessGraphics::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
+    if(theproxwid->contains(theproxwid->mapFromScene(event->scenePos()))){
+
+    }else{
+        ProcessGraphics::mouseMoveEvent(event);
+    }
+}
+
+void WidgetedProcessGraphics::mousePressEvent(QGraphicsSceneMouseEvent *event){
+    if(theproxwid->contains(theproxwid->mapFromScene(event->scenePos()))){
+        theproxwid->grabMouse();
+    }else{
+        ProcessGraphics::mousePressEvent(event);
+    }
+}
+
+void WidgetedProcessGraphics::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
+
+    if(theproxwid->contains(theproxwid->mapFromScene(event->scenePos()))){
+       // theproxwid->ungrabMouse();
+        //ungrabMouse();
+    }else{
+        ProcessGraphics::mouseReleaseEvent(event);
+    }
 }
 
 void WidgetedProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dInputNum, int dOutputNum, int bInputNum, int bOutputNum,QWidget* wid,QRectF rec){
@@ -98,10 +126,13 @@ void WidgetedProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dI
     text->setPos(signalinputwidth+Margin,boldoubsiginputheight);
 
     //Put Widget
-    QGraphicsProxyWidget* proxy=new QGraphicsProxyWidget(this);
+    QGraphicsProxyWidget* proxy=new GraphicProxyWidgetGraphHack();
+    proxy->setParentItem(this);
+    theproxwid=proxy;
     proxy->setWidget(wid);
     proxy->setGeometry(rec);
     proxy->setPos(signalinputwidth+Margin,boldoubsiginputheight+text->boundingRect().height());
+    proxy->setAcceptHoverEvents(true);
 
     //CalculateHeight
     int height=0;
