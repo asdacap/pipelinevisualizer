@@ -1,10 +1,10 @@
 #include "booleangeneratorprovider.h"
 #include "QInputDialog"
 #include <iostream>
-#include "defaultprocessgraphics.h"
+#include "widgetedprocessgraphics.h"
+#include "QCheckBox"
 
-BooleanGeneratorProvider::BooleanGeneratorProvider(MainWindow *mw, PVisual *pv){
-    MW=mw;
+BooleanGeneratorProvider::BooleanGeneratorProvider( PVisual *pv){
     PV=pv;
 }
 
@@ -20,8 +20,12 @@ ProcessGraphics* BooleanGeneratorProvider::newInstance(){
                                               cand, &ok);
      if (ok && !text.isEmpty()){
          BooleanGenerator* sf=new BooleanGenerator();
-         MW->registerVariable(sf,text);
-         ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,1,0,0,0,0,1,PV);
+         QCheckBox* cbox=new QCheckBox(text,0);
+         cbox->setChecked(sf->getValue());
+         QObject::connect(cbox,SIGNAL(toggled(bool)),sf,SLOT(setValue(bool)));
+         ProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,1,0,0,0,0,1,PV,cbox,QRect(0,0,
+                                                                                           cbox->fontMetrics().width(text)+20
+                                                                                           ,15));
          return pg;
      }else{
          std::cout<<"Fail to get processor name"<<std::endl;

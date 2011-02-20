@@ -43,7 +43,7 @@ void MainWindow::InitializePVisual(){
     pv->addProvider(new GraphAbstractionProvider(pv));
     pv->addProvider(new VariableDoubleGeneratorProvider(pv));
     pv->addProvider(new SignalScalerProvider(pv));
-    pv->addProvider(new BooleanGeneratorProvider(this,pv));
+    pv->addProvider(new BooleanGeneratorProvider(pv));
     pv->addProvider(new ConditionalOutputSignalPipeProvider(pv));
     cwid->addTab(pv,"PipeLineGraph");
 }
