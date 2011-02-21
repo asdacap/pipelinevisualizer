@@ -19,6 +19,8 @@ public:
 
     ProcessGraphics* newInstance();
     QString getName();
+    ProcessGraphics* newInstance(QMap<QString,QString> setting);
+    QMap<QString,QString> getSettings(ProcessGraphics *pg);
 
 private:
     PVisual* PV;

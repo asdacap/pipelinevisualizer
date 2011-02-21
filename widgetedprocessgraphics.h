@@ -50,6 +50,7 @@ public:
     PipeProcessGraphicsProvider* getProvider();
     QList<PipeTarget*> getTarget();
     QList<PipeProvider*> getPipeProvider();
+    QWidget* getWidget();
 
 private:
 

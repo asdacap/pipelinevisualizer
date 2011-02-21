@@ -295,3 +295,7 @@ void WidgetedProcessGraphics::contextMenuEvent(QGraphicsSceneContextMenuEvent *e
 
     QMenu::exec(actionlist,event->screenPos(),0);
 }
+
+QWidget* WidgetedProcessGraphics::getWidget(){
+    return theproxwid->widget();
+}
