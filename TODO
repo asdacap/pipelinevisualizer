@@ -6,8 +6,8 @@ SignalPipelineProcessor TODO
 -Boolean and double pipeline testing.#DONE#
 -Start and stop button.#DONE#
 -Enable the removal of pipeline.#DONE#
--Saving technique.
--Loading technique.
+-Saving technique.#DONE#
+-Loading technique.#DONE#
 -Tooltip technique.
 -Renaming technique.
 -Plugin support.

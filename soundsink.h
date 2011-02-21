@@ -33,7 +33,7 @@ class SoundSinkProvider:public PipeProcessGraphicsProvider{
 public:
     SoundSinkProvider(PVisual* pvs);
     QString getName();
-    ProcessGraphics* newInstance();
+    ProcessGraphics* newInstance(QString text);
     PVisual* pv;
 };
 

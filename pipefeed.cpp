@@ -50,17 +50,21 @@ void PipeFeed::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
     while(i<targ.count()){
         if(collidesWithItem(targ.at(i))){
             PipeTarget* colled=targ.at(i);
-            if(colled->ApplyFeed(this)){
-            isset=true;
-            curtarget=colled;
+            ApplyTarget(colled);
             return QGraphicsItem::mouseReleaseEvent(event);
-            }else{
-                std::cout<<"Target already contain feed"<<std::endl;
-            }
         }
         i=i+1;
     }
     removeMe();
+}
+
+void PipeFeed::ApplyTarget(PipeTarget *colled){
+    if(colled->ApplyFeed(this)){
+    isset=true;
+    curtarget=colled;
+    }else{
+        std::cout<<"Target already contain feed"<<std::endl;
+    }
 }
 
 void PipeFeed::removeMe(){

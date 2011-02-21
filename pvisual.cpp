@@ -8,8 +8,8 @@
 #include "QPushButton"
 #include "soundfeeder.h"
 #include "soundsink.h"
-#include "tinyxml/tinyxml.h"
 #include "QFileDialog"
+#include <iostream>
 
 PVisual::PVisual(QWidget *parent) :
     QWidget(parent),
@@ -51,6 +51,10 @@ PVisual::PVisual(QWidget *parent) :
     removeallbut=new QPushButton(bottombar);
     removeallbut->setText("save");
     QObject::connect(removeallbut,SIGNAL(clicked()),this,SLOT(saveButton()));
+    vlayout->addWidget(removeallbut);
+    removeallbut=new QPushButton(bottombar);
+    removeallbut->setText("load");
+    QObject::connect(removeallbut,SIGNAL(clicked()),this,SLOT(loadButton()));
     vlayout->addWidget(removeallbut);
 
     QBoxLayout* thislayout=new QBoxLayout(QBoxLayout::BottomToTop,this);
@@ -100,7 +104,20 @@ void PVisual::addProvider(PipeProcessGraphicsProvider *prov){
     cbox->addItem(prov->getName());
 }
 
+bool PVisual::isExistProviderName(QString name){
+    int i=0;
+    while(i<provider_list.count()){
+        if(provider_list.at(i)->getName()==name)return true;
+        i=i+1;
+    }
+    return false;
+}
+
 void PVisual::addPG(ProcessGraphics* newpg){
+    if(newpg==0){
+        std::cout<<"Numll pg given"<<std::endl;
+        return ;
+    }
     if(isExistPGName(newpg->getName()))return ;
     scene->addItem(newpg);
     pgraphics_list.append(newpg);
@@ -158,6 +175,8 @@ TargetCollection* PVisual::getBoolTargetCollection(){
 TiXmlElement getPGElement(ProcessGraphics* pg){
     TiXmlElement thenewel(pg->getProvider()->getName().toAscii());
     QMap<QString,QString> setting=pg->getProvider()->getSettings(pg);
+    setting["xPos"]=QVariant(pg->pos().x()).toString();
+    setting["yPos"]=QVariant(pg->pos().y()).toString();
     QList<QString> keys=setting.keys();
     int i=0;
     while(i<keys.count()){
@@ -215,4 +234,78 @@ void PVisual::saveButton(){
     QString filename=QFileDialog::getSaveFileName();
     if(filename.isEmpty())return;
     mydoc.SaveFile(filename.toAscii());
+}
+
+void PVisual::loadPg(TiXmlElement *elm){
+    QString name(elm->Value());
+    QMap<QString,QString> setting;
+    TiXmlAttribute* atrr=elm->FirstAttribute();
+    while(atrr!=NULL){
+        setting[QString(atrr->Name())]=QString(atrr->Value());
+        atrr=atrr->Next();
+    }
+    int i=0;
+    while(i<provider_list.count()){
+        if(provider_list.at(i)->getName()==name){
+            ProcessGraphics* thenewpg=provider_list.at(i)->newInstance(setting);
+            if(thenewpg!=0){
+                int xpos=QVariant(setting["xPos"]).toInt();
+                int ypos=QVariant(setting["yPos"]).toInt();
+                thenewpg->setPos(xpos,ypos);
+                addPG(thenewpg);
+            }
+        }
+        i=i+1;
+    }
+
+}
+
+ProcessGraphics* PVisual::getProcessGraphics(QString name){
+    int i=0;
+    while(i<pgraphics_list.count()){
+        if(pgraphics_list.at(i)->getName()==name)return pgraphics_list.at(i);
+        i=i+1;
+    }
+    return 0;
+}
+
+void PVisual::loadConnection(TiXmlElement *elm){
+    TiXmlElement* curelem=elm;
+
+        QString target(curelem->Attribute("target"));
+        QString targetId(curelem->Attribute("targetID"));
+        QString source(curelem->Attribute("source"));
+        QString sourceId(curelem->Attribute("sourceID"));
+        ProcessGraphics* targetPG=getProcessGraphics(target);
+        ProcessGraphics* sourcePG=getProcessGraphics(source);
+        int targetPGID=QVariant(targetId).toInt();
+        int sourcePGID=QVariant(sourceId).toInt();
+        if(targetPG!=0&&sourcePG!=0){
+
+            sourcePG->getPipeProvider()[sourcePGID]->getNewFeed()->ApplyTarget(
+                            targetPG->getTarget()[targetPGID]);
+        }
+
+}
+
+void PVisual::loadButton(){
+    QString path=QFileDialog::getOpenFileName();
+    TiXmlDocument mydoc;
+    if(!mydoc.LoadFile(path.toAscii())){
+        std::cout<<"Unable to load xml"<<std::endl;
+        return;
+    }
+    removeAllButton();
+    TiXmlElement* pgelement=(TiXmlElement*)mydoc.FirstChildElement("ProcessGraphics");
+    TiXmlElement* currentEle=pgelement->FirstChildElement();
+    while(currentEle!=0){
+        loadPg(currentEle);
+        currentEle=currentEle->NextSiblingElement();
+    }
+    pgelement=(TiXmlElement*)mydoc.FirstChildElement("Connection");
+    currentEle=pgelement->FirstChildElement();
+    while(currentEle!=0){
+        loadConnection(currentEle);
+        currentEle=currentEle->NextSiblingElement();
+    }
 }

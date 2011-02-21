@@ -33,7 +33,7 @@ class SoundFeederProvider:public PipeProcessGraphicsProvider{
 public:
     SoundFeederProvider(PVisual* pvs);
     QString getName();
-    ProcessGraphics* newInstance();
+    ProcessGraphics* newInstance(QString text);
     PVisual* pv;
 };
 

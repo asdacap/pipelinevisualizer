@@ -91,19 +91,11 @@ QString SoundFeederProvider::getName(){
     return "SoundFeeder";
 }
 
-ProcessGraphics* SoundFeederProvider::newInstance(){
-    bool ok;
-    QString cand=nameCandidate();
-    QString text = QInputDialog::getText(0, QString("Name the new processor"),
-                                              QString("Processor name:"), QLineEdit::Normal,
-                                              cand, &ok);
-     if (ok && !text.isEmpty()){
+ProcessGraphics* SoundFeederProvider::newInstance(QString text){
+
          SoundFeeder* sf=new SoundFeeder();
          ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,0,1,0,0,0,0,pv,this);
          return pg;
-     }else{
-         std::cout<<"Fail to get processor name"<<std::endl;
-         return 0;
-     }
+
 }
 

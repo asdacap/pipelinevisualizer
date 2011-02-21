@@ -1,6 +1,7 @@
 #include "booleanpipeprovider.h"
 #include "booleanpipefeed.h"
 #include "QPainter"
+#include <QGraphicsScene>
 
 BooleanPipeProvider::BooleanPipeProvider(ProcessGraphics *par, int id, TargetCollection *tg):
     PipeProvider(par,id,tg){
@@ -12,7 +13,11 @@ QRectF BooleanPipeProvider::boundingRect() const{
 }
 
 PipeFeed* BooleanPipeProvider::getNewFeed(){
-    return new BooleanPipeFeed(this,target_collection);
+    PipeFeed* pf=new BooleanPipeFeed(this,target_collection);
+    pf->setPos(scenePos());
+    scene()->addItem(pf);
+    feedlist.append(pf);
+    return pf;
 }
 
 void BooleanPipeProvider::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){

@@ -14,6 +14,7 @@ public:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void ApplyTarget(PipeTarget* targ);
     void realign();
     void removeMe();
 

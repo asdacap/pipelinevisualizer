@@ -30,11 +30,7 @@ ProcessGraphics* PipeProvider::getProcessGraphics(){
 void PipeProvider::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
     PipeFeed* pf=getNewFeed();
 
-    pf->setPos(scenePos());
 
-
-    scene()->addItem(pf);
-    feedlist.append(pf);
 
     ungrabMouse();
 

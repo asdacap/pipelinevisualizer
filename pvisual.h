@@ -11,6 +11,7 @@
 #include <QLineEdit>
 #include "pipeproviderprovider.h"
 #include "targetcollection.h"
+#include "tinyxml/tinyxml.h"
 
 typedef struct PipeProcessGraphicsProvider PipeProcessGraphicsProvider;
 
@@ -30,6 +31,7 @@ public:
     void addPG(ProcessGraphics* pg);
     void removePG(ProcessGraphics* pg);
     bool isExistPGName(QString name);
+    bool isExistProviderName(QString name);
 
     TargetCollection* getSignalTargetCollection();
     TargetCollection* getDoubleTargetCollection();
@@ -45,6 +47,9 @@ private:
     TargetCollection* sigcol;
     TargetCollection* doubcol;
     TargetCollection* boolcol;
+    void loadPg(TiXmlElement* elm);
+    void loadConnection(TiXmlElement* elm);
+    ProcessGraphics* getProcessGraphics(QString name);
 
 public slots:
     void addButton();
@@ -52,6 +57,7 @@ public slots:
     void stopButton();
     void removeAllButton();
     void saveButton();
+    void loadButton();
 };
 
 #endif // PVISUAL_H
