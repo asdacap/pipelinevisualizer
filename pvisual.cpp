@@ -281,7 +281,6 @@ void PVisual::loadConnection(TiXmlElement *elm){
         int targetPGID=QVariant(targetId).toInt();
         int sourcePGID=QVariant(sourceId).toInt();
         if(targetPG!=0&&sourcePG!=0){
-
             sourcePG->getPipeProvider()[sourcePGID]->getNewFeed()->ApplyTarget(
                             targetPG->getTarget()[targetPGID]);
         }
@@ -293,6 +292,7 @@ void PVisual::loadButton(){
     TiXmlDocument mydoc;
     if(!mydoc.LoadFile(path.toAscii())){
         std::cout<<"Unable to load xml"<<std::endl;
+        std::cout<<mydoc.ErrorDesc()<<std::endl;
         return;
     }
     removeAllButton();

@@ -9,7 +9,7 @@ BooleanGeneratorProvider::BooleanGeneratorProvider( PVisual *pv){
 }
 
 QString BooleanGeneratorProvider::getName(){
-    return "Boolean generator";
+    return "BooleanGenerator";
 }
 
 ProcessGraphics* BooleanGeneratorProvider::newInstance(QString text){

@@ -49,7 +49,8 @@ SOURCES += main.cpp\
     tinyxml/tinyxmlparser.cpp \
     tinyxml/tinyxml.cpp \
     tinyxml/tinystr.cpp \
-    tinyxml/tinyxmlerror.cpp
+    tinyxml/tinyxmlerror.cpp \
+    conditionalinputsignalpipe.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -87,7 +88,8 @@ HEADERS  += pvisual.h \
     graphabstractionprovider.h \
     graphicproxywidgetgraphhack.h \
     tinyxml/tinyxml.h \
-    tinyxml/tinystr.h
+    tinyxml/tinystr.h \
+    conditionalinputsignalpipe.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui

@@ -26,7 +26,7 @@ SignalScalerProvider::SignalScalerProvider(PVisual *pv){
 }
 
 QString SignalScalerProvider::getName(){
-    return "Signal Scale";
+    return "SignalScale";
 }
 
 ProcessGraphics* SignalScalerProvider::newInstance(QString text){

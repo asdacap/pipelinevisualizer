@@ -39,7 +39,7 @@ ProcessGraphics* VariableDoubleGeneratorProvider::newInstance(){
 }
 
 QString VariableDoubleGeneratorProvider::getName(){
-    return "Variable Double Generator Provider";
+    return "VariableDoubleGeneratorProvider";
 }
 
 QMap<QString,QString> VariableDoubleGeneratorProvider::getSettings(ProcessGraphics *pg){

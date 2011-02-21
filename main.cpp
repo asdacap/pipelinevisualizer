@@ -6,6 +6,7 @@
 #include "conditionaloutputsignalpipe.h"
 #include "defaultprocessgraphics.h"
 #include "graphabstractionprovider.h"
+#include "conditionalinputsignalpipe.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +18,7 @@ int main(int argc, char *argv[])
     w.addProvider(new SignalScalerProvider(&w));
     w.addProvider(new BooleanGeneratorProvider(&w));
     w.addProvider(new ConditionalOutputSignalPipeProvider(&w));
+    w.addProvider(new ConditionalInputSignalPipeProvider(&w));
     w.show();
 
     return a.exec();

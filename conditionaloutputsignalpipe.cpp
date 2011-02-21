@@ -24,7 +24,7 @@ ConditionalOutputSignalPipeProvider::ConditionalOutputSignalPipeProvider(PVisual
 }
 
 QString ConditionalOutputSignalPipeProvider::getName(){
-    return "Conditional output signal pipe";
+    return "ConditionalOutputSignalPipe";
 }
 
 ProcessGraphics* ConditionalOutputSignalPipeProvider::newInstance(QString text){
