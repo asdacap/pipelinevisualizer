@@ -44,6 +44,7 @@ public:
     QList<PipeProvider*> getPipeProvider();
 
 private:
+    QGraphicsSimpleTextItem* text;
     PipeProcessGraphicsProvider* provider;
     QList<PipeTarget*> targetlist;
     QList<PipeProvider*> providerlist;
@@ -57,6 +58,7 @@ private:
     int thewidth;
     int theheight;
     QAction* removeAction;
+    QAction* renameAction;
     PVisual* pv;
 public slots:
     void timerElapsed();

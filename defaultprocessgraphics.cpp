@@ -70,7 +70,7 @@ void DefaultProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dIn
     int boolOutputNum=bOutputNum;
     PVisual* pvis=pv;
 
-    QGraphicsSimpleTextItem* text=new QGraphicsSimpleTextItem(this);
+    text=new QGraphicsSimpleTextItem(this);
     text->setText(thename);
     int maxnum=inputNum;
     if(on>maxnum)maxnum=on;
