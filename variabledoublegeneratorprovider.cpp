@@ -47,10 +47,10 @@ QMap<QString,QString> VariableDoubleGeneratorProvider::getSettings(ProcessGraphi
     QwtSlider* slider=(QwtSlider*)widgeted->getWidget();
     QMap<QString,QString> setting;
     setting["Name"]=pg->getName();
-    setting["Maximum"]=slider->maxValue();
-    setting["Minimum"]=slider->minValue();
-    setting["Increment"]=slider->step();
-    setting["Current"]=slider->value();
+    setting["Maximum"]=QVariant(slider->maxValue()).toString();
+    setting["Minimum"]=QVariant(slider->minValue()).toString();
+    setting["Increment"]=QVariant(slider->step()).toString();
+    setting["Current"]=QVariant(slider->value()).toString();
     return setting;
 }
 
