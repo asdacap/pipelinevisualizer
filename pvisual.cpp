@@ -42,6 +42,10 @@ PVisual::PVisual(QWidget *parent) :
     stopbutton->setText("Stop All");
     QObject::connect(stopbutton,SIGNAL(clicked()),this,SLOT(stopButton()));
     vlayout->addWidget(stopbutton);
+    QPushButton* removeallbut=new QPushButton(bottombar);
+    removeallbut->setText("removeAll");
+    QObject::connect(removeallbut,SIGNAL(clicked()),this,SLOT(removeAllButton()));
+    vlayout->addWidget(removeallbut);
 
     QBoxLayout* thislayout=new QBoxLayout(QBoxLayout::BottomToTop,this);
     this->setLayout(thislayout);
@@ -55,6 +59,13 @@ PVisual::PVisual(QWidget *parent) :
 
     InitializeProvider();
 
+}
+
+void PVisual::removeAllButton(){
+    int i=0;
+    while(i<pgraphics_list.count()){
+        pgraphics_list.at(i)->removeMe();
+    }
 }
 
 void PVisual::startButton(){

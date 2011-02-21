@@ -19,7 +19,7 @@ public:
     virtual QString getName()=0;
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-    void removeMe();
+    virtual void removeMe()=0;
     virtual PipeProcessGraphicsProvider* getProvider()=0;
     virtual QList<PipeTarget*> getTarget()=0;
     virtual QList<PipeProvider*> getPipeProvider()=0;
