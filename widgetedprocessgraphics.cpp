@@ -234,7 +234,7 @@ QRectF WidgetedProcessGraphics::boundingRect() const{
 
 void WidgetedProcessGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
     if(prevstatus){
-        painter->setBrush(QBrush(Qt::cyan));
+        painter->setBrush(QBrush(option->palette.background()));
     }else{
         painter->setBrush(QBrush(Qt::magenta));
     }
