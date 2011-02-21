@@ -8,7 +8,7 @@ SignalPipelineProcessor TODO
 -Enable the removal of pipeline.#DONE#
 -Saving technique.#DONE#
 -Loading technique.#DONE#
--Tooltip technique.
+-Tooltip technique.#DONE#
 -Renaming technique.
 -Plugin support.
 -UI changes.

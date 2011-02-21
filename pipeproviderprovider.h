@@ -15,6 +15,9 @@ public:
     virtual ProcessGraphics* newInstance(QString name);
     virtual QMap<QString,QString> getSettings(ProcessGraphics* pg);
     virtual ProcessGraphics* newInstance(QMap<QString,QString> setting);
+    virtual QString getToolTip();
+    virtual QString getProviderToolTip(int id);
+    virtual QString getTargetToolTip(int id);
     QString nameCandidate();
 private:
     int counter;

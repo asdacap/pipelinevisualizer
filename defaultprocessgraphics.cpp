@@ -60,6 +60,8 @@ QList<PipeProvider*> DefaultProcessGraphics::getPipeProvider(){
 }
 
 void DefaultProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dInputNum, int dOutputNum, int bInputNum, int bOutputNum){
+    setToolTip(getProvider()->getToolTip());
+
     int inputNum=sInputNum;
     int outputNum=sOutputNum;
     int doubleinputNum=dInputNum;
@@ -134,6 +136,7 @@ void DefaultProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dIn
     int i=0;
     while(i<in){
         SignalPipeTarget* targ=new SignalPipeTarget(i,processor,pvis->getSignalTargetCollection());
+        targ->setToolTip(getProvider()->getTargetToolTip(i));
         targ->setParentItem(this);
         targ->setPos(0,i*20);
         targetlist.append(targ);
@@ -143,6 +146,7 @@ void DefaultProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dIn
     i=0;
     while(i<on){
         SignalPipeProvider* targ=new SignalPipeProvider(this,i,pvis->getSignalTargetCollection());
+        targ->setToolTip(getProvider()->getProviderToolTip(i));
         targ->setParentItem(this);
         targ->setPos(boundingRect().width()-20,i*20);
         providerlist.append(targ);
@@ -152,6 +156,7 @@ void DefaultProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dIn
     i=0;
     while(i<doubleinputNum){
         DoublePipeTarget* dtarg=new DoublePipeTarget(i,processor,pvis->getDoubleTargetCollection());
+        dtarg->setToolTip(getProvider()->getTargetToolTip(i+in));
         dtarg->setParentItem(this);
         dtarg->setPos(signalinputwidth+Margin+(i*20),0);
         targetlist.append(dtarg);
@@ -161,6 +166,7 @@ void DefaultProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dIn
     i=0;
     while(i<doubleOutputNum){
         DoublePipeProvider* dtarg=new DoublePipeProvider(this,i,pvis->getDoubleTargetCollection());
+        dtarg->setToolTip(getProvider()->getProviderToolTip(i+on));
         dtarg->setParentItem(this);
         dtarg->setPos(signalinputwidth+Margin+(i*20),boundingRect().height()-20);
         providerlist.append(dtarg);
@@ -170,6 +176,7 @@ void DefaultProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dIn
     i=0;
     while(i<boolInputNum){
         PipeTarget* dtarg=new BooleanPipeTarget(i,processor,pvis->getBoolTargetCollection());
+        dtarg->setToolTip(getProvider()->getTargetToolTip(i+in+doubleinputNum));
         dtarg->setParentItem(this);
         dtarg->setPos(boundingRect().width()-(signaloutputwidth+20+Margin+(i*20)),0);
         targetlist.append(dtarg);
@@ -179,6 +186,7 @@ void DefaultProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dIn
     i=0;
     while(i<boolOutputNum){
         BooleanPipeProvider* dtarg=new BooleanPipeProvider(this,i,pvis->getBoolTargetCollection());
+        dtarg->setToolTip(getProvider()->getProviderToolTip(i+on+doubleOutputNum));
         dtarg->setParentItem(this);
         dtarg->setPos(boundingRect().width()-(signaloutputwidth+20+Margin+(i*20)),boundingRect().height()-20);
         providerlist.append(dtarg);

@@ -99,3 +99,6 @@ ProcessGraphics* SoundFeederProvider::newInstance(QString text){
 
 }
 
+QString SoundFeederProvider::getToolTip(){
+    return "Sound feeder will output sound on signal output sound from the sistem default microphone";
+}

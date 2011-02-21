@@ -45,3 +45,15 @@ QMap<QString,QString> PipeProcessGraphicsProvider::getSettings(ProcessGraphics *
 ProcessGraphics* PipeProcessGraphicsProvider::newInstance(QMap<QString, QString> setting){
     return newInstance(setting["Name"]);
 }
+
+QString PipeProcessGraphicsProvider::getToolTip(){
+    return "";
+}
+
+QString PipeProcessGraphicsProvider::getProviderToolTip(int id){
+    return "";
+}
+
+QString PipeProcessGraphicsProvider::getTargetToolTip(int id){
+    return "";
+}

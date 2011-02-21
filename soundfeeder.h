@@ -34,6 +34,7 @@ public:
     SoundFeederProvider(PVisual* pvs);
     QString getName();
     ProcessGraphics* newInstance(QString text);
+    QString getToolTip();
     PVisual* pv;
 };
 
