@@ -51,6 +51,7 @@ public slots:
     void startButton();
     void stopButton();
     void removeAllButton();
+    void saveButton();
 };
 
 #endif // PVISUAL_H

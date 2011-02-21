@@ -27,6 +27,18 @@ PipeTarget::~PipeTarget(){
     tc->removeTarget(this);
 }
 
+bool PipeTarget::isAvailable(){
+    return isAvail;
+}
+
+PipeFeed* PipeTarget::getFeed(){
+    return currentFeed;
+}
+
+int PipeTarget::getID(){
+    return cid;
+}
+
 void PipeTarget::removeFeed(){
     if(isAvail)return;
     currentFeed->removeMe();

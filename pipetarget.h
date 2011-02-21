@@ -16,6 +16,9 @@ public:
     virtual bool ApplyFeed(PipeFeed* feed)=0;
     void realign();
     virtual void removeFeed(PipeFeed* feed)=0;
+    bool isAvailable();
+    PipeFeed* getFeed();
+    int getID();
     QRectF boundingRect() const;
     void removeFeed();
 protected:

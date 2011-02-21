@@ -45,7 +45,11 @@ SOURCES += main.cpp\
     widgetedprocessgraphics.cpp \
     defaultprocessgraphics.cpp \
     graphabstractionprovider.cpp \
-    graphicproxywidgetgraphhack.cpp
+    graphicproxywidgetgraphhack.cpp \
+    tinyxml/tinyxmlparser.cpp \
+    tinyxml/tinyxml.cpp \
+    tinyxml/tinystr.cpp \
+    tinyxml/tinyxmlerror.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -81,7 +85,9 @@ HEADERS  += pvisual.h \
     widgetedprocessgraphics.h \
     defaultprocessgraphics.h \
     graphabstractionprovider.h \
-    graphicproxywidgetgraphhack.h
+    graphicproxywidgetgraphhack.h \
+    tinyxml/tinyxml.h \
+    tinyxml/tinystr.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui

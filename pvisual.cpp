@@ -8,6 +8,8 @@
 #include "QPushButton"
 #include "soundfeeder.h"
 #include "soundsink.h"
+#include "tinyxml/tinyxml.h"
+#include "QFileDialog"
 
 PVisual::PVisual(QWidget *parent) :
     QWidget(parent),
@@ -45,6 +47,10 @@ PVisual::PVisual(QWidget *parent) :
     QPushButton* removeallbut=new QPushButton(bottombar);
     removeallbut->setText("removeAll");
     QObject::connect(removeallbut,SIGNAL(clicked()),this,SLOT(removeAllButton()));
+    vlayout->addWidget(removeallbut);
+    removeallbut=new QPushButton(bottombar);
+    removeallbut->setText("save");
+    QObject::connect(removeallbut,SIGNAL(clicked()),this,SLOT(saveButton()));
     vlayout->addWidget(removeallbut);
 
     QBoxLayout* thislayout=new QBoxLayout(QBoxLayout::BottomToTop,this);
@@ -147,4 +153,66 @@ TargetCollection* PVisual::getDoubleTargetCollection(){
 
 TargetCollection* PVisual::getBoolTargetCollection(){
     return boolcol;
+}
+
+TiXmlElement getPGElement(ProcessGraphics* pg){
+    TiXmlElement thenewel(pg->getProvider()->getName().toAscii());
+    QMap<QString,QString> setting=pg->getProvider()->getSettings(pg);
+    QList<QString> keys=setting.keys();
+    int i=0;
+    while(i<keys.count()){
+        thenewel.SetAttribute(keys.at(i).toAscii().data(),setting[keys.at(i)].toAscii().data());
+        i=i+1;
+    }
+
+    return thenewel;
+}
+
+void putConnection(TiXmlElement* el,ProcessGraphics* pg){
+    QList<PipeTarget*> targetlist=pg->getTarget();
+    int i=0;
+    while(i<targetlist.count()){
+        PipeTarget* target=targetlist.at(i);
+        if(!target->isAvailable()){
+            QString targetSPName=pg->getName();
+            int targetid=target->getID();
+            QString providerSPName=target->getFeed()->provider->getProcessGraphics()->getName();
+            int providerid=target->getFeed()->provider->getId();
+            TiXmlElement* connectionEl=new TiXmlElement("connection");
+            connectionEl->SetAttribute("target",targetSPName.toAscii().data());
+            connectionEl->SetAttribute("targetID",QVariant(targetid).toString().toAscii().data());
+            connectionEl->SetAttribute("source",providerSPName.toAscii().data());
+            connectionEl->SetAttribute("sourceID",QVariant(providerid).toString().toAscii().data());
+            el->LinkEndChild(connectionEl);
+        }
+        i=i+1;
+    }
+}
+
+void PVisual::saveButton(){
+    TiXmlDocument mydoc("PVisual");
+    TiXmlElement PGElement("ProcessGraphics");
+
+
+    int i=0;
+    while(i<pgraphics_list.count()){
+        PGElement.InsertEndChild(getPGElement(pgraphics_list.at(i)));
+        i=i+1;
+    }
+
+    mydoc.InsertEndChild(PGElement);
+    TiXmlElement ConnectionElement("Connection");
+
+
+    i=0;
+    while(i<pgraphics_list.count()){
+        putConnection(&ConnectionElement,pgraphics_list.at(i));
+        i=i+1;
+    }
+
+    mydoc.InsertEndChild(ConnectionElement);
+
+    QString filename=QFileDialog::getSaveFileName();
+    if(filename.isEmpty())return;
+    mydoc.SaveFile(filename.toAscii());
 }
