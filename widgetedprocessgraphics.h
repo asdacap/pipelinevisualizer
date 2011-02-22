@@ -32,42 +32,29 @@ public:
                     int boolOutputNum,
                     PVisual* pvis,
                     PipeProcessGraphicsProvider* prov,
-                    QWidget* widget,
-                    QRectF rect);
+                    QWidget* widget=0,
+                    QRectF rect=QRectF());
     virtual void InitializeUi(int sInputNum,int sOutputNum,
                              int dInputNum, int dOutputNum,
                              int bInputNum, int bOutputNum,
                               QWidget* wid,QRectF rect);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
-    SignalProcessor* getProcessor();
-    QString getName();
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    PipeProcessGraphicsProvider* getProvider();
-    QList<PipeTarget*> getTarget();
-    QList<PipeProvider*> getPipeProvider();
     QWidget* getWidget();
 
 private:
 
-    PipeProcessGraphicsProvider* provider;
-    QList<PipeTarget*> targetlist;
-    QList<PipeProvider*> providerlist;
     QGraphicsProxyWidget* theproxwid;
-    SignalProcessor* processor;
-    QString thename;
     QTimer reftimer;
-    int in;
-    int on;
     bool prevstatus;
     int thewidth;
     int theheight;
     QAction* removeAction;
-    PVisual* pv;
 public slots:
     void timerElapsed();
     void removeMe();

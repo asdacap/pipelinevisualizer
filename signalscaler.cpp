@@ -1,7 +1,7 @@
 #include "signalscaler.h"
 #include "QInputDialog"
 #include <iostream>
-#include "defaultprocessgraphics.h"
+#include "widgetedprocessgraphics.h"
 
 SignalScaler::SignalScaler():SignalProcessor()
 {
@@ -32,7 +32,7 @@ QString SignalScalerProvider::getName(){
 ProcessGraphics* SignalScalerProvider::newInstance(QString text){
 
      SignalScaler* sf=new SignalScaler();
-     ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,1,1,1,0,0,0,PV,this);
+     ProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,1,1,1,0,0,0,PV,this);
      return pg;
 
 }

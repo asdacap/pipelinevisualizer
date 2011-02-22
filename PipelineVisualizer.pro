@@ -43,7 +43,6 @@ SOURCES += main.cpp\
     booleangeneratorprovider.cpp \
     conditionaloutputsignalpipe.cpp \
     widgetedprocessgraphics.cpp \
-    defaultprocessgraphics.cpp \
     graphabstractionprovider.cpp \
     graphicproxywidgetgraphhack.cpp \
     tinyxml/tinyxmlparser.cpp \
@@ -84,7 +83,7 @@ HEADERS  += pvisual.h \
     booleangeneratorprovider.h \
     conditionaloutputsignalpipe.h \
     widgetedprocessgraphics.h \
-    defaultprocessgraphics.h \
+    widgetedprocessgraphics.h \
     graphabstractionprovider.h \
     graphicproxywidgetgraphhack.h \
     tinyxml/tinyxml.h \

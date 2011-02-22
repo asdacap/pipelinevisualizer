@@ -1,7 +1,7 @@
 #include "soundsink.h"
 #include <iostream>
 #include "QInputDialog"
-#include "defaultprocessgraphics.h"
+#include "widgetedprocessgraphics.h"
 
 SoundSink::SoundSink():QIODevice(),SignalProcessor()
 {
@@ -113,6 +113,6 @@ QString SoundSinkProvider::getName(){
 ProcessGraphics* SoundSinkProvider::newInstance(QString text){
 
     SoundSink* sf=new SoundSink();
-    ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,1,0,0,0,0,0,pv,this);
+    ProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,1,0,0,0,0,0,pv,this);
     return pg;
 }

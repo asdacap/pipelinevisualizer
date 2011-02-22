@@ -30,13 +30,9 @@ WidgetedProcessGraphics::WidgetedProcessGraphics(SignalProcessor* theprocessor,
                                  PipeProcessGraphicsProvider* prov,
                                  QWidget* wid,
                                  QRectF rect):
-ProcessGraphics(){
-    thename=name;
-    processor=theprocessor;
-    pv=pvis;
-    in=inputNum;
-    on=outputNum;
-    provider=prov;
+ProcessGraphics(theprocessor,name,prov,inputNum,outputNum,doubleinputNum,doubleOutputNum,
+        boolInputNum,boolOutputNum,pvis){
+
     setFlag(ItemIsMovable,true);
     setFlag(ItemSendsGeometryChanges,true);
     setAcceptHoverEvents(true);
@@ -51,18 +47,6 @@ ProcessGraphics(){
 
     removeAction=new QAction("remove",this);
     QObject::connect(removeAction,SIGNAL(triggered()),this,SLOT(removeMe()));
-}
-
-PipeProcessGraphicsProvider* WidgetedProcessGraphics::getProvider(){
-    return provider;
-}
-
-QList<PipeTarget*> WidgetedProcessGraphics::getTarget(){
-    return targetlist;
-}
-
-QList<PipeProvider*> WidgetedProcessGraphics::getPipeProvider(){
-    return providerlist;
 }
 
 void WidgetedProcessGraphics::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
@@ -100,10 +84,12 @@ void WidgetedProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dI
     int doubleOutputNum=dOutputNum;
     int boolInputNum=bInputNum;
     int boolOutputNum=bOutputNum;
+    int on=getSignalPipeProvider().count();
+    int in=getSignalTarget().count();
     PVisual* pvis=pv;
 
     QGraphicsSimpleTextItem* text=new QGraphicsSimpleTextItem(this);
-    text->setText(thename);
+    text->setText(getName());
     int maxnum=inputNum;
     if(on>maxnum)maxnum=on;
 
@@ -167,63 +153,45 @@ void WidgetedProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dI
     thewidth=width;
     theheight=height;
 
+    QList<PipeTarget*> targetlist=getSignalTarget();
     int i=0;
-    while(i<in){
-        SignalPipeTarget* targ=new SignalPipeTarget(i,processor,pvis->getSignalTargetCollection());
-        targ->setToolTip(getProvider()->getTargetToolTip(i));
-        targ->setParentItem(this);
-        targ->setPos(0,i*20);
-        targetlist.append(targ);
+    while(i<targetlist.count()){
+        targetlist.at(i)->setPos(0,i*20);
         i=i+1;
     }
 
+    QList<PipeProvider*> providerlist=getSignalPipeProvider();
     i=0;
-    while(i<on){
-        SignalPipeProvider* targ=new SignalPipeProvider(this,i,pvis->getSignalTargetCollection());
-        targ->setToolTip(getProvider()->getProviderToolTip(i));
-        targ->setParentItem(this);
-        targ->setPos(boundingRect().width()-20,i*20);
-        providerlist.append(targ);
+    while(i<providerlist.count()){
+        providerlist.at(i)->setPos(boundingRect().width()-20,i*20);
         i=i+1;
     }
 
+    targetlist=getDoublePipeTarget();
     i=0;
-    while(i<doubleinputNum){
-        DoublePipeTarget* dtarg=new DoublePipeTarget(i,processor,pvis->getDoubleTargetCollection());
-        dtarg->setToolTip(getProvider()->getTargetToolTip(i+in));
-        dtarg->setParentItem(this);
-        dtarg->setPos(signalinputwidth+Margin+(i*20),0);
-        targetlist.append(dtarg);
+    while(i<targetlist.count()){
+        targetlist.at(i)->setPos(signalinputwidth+Margin+(i*20),0);
         i=i+1;
     }
 
+    providerlist=getDoublePipeProvider();
     i=0;
-    while(i<doubleOutputNum){
-        DoublePipeProvider* dtarg=new DoublePipeProvider(this,i,pvis->getDoubleTargetCollection());
-        dtarg->setToolTip(getProvider()->getProviderToolTip(i+on));
-        dtarg->setParentItem(this);
-        dtarg->setPos(signalinputwidth+Margin+(i*20),boundingRect().height()-20);
-        providerlist.append(dtarg);
+    while(i<providerlist.count()){
+        providerlist.at(i)->setPos(signalinputwidth+Margin+(i*20),boundingRect().height()-20);
         i=i+1;
     }
 
+    targetlist=getBoolPipeTarget();
     i=0;
-    while(i<boolInputNum){
-        PipeTarget* dtarg=new BooleanPipeTarget(i,processor,pvis->getBoolTargetCollection());
-        dtarg->setToolTip(getProvider()->getTargetToolTip(i+in+doubleinputNum));
-        dtarg->setParentItem(this);
-        dtarg->setPos(boundingRect().width()-(signaloutputwidth+20+Margin+(i*20)),0);
-        targetlist.append(dtarg);
+    while(i<targetlist.count()){
+        targetlist.at(i)->setPos(boundingRect().width()-(signaloutputwidth+20+Margin+(i*20)),0);
         i=i+1;
     }
 
+    providerlist=getBoolPipeProvider();
     i=0;
-    while(i<boolOutputNum){
-        BooleanPipeProvider* dtarg=new BooleanPipeProvider(this,i,pvis->getBoolTargetCollection());
-        dtarg->setToolTip(getProvider()->getProviderToolTip(i+on+doubleOutputNum));
-        dtarg->setParentItem(this);
-        dtarg->setPos(boundingRect().width()-(signaloutputwidth+20+Margin+(i*20)),boundingRect().height()-20);
-        providerlist.append(dtarg);
+    while(i<providerlist.count()){
+        providerlist.at(i)->setPos(boundingRect().width()-(signaloutputwidth+20+Margin+(i*20)),boundingRect().height()-20);
         i=i+1;
     }
 }
@@ -241,25 +209,17 @@ void WidgetedProcessGraphics::paint(QPainter *painter, const QStyleOptionGraphic
     painter->drawRect(boundingRect());
 }
 
-QString WidgetedProcessGraphics::getName(){
-    return thename;
-}
-
-SignalProcessor* WidgetedProcessGraphics::getProcessor(){
-    return processor;
-}
-
 QVariant WidgetedProcessGraphics::itemChange(GraphicsItemChange change, const QVariant &value){
     switch (change) {
      case ItemPositionHasChanged:{
          int i=0;
-         while(i<targetlist.count()){
-             targetlist.at(i)->realign();
+         while(i<getTarget().count()){
+             getTarget().at(i)->realign();
              i=i+1;
          }
          i=0;
-         while(i<providerlist.count()){
-             providerlist.at(i)->realign();
+         while(i<getPipeProvider().count()){
+             getPipeProvider().at(i)->realign();
              i=i+1;
          }
          break;}
@@ -271,8 +231,8 @@ QVariant WidgetedProcessGraphics::itemChange(GraphicsItemChange change, const QV
 }
 
 void WidgetedProcessGraphics::timerElapsed(){
-    if(prevstatus!=processor->isStarted()){
-        prevstatus=processor->isStarted();
+    if(prevstatus!=getProcessor()->isStarted()){
+        prevstatus=getProcessor()->isStarted();
         if(prevstatus){
 
             update();
@@ -281,20 +241,6 @@ void WidgetedProcessGraphics::timerElapsed(){
             update();
         }
     }
-}
-
-void WidgetedProcessGraphics::removeMe(){
-    int i=0;
-    while(i<targetlist.count()){
-        targetlist.at(i)->removeFeed();
-        i=i+1;
-    }
-    i=0;
-    while(i<providerlist.count()){
-        providerlist.at(i)->removeAllFeed();
-        i=i+1;
-    }
-    pv->removePG(this);
 }
 
 void WidgetedProcessGraphics::contextMenuEvent(QGraphicsSceneContextMenuEvent *event){
@@ -306,4 +252,8 @@ void WidgetedProcessGraphics::contextMenuEvent(QGraphicsSceneContextMenuEvent *e
 
 QWidget* WidgetedProcessGraphics::getWidget(){
     return theproxwid->widget();
+}
+
+void WidgetedProcessGraphics::removeMe(){
+    ProcessGraphics::removeMe();
 }

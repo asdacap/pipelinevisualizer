@@ -1,7 +1,7 @@
 #include "conditionaloutputsignalpipe.h"
 #include <QInputDialog>
 #include <iostream>
-#include "defaultprocessgraphics.h"
+#include "widgetedprocessgraphics.h"
 
 ConditionalOutputSignalPipe::ConditionalOutputSignalPipe():SignalProcessor()
 {
@@ -31,7 +31,7 @@ ProcessGraphics* ConditionalOutputSignalPipeProvider::newInstance(QString text){
 
      ConditionalOutputSignalPipe* sf=new ConditionalOutputSignalPipe();
 
-     ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,1,2,0,0,1,0,PV,this);
+     ProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,1,2,0,0,1,0,PV,this);
      return pg;
 
 }

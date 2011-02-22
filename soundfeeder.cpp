@@ -5,7 +5,7 @@
 #include "QDateTime"
 #include "constSetting.h"
 #include "QInputDialog"
-#include "defaultprocessgraphics.h"
+#include "widgetedprocessgraphics.h"
 
 SoundFeeder::SoundFeeder():QIODevice(),SignalProcessor()
 {
@@ -94,7 +94,7 @@ QString SoundFeederProvider::getName(){
 ProcessGraphics* SoundFeederProvider::newInstance(QString text){
 
          SoundFeeder* sf=new SoundFeeder();
-         ProcessGraphics* pg=new DefaultProcessGraphics(sf,text,0,1,0,0,0,0,pv,this);
+         ProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,0,1,0,0,0,0,pv,this);
          return pg;
 
 }

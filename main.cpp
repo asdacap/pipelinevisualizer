@@ -4,7 +4,7 @@
 #include "signalscaler.h"
 #include "booleangeneratorprovider.h"
 #include "conditionaloutputsignalpipe.h"
-#include "defaultprocessgraphics.h"
+#include "widgetedprocessgraphics.h"
 #include "graphabstractionprovider.h"
 #include "conditionalinputsignalpipe.h"
 

@@ -1,5 +1,5 @@
 #include "conditionalinputsignalpipe.h"
-#include "defaultprocessgraphics.h"
+#include "widgetedprocessgraphics.h"
 
 ConditionalInputSignalPipe::ConditionalInputSignalPipe()
 {
@@ -29,5 +29,5 @@ ConditionalInputSignalPipeProvider::ConditionalInputSignalPipeProvider(PVisual *
 ProcessGraphics* ConditionalInputSignalPipeProvider::newInstance(QString name)
 {
     ConditionalInputSignalPipe* sf=new ConditionalInputSignalPipe();
-    return new DefaultProcessGraphics(sf,name,2,1,0,0,1,0,PV,this);
+    return new WidgetedProcessGraphics(sf,name,2,1,0,0,1,0,PV,this);
 }
