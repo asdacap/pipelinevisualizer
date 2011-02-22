@@ -8,10 +8,6 @@ PipeProcessGraphicsProvider::PipeProcessGraphicsProvider(){
     counter=0;
 }
 
-QString PipeProcessGraphicsProvider::getName(){
-    return "NullName";
-}
-
 ProcessGraphics* PipeProcessGraphicsProvider::newInstance(){
     bool ok;
     QString cand=nameCandidate();

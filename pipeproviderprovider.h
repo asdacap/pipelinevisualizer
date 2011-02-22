@@ -10,7 +10,7 @@ class PipeProcessGraphicsProvider
 {
 public:
     PipeProcessGraphicsProvider();
-    virtual QString getName();
+    virtual QString getName()=0;
     virtual ProcessGraphics* newInstance();
     virtual ProcessGraphics* newInstance(QString name);
     virtual QMap<QString,QString> getSettings(ProcessGraphics* pg);
