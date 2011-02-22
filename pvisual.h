@@ -2,6 +2,7 @@
 #define PVISUAL_H
 
 #include <QWidget>
+#include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QBoxLayout>
@@ -11,6 +12,7 @@
 #include <QLineEdit>
 #include "pipeproviderprovider.h"
 #include "targetcollection.h"
+#include "QPushButton"
 #include "tinyxml/tinyxml.h"
 
 typedef struct PipeProcessGraphicsProvider PipeProcessGraphicsProvider;
@@ -19,7 +21,7 @@ namespace Ui {
     class PVisual;
 }
 
-class PVisual : public QWidget
+class PVisual : public QMainWindow
 {
     Q_OBJECT
 
@@ -29,6 +31,7 @@ public:
     ~PVisual();
     void addProvider(PipeProcessGraphicsProvider* prov);
     void addPG(ProcessGraphics* pg);
+    void addPG(QString providername);
     void removePG(ProcessGraphics* pg);
     bool isExistPGName(QString name);
     bool isExistProviderName(QString name);
@@ -39,11 +42,10 @@ public:
 
 private:
     QGraphicsScene* scene;
+    QGraphicsView* view;
     QList<PipeProcessGraphicsProvider*> provider_list;
     QList<ProcessGraphics*> pgraphics_list;
     Ui::PVisual *ui;
-    QComboBox* cbox;
-    QLineEdit* le;
     TargetCollection* sigcol;
     TargetCollection* doubcol;
     TargetCollection* boolcol;
@@ -53,13 +55,33 @@ private:
     void loadBoolConnection(TiXmlElement* elm);
     ProcessGraphics* getProcessGraphics(QString name);
 
+    QAction* loadAction;
+    QAction* saveAction;
+    QAction* zoomInAction;
+    QAction* zoomOutAction;
+    double curscale;
+
+    QWidget* addSPwidget;
+    QBoxLayout* spwidgetLayout;
+
 public slots:
-    void addButton();
     void startButton();
     void stopButton();
     void removeAllButton();
     void saveButton();
     void loadButton();
+    void zoomIn();
+    void zoomOut();
+};
+
+class AddSPButton:public QPushButton{
+    Q_OBJECT
+public:
+
+    AddSPButton(QString provstring,PVisual* pv);
+    PVisual* PV;
+public slots:
+    void AddProv();
 };
 
 #endif // PVISUAL_H

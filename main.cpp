@@ -21,5 +21,7 @@ int main(int argc, char *argv[])
     w.addProvider(new ConditionalInputSignalPipeProvider(&w));
     w.show();
 
+    w.setWindowState(Qt::WindowMaximized);
+
     return a.exec();
 }

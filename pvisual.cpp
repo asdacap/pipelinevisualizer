@@ -12,62 +12,61 @@
 #include <iostream>
 
 PVisual::PVisual(QWidget *parent) :
-    QWidget(parent),
+    QMainWindow(parent),
     ui(new Ui::PVisual)
 {
     ui->setupUi(this);
+    QWidget* cwid=new QWidget(this);
+    setCentralWidget(cwid);
+
     scene=new QGraphicsScene(this);
-    QGraphicsView* view=new QGraphicsView(this);
+    view=new QGraphicsView(centralWidget());
     view->setScene(scene);
 
-    QWidget* topbar=new QWidget(this);
-    QHBoxLayout* toplayout=new QHBoxLayout();
-    topbar->setLayout(toplayout);
-    QComboBox* selectbox=new QComboBox(topbar);
-    cbox=selectbox;
-    QPushButton* addbutton=new QPushButton(topbar);
-    addbutton->setText("Add");
-    addbutton->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum);
-    selectbox->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::Minimum);
-    toplayout->addWidget(selectbox);
-    toplayout->addWidget(addbutton);
-    QObject::connect(addbutton,SIGNAL(clicked()),this,SLOT(addButton()));
+    QToolBar* mainToolBar=new QToolBar("Main Toolbar");
+    addToolBar(mainToolBar);
+    QAction* curAt=mainToolBar->addAction("StartAll");
+    QObject::connect(curAt,SIGNAL(triggered()),this,SLOT(startButton()));
+    curAt=mainToolBar->addAction("StopAll");
+    QObject::connect(curAt,SIGNAL(triggered()),this,SLOT(stopButton()));
+    curAt=mainToolBar->addAction("Clear");
+    QObject::connect(curAt,SIGNAL(triggered()),this,SLOT(removeAllButton()));
+    zoomInAction=mainToolBar->addAction("zoomIn");
+    QObject::connect(zoomInAction,SIGNAL(triggered()),this,SLOT(zoomIn()));
+    zoomOutAction=mainToolBar->addAction("zoomOut");
+    QObject::connect(zoomOutAction,SIGNAL(triggered()),this,SLOT(zoomOut()));
 
-    QWidget* bottombar=new QWidget(this);
-    QHBoxLayout* vlayout=new QHBoxLayout();
-    bottombar->setLayout(vlayout);
-    QPushButton* startbut=new QPushButton(bottombar);
-    startbut->setText("Start All");
-    QObject::connect(startbut,SIGNAL(clicked()),this,SLOT(startButton()));
-    vlayout->addWidget(startbut);
-    QPushButton* stopbutton=new QPushButton(bottombar);
-    stopbutton->setText("Stop All");
-    QObject::connect(stopbutton,SIGNAL(clicked()),this,SLOT(stopButton()));
-    vlayout->addWidget(stopbutton);
-    QPushButton* removeallbut=new QPushButton(bottombar);
-    removeallbut->setText("removeAll");
-    QObject::connect(removeallbut,SIGNAL(clicked()),this,SLOT(removeAllButton()));
-    vlayout->addWidget(removeallbut);
-    removeallbut=new QPushButton(bottombar);
-    removeallbut->setText("save");
-    QObject::connect(removeallbut,SIGNAL(clicked()),this,SLOT(saveButton()));
-    vlayout->addWidget(removeallbut);
-    removeallbut=new QPushButton(bottombar);
-    removeallbut->setText("load");
-    QObject::connect(removeallbut,SIGNAL(clicked()),this,SLOT(loadButton()));
-    vlayout->addWidget(removeallbut);
+    loadAction=new QAction("Load",this);
+    QObject::connect(loadAction,SIGNAL(triggered()),this,SLOT(loadButton()));
+    saveAction=new QAction("Save",this);
+    QObject::connect(saveAction,SIGNAL(triggered()),this,SLOT(saveButton()));
+
+    QMenu* filemenu=menuBar()->addMenu("File");
+    filemenu->addAction(loadAction);
+    filemenu->addAction(saveAction);
+
+    addSPwidget=new QWidget();
+    QDockWidget* dock=new QDockWidget("Add signal processor");
+    dock->setFeatures(dock->DockWidgetMovable|dock->DockWidgetFloatable);
+    QScrollArea* area=new QScrollArea();
+    area->setWidget(addSPwidget);
+    addSPwidget->setMinimumSize(200,600);
+    dock->setWidget(area);
+    spwidgetLayout=new QBoxLayout(QBoxLayout::BottomToTop,this);
+    addSPwidget->setLayout(spwidgetLayout);
+    addDockWidget(Qt::LeftDockWidgetArea,dock);
 
     QBoxLayout* thislayout=new QBoxLayout(QBoxLayout::BottomToTop,this);
-    this->setLayout(thislayout);
-    thislayout->addWidget(topbar);
+    centralWidget()->setLayout(thislayout);
     thislayout->addWidget(view);
-    thislayout->addWidget(bottombar);
 
     sigcol=new TargetCollection();
     doubcol=new TargetCollection();
     boolcol=new TargetCollection();
 
     InitializeProvider();
+
+    curscale=1;
 
 }
 
@@ -100,8 +99,11 @@ void PVisual::InitializeProvider(){
 }
 
 void PVisual::addProvider(PipeProcessGraphicsProvider *prov){
+    if(isExistProviderName(prov->getName()))return;
     provider_list.append(prov);
-    cbox->addItem(prov->getName());
+    AddSPButton* newbu=new AddSPButton(prov->getName(),this);
+    newbu->setParent(addSPwidget);
+    spwidgetLayout->addWidget(newbu);
 }
 
 bool PVisual::isExistProviderName(QString name){
@@ -123,6 +125,14 @@ void PVisual::addPG(ProcessGraphics* newpg){
     pgraphics_list.append(newpg);
 }
 
+void PVisual::addPG(QString providername){
+    foreach (PipeProcessGraphicsProvider* prov,provider_list) {
+        if(prov->getName()==providername){
+            addPG(prov->newInstance());
+        }
+    }
+}
+
 void PVisual::removePG(ProcessGraphics *pg){
     scene->removeItem(pg);
     pgraphics_list.removeAll(pg);
@@ -137,22 +147,6 @@ bool PVisual::isExistPGName(QString name){
         i=i+1;
     }
     return false;
-}
-
-void PVisual::addButton(){
-    QString name=cbox->currentText();
-    if(name.isEmpty()){
-        return;
-    }
-    int i=0;
-    while(i<provider_list.count()){
-        if(provider_list.at(i)->getName()==name){
-            ProcessGraphics* newpg=provider_list.at(i)->newInstance();
-            if(newpg==0)return;
-            addPG(newpg);
-        }
-        i=i+1;
-    }
 }
 
 PVisual::~PVisual()
@@ -410,4 +404,21 @@ void PVisual::loadButton(){
         loadBoolConnection(currentEle);
         currentEle=currentEle->NextSiblingElement();
     }
+}
+
+void PVisual::zoomIn(){
+    view->scale(0.8,0.8);
+}
+
+void PVisual::zoomOut(){
+    view->scale(1.2,1.2);
+}
+
+AddSPButton::AddSPButton(QString provstring, PVisual *pv):QPushButton(provstring){
+    PV=pv;
+    QObject::connect(this,SIGNAL(clicked()),this,SLOT(AddProv()));
+}
+
+void AddSPButton::AddProv(){
+    PV->addPG(text());
 }
