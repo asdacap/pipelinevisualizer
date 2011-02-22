@@ -34,10 +34,7 @@ public:
                     PipeProcessGraphicsProvider* prov,
                     QWidget* widget=0,
                     QRectF rect=QRectF());
-    virtual void InitializeUi(int sInputNum,int sOutputNum,
-                             int dInputNum, int dOutputNum,
-                             int bInputNum, int bOutputNum,
-                              QWidget* wid,QRectF rect);
+    virtual void InitializeUi();
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -48,15 +45,19 @@ public:
     QWidget* getWidget();
 
 private:
-
-    QGraphicsProxyWidget* theproxwid;
+    QGraphicsSimpleTextItem* text;
+    QGraphicsProxyWidget* proxy;
+    QRectF rect;
+    QWidget* wid;
     QTimer reftimer;
     bool prevstatus;
     int thewidth;
     int theheight;
     QAction* removeAction;
+    QAction* renameAction;
 public slots:
     void timerElapsed();
     void removeMe();
+    void renameMe();
 };
 #endif // WIDGETEDWidgetedProcessGraphics_H

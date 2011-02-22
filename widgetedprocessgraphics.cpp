@@ -15,8 +15,9 @@
 #include "QGraphicsSceneContextMenuEvent"
 #include "QGraphicsProxyWidget"
 #include <iostream>
+#include "QInputDialog"
 
-const int Margin=10;
+const int Margin=5;
 
 WidgetedProcessGraphics::WidgetedProcessGraphics(SignalProcessor* theprocessor,
                                  QString name,
@@ -37,7 +38,16 @@ ProcessGraphics(theprocessor,name,prov,inputNum,outputNum,doubleinputNum,doubleO
     setFlag(ItemSendsGeometryChanges,true);
     setAcceptHoverEvents(true);
 
-    InitializeUi(inputNum,outputNum,doubleinputNum,doubleOutputNum,boolInputNum,boolOutputNum,wid,rect);
+
+    this->wid=wid;
+    this->rect=rect;
+    setToolTip(getProvider()->getToolTip());
+    text=new QGraphicsSimpleTextItem(this);
+    text->setText(getName());
+    proxy=new GraphicProxyWidgetGraphHack();
+    proxy->setParentItem(this);
+    proxy->setAcceptHoverEvents(true);
+    InitializeUi();
 
     prevstatus=true;
     reftimer.setInterval(500);
@@ -47,10 +57,12 @@ ProcessGraphics(theprocessor,name,prov,inputNum,outputNum,doubleinputNum,doubleO
 
     removeAction=new QAction("remove",this);
     QObject::connect(removeAction,SIGNAL(triggered()),this,SLOT(removeMe()));
+    renameAction=new QAction("rename",this);
+    QObject::connect(renameAction,SIGNAL(triggered()),this,SLOT(renameMe()));
 }
 
 void WidgetedProcessGraphics::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
-    if(theproxwid->contains(theproxwid->mapFromScene(event->scenePos()))){
+    if(proxy->contains(proxy->mapFromScene(event->scenePos()))){
 
     }else{
         ProcessGraphics::mouseMoveEvent(event);
@@ -58,8 +70,8 @@ void WidgetedProcessGraphics::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
 }
 
 void WidgetedProcessGraphics::mousePressEvent(QGraphicsSceneMouseEvent *event){
-    if(theproxwid->contains(theproxwid->mapFromScene(event->scenePos()))){
-        theproxwid->grabMouse();
+    if(proxy->contains(proxy->mapFromScene(event->scenePos()))){
+        proxy->grabMouse();
     }else{
         ProcessGraphics::mousePressEvent(event);
     }
@@ -67,29 +79,23 @@ void WidgetedProcessGraphics::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
 void WidgetedProcessGraphics::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
 
-    if(theproxwid->contains(theproxwid->mapFromScene(event->scenePos()))){
-       // theproxwid->ungrabMouse();
+    if(proxy->contains(proxy->mapFromScene(event->scenePos()))){
+       // proxy->ungrabMouse();
         //ungrabMouse();
     }else{
         ProcessGraphics::mouseReleaseEvent(event);
     }
 }
 
-void WidgetedProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dInputNum, int dOutputNum, int bInputNum, int bOutputNum,QWidget* wid,QRectF rec){
-    setToolTip(getProvider()->getToolTip());
-
-    int inputNum=sInputNum;
-    int outputNum=sOutputNum;
-    int doubleinputNum=dInputNum;
-    int doubleOutputNum=dOutputNum;
-    int boolInputNum=bInputNum;
-    int boolOutputNum=bOutputNum;
+void WidgetedProcessGraphics::InitializeUi(){
+    int inputNum=getSignalTarget().count();
+    int outputNum=getSignalPipeProvider().count();
+    int doubleinputNum=getDoublePipeTarget().count();
+    int doubleOutputNum=getDoublePipeProvider().count();
+    int boolInputNum=getBoolPipeTarget().count();
+    int boolOutputNum=getBoolPipeProvider().count();
     int on=getSignalPipeProvider().count();
-    int in=getSignalTarget().count();
-    PVisual* pvis=pv;
 
-    QGraphicsSimpleTextItem* text=new QGraphicsSimpleTextItem(this);
-    text->setText(getName());
     int maxnum=inputNum;
     if(on>maxnum)maxnum=on;
 
@@ -114,7 +120,7 @@ void WidgetedProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dI
     int twidth=text->boundingRect().width();
     int iwidth=(boolInputNum+doubleinputNum)*20;
     int owidth=(boolOutputNum+doubleOutputNum)*20;
-    int wwidth=rec.width();
+    int wwidth=rect.width();
     if(twidth>width)width=twidth;
     if(iwidth>width)width=iwidth;
     if(owidth>width)width=owidth;
@@ -128,19 +134,17 @@ void WidgetedProcessGraphics::InitializeUi(int sInputNum, int sOutputNum, int dI
     text->setPos(signalinputwidth+Margin,boldoubsiginputheight);
 
     //Put Widget
-    QGraphicsProxyWidget* proxy=new GraphicProxyWidgetGraphHack();
-    proxy->setParentItem(this);
-    theproxwid=proxy;
+
     proxy->setWidget(wid);
-    proxy->setGeometry(rec);
+    proxy->setGeometry(rect);
     proxy->setPos(signalinputwidth+Margin,boldoubsiginputheight+text->boundingRect().height());
-    proxy->setAcceptHoverEvents(true);
+
 
     //CalculateHeight
     int height=0;
     int iheight=inputNum*20;
     int oheight=outputNum*20;
-    int theight=text->boundingRect().height()+boldoubsiginputheight+boldoubsigoutputheigt+rec.height();
+    int theight=text->boundingRect().height()+boldoubsiginputheight+boldoubsigoutputheigt+rect.height();
     if(iheight>oheight){
         height=iheight;
     }else{
@@ -209,6 +213,24 @@ void WidgetedProcessGraphics::paint(QPainter *painter, const QStyleOptionGraphic
     painter->drawRect(boundingRect());
 }
 
+void WidgetedProcessGraphics::renameMe(){
+    bool ok;
+    QString cand=getName();
+    QString text = QInputDialog::getText(0,QString("Name the new processor"),
+                                              QString("Processor name:"), QLineEdit::Normal,
+                                              cand, &ok);
+     if (ok && !text.isEmpty()){
+         if(pv->isExistPGName(text))return;
+         pgName=text;
+         this->text->setText(getName());
+         InitializeUi();
+     }else{
+         std::cout<<"Fail to get processor name"<<std::endl;
+         return;
+     }
+
+}
+
 QVariant WidgetedProcessGraphics::itemChange(GraphicsItemChange change, const QVariant &value){
     switch (change) {
      case ItemPositionHasChanged:{
@@ -246,12 +268,12 @@ void WidgetedProcessGraphics::timerElapsed(){
 void WidgetedProcessGraphics::contextMenuEvent(QGraphicsSceneContextMenuEvent *event){
     QList<QAction*> actionlist;
     actionlist.append(removeAction);
-
+    actionlist.append(renameAction);
     QMenu::exec(actionlist,event->screenPos(),0);
 }
 
 QWidget* WidgetedProcessGraphics::getWidget(){
-    return theproxwid->widget();
+    return proxy->widget();
 }
 
 void WidgetedProcessGraphics::removeMe(){

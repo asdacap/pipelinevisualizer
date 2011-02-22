@@ -67,7 +67,6 @@ public:
 
 private:
     SignalProcessor* processor;
-    QString pgName;
     PipeProcessGraphicsProvider* provider;
     QList<PipeTarget*> targetCollection;
     QList<PipeProvider*> providerCollection;
@@ -78,6 +77,7 @@ private:
     QList<PipeTarget*> boolTargetCollection;
     QList<PipeProvider*> boolProviderCollection;
 protected:
+    QString pgName;
     PVisual* pv;
 };
 
