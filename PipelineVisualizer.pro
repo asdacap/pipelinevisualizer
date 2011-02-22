@@ -51,7 +51,8 @@ SOURCES += main.cpp\
     tinyxml/tinyxmlerror.cpp \
     conditionalinputsignalpipe.cpp \
     periodiclistformatter.cpp \
-    sppropertydialog.cpp
+    sppropertydialog.cpp \
+    hammingwindowmultiplysp.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -92,7 +93,8 @@ HEADERS  += pvisual.h \
     tinyxml/tinystr.h \
     conditionalinputsignalpipe.h \
     periodiclistformatter.h \
-    sppropertydialog.h
+    sppropertydialog.h \
+    hammingwindowmultiplysp.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui
