@@ -13,3 +13,18 @@ SignalPipelineProcessor TODO
 -Saving bug fix and PG rework.#DONE#
 -UI changes.#DONE#
 -Plugin support.
+-Porting from Voice Analyser
+ -BlockGenerator
+ -MultiVectorFunctionPipe(Concatenate)
+ -SelectiveVal
+ -HammingWindowDivide
+ -BlockNormalizer (remove extra resolution from block builder)
+ -FFTProcessor
+ -SignalExpander
+ -FFTRectangularToPolarConverter
+ -FFTPolarToRectangularConverter
+ -InverseFFtProcessor
+ -MultiVectorFunctionPipe(Subtract)
+ -SelectiveElimination
+ -PinkNoiseRemover
+ -FunctionPipe(oneifzero)
