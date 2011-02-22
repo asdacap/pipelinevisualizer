@@ -56,9 +56,7 @@ PVisual::PVisual(QWidget *parent) :
     addSPwidget->setLayout(spwidgetLayout);
     addDockWidget(Qt::LeftDockWidgetArea,dock);
 
-    QBoxLayout* thislayout=new QBoxLayout(QBoxLayout::BottomToTop,this);
-    centralWidget()->setLayout(thislayout);
-    thislayout->addWidget(view);
+    setCentralWidget(view);
 
     sigcol=new TargetCollection();
     doubcol=new TargetCollection();
