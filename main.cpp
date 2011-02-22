@@ -7,6 +7,7 @@
 #include "widgetedprocessgraphics.h"
 #include "graphabstractionprovider.h"
 #include "conditionalinputsignalpipe.h"
+#include "periodiclistformatter.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
     w.addProvider(new BooleanGeneratorProvider(&w));
     w.addProvider(new ConditionalOutputSignalPipeProvider(&w));
     w.addProvider(new ConditionalInputSignalPipeProvider(&w));
+    w.addProvider(new PeriodicListFormatterProvider(&w));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);

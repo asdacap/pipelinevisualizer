@@ -42,6 +42,7 @@ SPProperty::SPProperty(SPPropertyDialog *dialog, QString key){
     propertyDialog=dialog;
     this->key=key;
     setText(propertyDialog->getSetting()[key]);
+    connect(this,SIGNAL(textChanged(QString)),SLOT(whenTextChanged(QString)));
 }
 
 void SPProperty::whenTextChanged(QString text){
