@@ -187,8 +187,8 @@ TiXmlElement getPGElement(ProcessGraphics* pg){
     return thenewel;
 }
 
-void putConnection(TiXmlElement* el,ProcessGraphics* pg){
-    QList<PipeTarget*> targetlist=pg->getTarget();
+void putSignalConnection(TiXmlElement* el,ProcessGraphics* pg){
+    QList<PipeTarget*> targetlist=pg->getSignalTarget();
     int i=0;
     while(i<targetlist.count()){
         PipeTarget* target=targetlist.at(i);
@@ -208,6 +208,49 @@ void putConnection(TiXmlElement* el,ProcessGraphics* pg){
     }
 }
 
+void putDoubleConnection(TiXmlElement* el,ProcessGraphics* pg){
+    QList<PipeTarget*> targetlist=pg->getDoublePipeTarget();
+    int i=0;
+    while(i<targetlist.count()){
+        PipeTarget* target=targetlist.at(i);
+        if(!target->isAvailable()){
+            QString targetSPName=pg->getName();
+            int targetid=target->getID();
+            QString providerSPName=target->getFeed()->provider->getProcessGraphics()->getName();
+            int providerid=target->getFeed()->provider->getId();
+            TiXmlElement* connectionEl=new TiXmlElement("connection");
+            connectionEl->SetAttribute("target",targetSPName.toAscii().data());
+            connectionEl->SetAttribute("targetID",QVariant(targetid).toString().toAscii().data());
+            connectionEl->SetAttribute("source",providerSPName.toAscii().data());
+            connectionEl->SetAttribute("sourceID",QVariant(providerid).toString().toAscii().data());
+            el->LinkEndChild(connectionEl);
+        }
+        i=i+1;
+    }
+}
+
+void putBoolConnection(TiXmlElement* el,ProcessGraphics* pg){
+    QList<PipeTarget*> targetlist=pg->getBoolPipeTarget();
+    int i=0;
+    while(i<targetlist.count()){
+        PipeTarget* target=targetlist.at(i);
+        if(!target->isAvailable()){
+            QString targetSPName=pg->getName();
+            int targetid=target->getID();
+            QString providerSPName=target->getFeed()->provider->getProcessGraphics()->getName();
+            int providerid=target->getFeed()->provider->getId();
+            TiXmlElement* connectionEl=new TiXmlElement("connection");
+            connectionEl->SetAttribute("target",targetSPName.toAscii().data());
+            connectionEl->SetAttribute("targetID",QVariant(targetid).toString().toAscii().data());
+            connectionEl->SetAttribute("source",providerSPName.toAscii().data());
+            connectionEl->SetAttribute("sourceID",QVariant(providerid).toString().toAscii().data());
+            el->LinkEndChild(connectionEl);
+        }
+        i=i+1;
+    }
+}
+
+
 void PVisual::saveButton(){
     TiXmlDocument mydoc("PVisual");
     TiXmlElement PGElement("ProcessGraphics");
@@ -220,16 +263,28 @@ void PVisual::saveButton(){
     }
 
     mydoc.InsertEndChild(PGElement);
-    TiXmlElement ConnectionElement("Connection");
-
-
+    TiXmlElement ConnectionElement("SignalConnection");
     i=0;
     while(i<pgraphics_list.count()){
-        putConnection(&ConnectionElement,pgraphics_list.at(i));
+        putSignalConnection(&ConnectionElement,pgraphics_list.at(i));
         i=i+1;
     }
-
     mydoc.InsertEndChild(ConnectionElement);
+    ConnectionElement=TiXmlElement("DoubleConnection");
+    i=0;
+    while(i<pgraphics_list.count()){
+        putDoubleConnection(&ConnectionElement,pgraphics_list.at(i));
+        i=i+1;
+    }
+    mydoc.InsertEndChild(ConnectionElement);
+    ConnectionElement=TiXmlElement("BoolConnection");
+    i=0;
+    while(i<pgraphics_list.count()){
+        putBoolConnection(&ConnectionElement,pgraphics_list.at(i));
+        i=i+1;
+    }
+    mydoc.InsertEndChild(ConnectionElement);
+
 
     QString filename=QFileDialog::getSaveFileName();
     if(filename.isEmpty())return;
@@ -269,21 +324,56 @@ ProcessGraphics* PVisual::getProcessGraphics(QString name){
     return 0;
 }
 
-void PVisual::loadConnection(TiXmlElement *elm){
+void PVisual::loadSignalConnection(TiXmlElement *elm){
     TiXmlElement* curelem=elm;
 
-        QString target(curelem->Attribute("target"));
-        QString targetId(curelem->Attribute("targetID"));
-        QString source(curelem->Attribute("source"));
-        QString sourceId(curelem->Attribute("sourceID"));
-        ProcessGraphics* targetPG=getProcessGraphics(target);
-        ProcessGraphics* sourcePG=getProcessGraphics(source);
-        int targetPGID=QVariant(targetId).toInt();
-        int sourcePGID=QVariant(sourceId).toInt();
-        if(targetPG!=0&&sourcePG!=0){
-            sourcePG->getPipeProvider()[sourcePGID]->getNewFeed()->ApplyTarget(
-                            targetPG->getTarget()[targetPGID]);
-        }
+    QString target(curelem->Attribute("target"));
+    QString targetId(curelem->Attribute("targetID"));
+    QString source(curelem->Attribute("source"));
+    QString sourceId(curelem->Attribute("sourceID"));
+    ProcessGraphics* targetPG=getProcessGraphics(target);
+    ProcessGraphics* sourcePG=getProcessGraphics(source);
+    int targetPGID=QVariant(targetId).toInt();
+    int sourcePGID=QVariant(sourceId).toInt();
+    if(targetPG!=0&&sourcePG!=0){
+        sourcePG->getSignalPipeProvider()[sourcePGID]->getNewFeed()->ApplyTarget(
+                    targetPG->getSignalTarget()[targetPGID]);
+    }
+
+}
+
+void PVisual::loadDoubleConnection(TiXmlElement *elm){
+    TiXmlElement* curelem=elm;
+
+    QString target(curelem->Attribute("target"));
+    QString targetId(curelem->Attribute("targetID"));
+    QString source(curelem->Attribute("source"));
+    QString sourceId(curelem->Attribute("sourceID"));
+    ProcessGraphics* targetPG=getProcessGraphics(target);
+    ProcessGraphics* sourcePG=getProcessGraphics(source);
+    int targetPGID=QVariant(targetId).toInt();
+    int sourcePGID=QVariant(sourceId).toInt();
+    if(targetPG!=0&&sourcePG!=0){
+        sourcePG->getDoublePipeProvider()[sourcePGID]->getNewFeed()->ApplyTarget(
+                    targetPG->getDoublePipeTarget()[targetPGID]);
+    }
+
+}
+void PVisual::loadBoolConnection(TiXmlElement *elm){
+    TiXmlElement* curelem=elm;
+
+    QString target(curelem->Attribute("target"));
+    QString targetId(curelem->Attribute("targetID"));
+    QString source(curelem->Attribute("source"));
+    QString sourceId(curelem->Attribute("sourceID"));
+    ProcessGraphics* targetPG=getProcessGraphics(target);
+    ProcessGraphics* sourcePG=getProcessGraphics(source);
+    int targetPGID=QVariant(targetId).toInt();
+    int sourcePGID=QVariant(sourceId).toInt();
+    if(targetPG!=0&&sourcePG!=0){
+        sourcePG->getBoolPipeProvider()[sourcePGID]->getNewFeed()->ApplyTarget(
+                    targetPG->getBoolPipeTarget()[targetPGID]);
+    }
 
 }
 
@@ -302,10 +392,22 @@ void PVisual::loadButton(){
         loadPg(currentEle);
         currentEle=currentEle->NextSiblingElement();
     }
-    pgelement=(TiXmlElement*)mydoc.FirstChildElement("Connection");
+    pgelement=(TiXmlElement*)mydoc.FirstChildElement("SignalConnection");
     currentEle=pgelement->FirstChildElement();
     while(currentEle!=0){
-        loadConnection(currentEle);
+        loadSignalConnection(currentEle);
+        currentEle=currentEle->NextSiblingElement();
+    }
+    pgelement=(TiXmlElement*)mydoc.FirstChildElement("DoubleConnection");
+    currentEle=pgelement->FirstChildElement();
+    while(currentEle!=0){
+        loadDoubleConnection(currentEle);
+        currentEle=currentEle->NextSiblingElement();
+    }
+    pgelement=(TiXmlElement*)mydoc.FirstChildElement("BoolConnection");
+    currentEle=pgelement->FirstChildElement();
+    while(currentEle!=0){
+        loadBoolConnection(currentEle);
         currentEle=currentEle->NextSiblingElement();
     }
 }

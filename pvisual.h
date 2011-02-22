@@ -48,7 +48,9 @@ private:
     TargetCollection* doubcol;
     TargetCollection* boolcol;
     void loadPg(TiXmlElement* elm);
-    void loadConnection(TiXmlElement* elm);
+    void loadSignalConnection(TiXmlElement* elm);
+    void loadDoubleConnection(TiXmlElement* elm);
+    void loadBoolConnection(TiXmlElement* elm);
     ProcessGraphics* getProcessGraphics(QString name);
 
 public slots:
