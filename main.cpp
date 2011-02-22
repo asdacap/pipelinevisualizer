@@ -9,6 +9,7 @@
 #include "conditionalinputsignalpipe.h"
 #include "periodiclistformatter.h"
 #include "hammingwindowmultiplysp.h"
+#include "signalblockbuilder.h"
 
 int main(int argc, char *argv[])
 {
@@ -23,6 +24,7 @@ int main(int argc, char *argv[])
     w.addProvider(new ConditionalInputSignalPipeProvider(&w));
     w.addProvider(new PeriodicListFormatterProvider(&w));
     w.addProvider(new HammingWindowMultiplySPProvider(&w));
+    w.addProvider(new SignalBlockBuilderProvider(&w));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);

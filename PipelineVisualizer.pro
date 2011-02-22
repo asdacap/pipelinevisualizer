@@ -52,7 +52,8 @@ SOURCES += main.cpp\
     conditionalinputsignalpipe.cpp \
     periodiclistformatter.cpp \
     sppropertydialog.cpp \
-    hammingwindowmultiplysp.cpp
+    hammingwindowmultiplysp.cpp \
+    signalblockbuilder.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -94,7 +95,8 @@ HEADERS  += pvisual.h \
     conditionalinputsignalpipe.h \
     periodiclistformatter.h \
     sppropertydialog.h \
-    hammingwindowmultiplysp.h
+    hammingwindowmultiplysp.h \
+    signalblockbuilder.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui
