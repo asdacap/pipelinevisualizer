@@ -96,7 +96,8 @@ HEADERS  += pvisual.h \
     periodiclistformatter.h \
     sppropertydialog.h \
     hammingwindowmultiplysp.h \
-    signalblockbuilder.h
+    signalblockbuilder.h \
+    providerplugininterface.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui
