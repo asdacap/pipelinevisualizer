@@ -19,6 +19,7 @@
 #include "blocknormalizer.h"
 #include "fftprocessor.h"
 #include "signalexpander.h"
+#include "fftrectangulartopolarconverter.h"
 
 int main(int argc, char *argv[])
 {
@@ -44,6 +45,7 @@ int main(int argc, char *argv[])
     w.addProvider(new BlockNormalizerProvider(&w));
     w.addProvider(new FFTProcessorProvider(&w));
     w.addProvider(new SignalExpanderProvider(&w));
+    w.addProvider(new FFTRectangularToPolarConverterProvider(&w));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);

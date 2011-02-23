@@ -21,7 +21,7 @@ SignalPipelineProcessor TODO
  -BlockNormalizer (remove extra resolution from block builder).#DONE#
  -FFTProcessor.#DONE#
  -SignalExpander#DONE#
- -FFTRectangularToPolarConverter
+ -FFTRectangularToPolarConverter#Done#
  -FFTPolarToRectangularConverter
  -InverseFFtProcessor
  -MultiVectorFunctionPipe(Subtract)#DONE#
