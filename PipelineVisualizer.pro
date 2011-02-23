@@ -53,7 +53,9 @@ SOURCES += main.cpp\
     periodiclistformatter.cpp \
     sppropertydialog.cpp \
     hammingwindowmultiplysp.cpp \
-    signalblockbuilder.cpp
+    signalblockbuilder.cpp \
+    blockgenerator.cpp \
+    constantdoublegeneratorprovider.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -97,7 +99,9 @@ HEADERS  += pvisual.h \
     sppropertydialog.h \
     hammingwindowmultiplysp.h \
     signalblockbuilder.h \
-    providerplugininterface.h
+    providerplugininterface.h \
+    blockgenerator.h \
+    constantdoublegeneratorprovider.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui

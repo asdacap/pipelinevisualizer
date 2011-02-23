@@ -10,6 +10,7 @@
 #include "periodiclistformatter.h"
 #include "hammingwindowmultiplysp.h"
 #include "signalblockbuilder.h"
+#include "constantdoublegeneratorprovider.h"
 
 int main(int argc, char *argv[])
 {
@@ -25,6 +26,7 @@ int main(int argc, char *argv[])
     w.addProvider(new PeriodicListFormatterProvider(&w));
     w.addProvider(new HammingWindowMultiplySPProvider(&w));
     w.addProvider(new SignalBlockBuilderProvider(&w));
+    w.addProvider(new ConstantDoubleGeneratorProvider(&w));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);
