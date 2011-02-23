@@ -59,7 +59,8 @@ SOURCES += main.cpp\
     multivectorfunctionpipe.cpp \
     selectivevaluepipe.cpp \
     hammingwindowdividesp.cpp \
-    blocknormalizer.cpp
+    blocknormalizer.cpp \
+    fftprocessor.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -109,7 +110,8 @@ HEADERS  += pvisual.h \
     multivectorfunctionpipe.h \
     selectivevaluepipe.h \
     hammingwindowdividesp.h \
-    blocknormalizer.h
+    blocknormalizer.h \
+    fftprocessor.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui

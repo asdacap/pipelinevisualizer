@@ -19,7 +19,7 @@ SignalPipelineProcessor TODO
  -SelectiveVal.#DONE#
  -HammingWindowDivide.#DONE#
  -BlockNormalizer (remove extra resolution from block builder).#DONE#
- -FFTProcessor
+ -FFTProcessor.#DONE#
  -SignalExpander
  -FFTRectangularToPolarConverter
  -FFTPolarToRectangularConverter

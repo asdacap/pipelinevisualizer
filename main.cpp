@@ -17,6 +17,7 @@
 #include "selectivevaluepipe.h"
 #include "hammingwindowdividesp.h"
 #include "blocknormalizer.h"
+#include "fftprocessor.h"
 
 int main(int argc, char *argv[])
 {
@@ -40,6 +41,7 @@ int main(int argc, char *argv[])
     w.addProvider(new SelectiveValuePipeProvider(&w));
     w.addProvider(new HammingWindowDivideSPProvider(&w));
     w.addProvider(new BlockNormalizerProvider(&w));
+    w.addProvider(new FFTProcessorProvider(&w));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);
