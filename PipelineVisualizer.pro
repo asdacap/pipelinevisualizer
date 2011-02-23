@@ -55,7 +55,8 @@ SOURCES += main.cpp\
     hammingwindowmultiplysp.cpp \
     signalblockbuilder.cpp \
     blockgenerator.cpp \
-    constantdoublegeneratorprovider.cpp
+    constantdoublegeneratorprovider.cpp \
+    multivectorfunctionpipe.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -101,7 +102,8 @@ HEADERS  += pvisual.h \
     signalblockbuilder.h \
     providerplugininterface.h \
     blockgenerator.h \
-    constantdoublegeneratorprovider.h
+    constantdoublegeneratorprovider.h \
+    multivectorfunctionpipe.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui

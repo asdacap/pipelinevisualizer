@@ -15,7 +15,7 @@ SignalPipelineProcessor TODO
 -Plugin support.
 -Porting from Voice Analyser
  -BlockGenerator#DONE#
- -MultiVectorFunctionPipe(Concatenate)
+ -MultiVectorFunctionPipe(Concatenate)#DONE#
  -SelectiveVal
  -HammingWindowDivide
  -BlockNormalizer (remove extra resolution from block builder)
@@ -24,7 +24,7 @@ SignalPipelineProcessor TODO
  -FFTRectangularToPolarConverter
  -FFTPolarToRectangularConverter
  -InverseFFtProcessor
- -MultiVectorFunctionPipe(Subtract)
+ -MultiVectorFunctionPipe(Subtract)#DONE#
  -SelectiveElimination
  -PinkNoiseRemover
  -FunctionPipe(oneifzero)

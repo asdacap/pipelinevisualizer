@@ -12,6 +12,8 @@
 #include "signalblockbuilder.h"
 #include "constantdoublegeneratorprovider.h"
 #include "blockgenerator.h"
+#include "multivectorfunctionpipe.h"
+#include "util.h"
 
 int main(int argc, char *argv[])
 {
@@ -30,6 +32,8 @@ int main(int argc, char *argv[])
     w.addProvider(new ConstantDoubleGeneratorProvider(&w));
     w.addProvider(new ConstantBlockGenerator(&w));
     w.addProvider(new VariableBlockGenerator(&w));
+    w.addProvider(new MultiVectorFunctionPipeProvider("ConcatenateSignal",2,1,concatenate,&w));
+    w.addProvider(new MultiVectorFunctionPipeProvider("SubtractSignal",2,1,subtractIt,&w));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);
