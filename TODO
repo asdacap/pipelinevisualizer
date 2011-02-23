@@ -17,7 +17,7 @@ SignalPipelineProcessor TODO
  -BlockGenerator#DONE#
  -MultiVectorFunctionPipe(Concatenate)#DONE#
  -SelectiveVal.#DONE#
- -HammingWindowDivide
+ -HammingWindowDivide.#DONE#
  -BlockNormalizer (remove extra resolution from block builder)
  -FFTProcessor
  -SignalExpander

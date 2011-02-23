@@ -15,6 +15,7 @@
 #include "multivectorfunctionpipe.h"
 #include "util.h"
 #include "selectivevaluepipe.h"
+#include "hammingwindowdividesp.h"
 
 int main(int argc, char *argv[])
 {
@@ -36,6 +37,7 @@ int main(int argc, char *argv[])
     w.addProvider(new MultiVectorFunctionPipeProvider("ConcatenateSignal",2,1,concatenate,&w));
     w.addProvider(new MultiVectorFunctionPipeProvider("SubtractSignal",2,1,subtractIt,&w));
     w.addProvider(new SelectiveValuePipeProvider(&w));
+    w.addProvider(new HammingWindowDivideSPProvider(&w));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);

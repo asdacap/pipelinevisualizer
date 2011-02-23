@@ -57,7 +57,8 @@ SOURCES += main.cpp\
     blockgenerator.cpp \
     constantdoublegeneratorprovider.cpp \
     multivectorfunctionpipe.cpp \
-    selectivevaluepipe.cpp
+    selectivevaluepipe.cpp \
+    hammingwindowdividesp.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -105,7 +106,8 @@ HEADERS  += pvisual.h \
     blockgenerator.h \
     constantdoublegeneratorprovider.h \
     multivectorfunctionpipe.h \
-    selectivevaluepipe.h
+    selectivevaluepipe.h \
+    hammingwindowdividesp.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui
