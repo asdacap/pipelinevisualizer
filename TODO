@@ -18,7 +18,7 @@ SignalPipelineProcessor TODO
  -MultiVectorFunctionPipe(Concatenate)#DONE#
  -SelectiveVal.#DONE#
  -HammingWindowDivide.#DONE#
- -BlockNormalizer (remove extra resolution from block builder)
+ -BlockNormalizer (remove extra resolution from block builder).#DONE#
  -FFTProcessor
  -SignalExpander
  -FFTRectangularToPolarConverter
