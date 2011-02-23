@@ -49,8 +49,4 @@ void FFTPolarToRectangularConverter::feedData(QVector<QVector<double> > dat, QVe
         i=i+1;
     }
     output_collection.at(1)->feedData(temp,counter);
-
-
-    delete magnitudedat;
-    delete phasedat;
 }
