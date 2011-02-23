@@ -24,6 +24,7 @@
 #include "inversefftprocessor.h"
 #include "selectivesignalelimination.h"
 #include "pinknoiseremover.h"
+#include "functionpipe.h"
 
 int main(int argc, char *argv[])
 {
@@ -54,6 +55,7 @@ int main(int argc, char *argv[])
     w.addProvider(new InverseFFtProcessorProvider(&w));
     w.addProvider(new SelectiveSignalEliminationProvider(&w));
     w.addProvider(new PinkNoiseRemoverProvider(&w));
+    w.addProvider(new FunctionPipeProvider("OneIfZeroSignalFilter",oneifzero,&w));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);

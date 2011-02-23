@@ -68,7 +68,8 @@ SOURCES += main.cpp\
     inversefftprocessor.cpp \
     selectivesignalelimination.cpp \
     vectorfunctionpipe.cpp \
-    pinknoiseremover.cpp
+    pinknoiseremover.cpp \
+    functionpipe.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -127,7 +128,8 @@ HEADERS  += pvisual.h \
     inversefftprocessor.h \
     selectivesignalelimination.h \
     vectorfunctionpipe.h \
-    pinknoiseremover.h
+    pinknoiseremover.h \
+    functionpipe.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui
