@@ -18,6 +18,7 @@
 #include "hammingwindowdividesp.h"
 #include "blocknormalizer.h"
 #include "fftprocessor.h"
+#include "signalexpander.h"
 
 int main(int argc, char *argv[])
 {
@@ -42,6 +43,7 @@ int main(int argc, char *argv[])
     w.addProvider(new HammingWindowDivideSPProvider(&w));
     w.addProvider(new BlockNormalizerProvider(&w));
     w.addProvider(new FFTProcessorProvider(&w));
+    w.addProvider(new SignalExpanderProvider(&w));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);

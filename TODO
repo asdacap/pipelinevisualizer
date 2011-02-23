@@ -20,7 +20,7 @@ SignalPipelineProcessor TODO
  -HammingWindowDivide.#DONE#
  -BlockNormalizer (remove extra resolution from block builder).#DONE#
  -FFTProcessor.#DONE#
- -SignalExpander
+ -SignalExpander#DONE#
  -FFTRectangularToPolarConverter
  -FFTPolarToRectangularConverter
  -InverseFFtProcessor

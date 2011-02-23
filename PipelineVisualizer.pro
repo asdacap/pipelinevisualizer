@@ -60,7 +60,9 @@ SOURCES += main.cpp\
     selectivevaluepipe.cpp \
     hammingwindowdividesp.cpp \
     blocknormalizer.cpp \
-    fftprocessor.cpp
+    fftprocessor.cpp \
+    doubleindexvector.cpp \
+    signalexpander.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -111,7 +113,9 @@ HEADERS  += pvisual.h \
     selectivevaluepipe.h \
     hammingwindowdividesp.h \
     blocknormalizer.h \
-    fftprocessor.h
+    fftprocessor.h \
+    doubleindexvector.h \
+    signalexpander.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui
