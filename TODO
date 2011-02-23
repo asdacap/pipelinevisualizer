@@ -14,7 +14,7 @@ SignalPipelineProcessor TODO
 -UI changes.#DONE#
 -Plugin support.
 -Porting from Voice Analyser
- -BlockGenerator
+ -BlockGenerator#DONE#
  -MultiVectorFunctionPipe(Concatenate)
  -SelectiveVal
  -HammingWindowDivide
