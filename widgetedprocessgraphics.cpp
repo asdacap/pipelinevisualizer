@@ -62,11 +62,9 @@ ProcessGraphics(theprocessor,name,prov,inputNum,outputNum,doubleinputNum,doubleO
 }
 
 void WidgetedProcessGraphics::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
-    if(proxy->contains(proxy->mapFromScene(event->scenePos()))){
 
-    }else{
         ProcessGraphics::mouseMoveEvent(event);
-    }
+
 }
 
 void WidgetedProcessGraphics::mousePressEvent(QGraphicsSceneMouseEvent *event){
