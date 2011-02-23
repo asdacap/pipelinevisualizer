@@ -42,16 +42,15 @@ void PipeFeed::mousePressEvent(QGraphicsSceneMouseEvent *event){
 }
 
 void PipeFeed::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
-    //CheckAligned();
-    //std::cout<<"Intersect"<<std::endl;
-    ungrabMouse();
     int i=0;
+    QGraphicsItem::mouseReleaseEvent(event);
+    ungrabMouse();
     QList<PipeTarget*> targ=target_collection->getTarget();
     while(i<targ.count()){
         if(collidesWithItem(targ.at(i))){
             PipeTarget* colled=targ.at(i);
             ApplyTarget(colled);
-            return QGraphicsItem::mouseReleaseEvent(event);
+            return ;
         }
         i=i+1;
     }
@@ -63,6 +62,7 @@ void PipeFeed::ApplyTarget(PipeTarget *colled){
     isset=true;
     curtarget=colled;
     }else{
+        removeMe();
         std::cout<<"Target already contain feed"<<std::endl;
     }
 }
@@ -75,7 +75,7 @@ void PipeFeed::removeMe(){
     provider->FeedFail(this);
     scene()->removeItem(this);
     setParentItem(0);
-    this->removeFromIndex();
+    //this->removeFromIndex();
     delete this;
 }
 

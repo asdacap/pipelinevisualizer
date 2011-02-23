@@ -20,6 +20,7 @@ PVisual::PVisual(QWidget *parent) :
     setCentralWidget(cwid);
 
     scene=new QGraphicsScene(this);
+    scene->setItemIndexMethod(scene->NoIndex);
     view=new QGraphicsView(centralWidget());
     view->setScene(scene);
 
