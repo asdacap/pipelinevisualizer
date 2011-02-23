@@ -11,6 +11,7 @@
 #include "hammingwindowmultiplysp.h"
 #include "signalblockbuilder.h"
 #include "constantdoublegeneratorprovider.h"
+#include "blockgenerator.h"
 
 int main(int argc, char *argv[])
 {
@@ -27,6 +28,8 @@ int main(int argc, char *argv[])
     w.addProvider(new HammingWindowMultiplySPProvider(&w));
     w.addProvider(new SignalBlockBuilderProvider(&w));
     w.addProvider(new ConstantDoubleGeneratorProvider(&w));
+    w.addProvider(new ConstantBlockGenerator(&w));
+    w.addProvider(new VariableBlockGenerator(&w));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);
