@@ -7,7 +7,7 @@ class DoubleGenerator:public QObject,public SignalProcessor
 {
     Q_OBJECT
 public:
-    DoubleGenerator();
+    DoubleGenerator(double val=0);
     void feedData(QVector<double> dat, int counter, int channel);
     virtual double getValue();
 public slots:

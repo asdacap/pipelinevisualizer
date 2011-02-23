@@ -1,9 +1,10 @@
 #include "doublegenerator.h"
 
-DoubleGenerator::DoubleGenerator()
+DoubleGenerator::DoubleGenerator(double val)
 {
     cdat=0;
     setDoubleOutputNum(1);
+    setValue(val);
 }
 
 void DoubleGenerator::setValue(double val){
