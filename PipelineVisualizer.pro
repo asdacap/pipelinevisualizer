@@ -63,7 +63,8 @@ SOURCES += main.cpp\
     fftprocessor.cpp \
     doubleindexvector.cpp \
     signalexpander.cpp \
-    fftrectangulartopolarconverter.cpp
+    fftrectangulartopolarconverter.cpp \
+    fftpolartorectangularconverter.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -117,7 +118,8 @@ HEADERS  += pvisual.h \
     fftprocessor.h \
     doubleindexvector.h \
     signalexpander.h \
-    fftrectangulartopolarconverter.h
+    fftrectangulartopolarconverter.h \
+    fftpolartorectangularconverter.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui

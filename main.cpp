@@ -20,6 +20,7 @@
 #include "fftprocessor.h"
 #include "signalexpander.h"
 #include "fftrectangulartopolarconverter.h"
+#include "fftpolartorectangularconverter.h"
 
 int main(int argc, char *argv[])
 {
@@ -46,6 +47,7 @@ int main(int argc, char *argv[])
     w.addProvider(new FFTProcessorProvider(&w));
     w.addProvider(new SignalExpanderProvider(&w));
     w.addProvider(new FFTRectangularToPolarConverterProvider(&w));
+    w.addProvider(new FFTPolarToRectangularConverterProvider(&w));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);

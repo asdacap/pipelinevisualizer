@@ -51,7 +51,7 @@ PVisual::PVisual(QWidget *parent) :
     dock->setFeatures(dock->DockWidgetMovable|dock->DockWidgetFloatable);
     QScrollArea* area=new QScrollArea();
     area->setWidget(addSPwidget);
-    addSPwidget->setMinimumSize(300,500);
+    addSPwidget->setMinimumSize(300,600);
     addSPwidget->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::MinimumExpanding);
     dock->setWidget(area);
     spwidgetLayout=new QBoxLayout(QBoxLayout::BottomToTop,this);

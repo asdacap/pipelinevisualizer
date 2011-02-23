@@ -23,7 +23,7 @@ public:
 
     PVisual* PV;
     ProcessGraphics* newInstance(QString name){
-        return new WidgetedProcessGraphics(new FFTRectangularToPolarConverter(),name,1,1,2,0,1,0,PV,this);
+        return new WidgetedProcessGraphics(new FFTRectangularToPolarConverter(),name,2,2,0,0,0,0,PV,this);
     }
 };
 
