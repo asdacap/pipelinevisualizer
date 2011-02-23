@@ -27,4 +27,4 @@ SignalPipelineProcessor TODO
  -MultiVectorFunctionPipe(Subtract)#DONE#
  -SelectiveElimination.#DONE#
  -PinkNoiseRemover#DONE#
- -FunctionPipe(oneifzero)
+ -FunctionPipe(oneifzero)#DONE#
