@@ -11,6 +11,7 @@ class PipeProcessGraphicsProvider
 public:
     PipeProcessGraphicsProvider();
     virtual QString getName()=0;
+    virtual QMap<QString,QString> defaultSetting();
     virtual ProcessGraphics* newInstance();
     virtual ProcessGraphics* newInstance(QString name);
     virtual QMap<QString,QString> getSettings(ProcessGraphics* pg);

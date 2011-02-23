@@ -3,23 +3,26 @@
 #include "iostream"
 #include "QVariant"
 #include "processgraphics.h"
+#include "sppropertydialog.h"
 
 PipeProcessGraphicsProvider::PipeProcessGraphicsProvider(){
     counter=0;
 }
 
+QMap<QString,QString> PipeProcessGraphicsProvider::defaultSetting(){
+    QMap<QString,QString> setting;
+    setting["Name"]=nameCandidate();
+    return setting;
+}
+
 ProcessGraphics* PipeProcessGraphicsProvider::newInstance(){
-    bool ok;
-    QString cand=nameCandidate();
-    QString text = QInputDialog::getText(0,QString("Name the new processor"),
-                                              QString("Processor name:"), QLineEdit::Normal,
-                                              cand, &ok);
-     if (ok && !text.isEmpty()){
-         return newInstance(text);
-     }else{
-         std::cout<<"Fail to get processor name"<<std::endl;
-         return 0;
-     }
+    QMap<QString,QString> setting=defaultSetting();
+    SPPropertyDialog dialog(setting);
+    if(dialog.exec()){
+        return newInstance(dialog.getSetting());
+    }else{
+        return 0;
+    }
 
 }
 
