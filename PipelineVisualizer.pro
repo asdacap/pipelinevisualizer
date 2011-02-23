@@ -66,7 +66,9 @@ SOURCES += main.cpp\
     fftrectangulartopolarconverter.cpp \
     fftpolartorectangularconverter.cpp \
     inversefftprocessor.cpp \
-    selectivesignalelimination.cpp
+    selectivesignalelimination.cpp \
+    vectorfunctionpipe.cpp \
+    pinknoiseremover.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -123,7 +125,9 @@ HEADERS  += pvisual.h \
     fftrectangulartopolarconverter.h \
     fftpolartorectangularconverter.h \
     inversefftprocessor.h \
-    selectivesignalelimination.h
+    selectivesignalelimination.h \
+    vectorfunctionpipe.h \
+    pinknoiseremover.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui

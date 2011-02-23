@@ -26,5 +26,5 @@ SignalPipelineProcessor TODO
  -InverseFFtProcessor.#DONE#
  -MultiVectorFunctionPipe(Subtract)#DONE#
  -SelectiveElimination.#DONE#
- -PinkNoiseRemover
+ -PinkNoiseRemover#DONE#
  -FunctionPipe(oneifzero)

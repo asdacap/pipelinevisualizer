@@ -23,6 +23,7 @@
 #include "fftpolartorectangularconverter.h"
 #include "inversefftprocessor.h"
 #include "selectivesignalelimination.h"
+#include "pinknoiseremover.h"
 
 int main(int argc, char *argv[])
 {
@@ -52,6 +53,7 @@ int main(int argc, char *argv[])
     w.addProvider(new FFTPolarToRectangularConverterProvider(&w));
     w.addProvider(new InverseFFtProcessorProvider(&w));
     w.addProvider(new SelectiveSignalEliminationProvider(&w));
+    w.addProvider(new PinkNoiseRemoverProvider(&w));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);
