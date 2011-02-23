@@ -417,6 +417,7 @@ void PVisual::zoomOut(){
 AddSPButton::AddSPButton(QString provstring, PVisual *pv):QPushButton(provstring){
     PV=pv;
     QObject::connect(this,SIGNAL(clicked()),this,SLOT(AddProv()));
+    setFlat(true);
 }
 
 void AddSPButton::AddProv(){
