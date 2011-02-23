@@ -16,7 +16,7 @@ SignalPipelineProcessor TODO
 -Porting from Voice Analyser
  -BlockGenerator#DONE#
  -MultiVectorFunctionPipe(Concatenate)#DONE#
- -SelectiveVal
+ -SelectiveVal.#DONE#
  -HammingWindowDivide
  -BlockNormalizer (remove extra resolution from block builder)
  -FFTProcessor

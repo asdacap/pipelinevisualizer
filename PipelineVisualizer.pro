@@ -56,7 +56,8 @@ SOURCES += main.cpp\
     signalblockbuilder.cpp \
     blockgenerator.cpp \
     constantdoublegeneratorprovider.cpp \
-    multivectorfunctionpipe.cpp
+    multivectorfunctionpipe.cpp \
+    selectivevaluepipe.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -103,7 +104,8 @@ HEADERS  += pvisual.h \
     providerplugininterface.h \
     blockgenerator.h \
     constantdoublegeneratorprovider.h \
-    multivectorfunctionpipe.h
+    multivectorfunctionpipe.h \
+    selectivevaluepipe.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui
