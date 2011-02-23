@@ -407,11 +407,11 @@ void PVisual::loadButton(){
 }
 
 void PVisual::zoomIn(){
-    view->scale(0.8,0.8);
+    view->scale(1.2,1.2);
 }
 
 void PVisual::zoomOut(){
-    view->scale(1.2,1.2);
+    view->scale(0.8,0.8);
 }
 
 AddSPButton::AddSPButton(QString provstring, PVisual *pv):QPushButton(provstring){
