@@ -25,6 +25,6 @@ SignalPipelineProcessor TODO
  -FFTPolarToRectangularConverter#Done#
  -InverseFFtProcessor.#DONE#
  -MultiVectorFunctionPipe(Subtract)#DONE#
- -SelectiveElimination
+ -SelectiveElimination.#DONE#
  -PinkNoiseRemover
  -FunctionPipe(oneifzero)

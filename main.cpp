@@ -22,6 +22,7 @@
 #include "fftrectangulartopolarconverter.h"
 #include "fftpolartorectangularconverter.h"
 #include "inversefftprocessor.h"
+#include "selectivesignalelimination.h"
 
 int main(int argc, char *argv[])
 {
@@ -50,6 +51,7 @@ int main(int argc, char *argv[])
     w.addProvider(new FFTRectangularToPolarConverterProvider(&w));
     w.addProvider(new FFTPolarToRectangularConverterProvider(&w));
     w.addProvider(new InverseFFtProcessorProvider(&w));
+    w.addProvider(new SelectiveSignalEliminationProvider(&w));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);

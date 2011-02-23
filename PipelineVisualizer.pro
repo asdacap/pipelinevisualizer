@@ -65,7 +65,8 @@ SOURCES += main.cpp\
     signalexpander.cpp \
     fftrectangulartopolarconverter.cpp \
     fftpolartorectangularconverter.cpp \
-    inversefftprocessor.cpp
+    inversefftprocessor.cpp \
+    selectivesignalelimination.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -121,7 +122,8 @@ HEADERS  += pvisual.h \
     signalexpander.h \
     fftrectangulartopolarconverter.h \
     fftpolartorectangularconverter.h \
-    inversefftprocessor.h
+    inversefftprocessor.h \
+    selectivesignalelimination.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui
