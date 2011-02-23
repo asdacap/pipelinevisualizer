@@ -298,10 +298,10 @@ void PVisual::loadPg(TiXmlElement *elm){
         if(provider_list.at(i)->getName()==name){
             ProcessGraphics* thenewpg=provider_list.at(i)->newInstance(setting);
             if(thenewpg!=0){
-                int xpos=QVariant(setting["xPos"]).toInt();
-                int ypos=QVariant(setting["yPos"]).toInt();
-                thenewpg->setPos(xpos,ypos);
+                int xpos=(int)QVariant(setting["xPos"]).toDouble();
+                int ypos=(int)QVariant(setting["yPos"]).toDouble();
                 addPG(thenewpg);
+                thenewpg->setPos(xpos,ypos);
             }
         }
         i=i+1;
