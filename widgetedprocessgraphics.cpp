@@ -77,12 +77,8 @@ void WidgetedProcessGraphics::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
 void WidgetedProcessGraphics::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
 
-    if(proxy->contains(proxy->mapFromScene(event->scenePos()))){
-       // proxy->ungrabMouse();
-        //ungrabMouse();
-    }else{
         ProcessGraphics::mouseReleaseEvent(event);
-    }
+
 }
 
 void WidgetedProcessGraphics::InitializeUi(){
