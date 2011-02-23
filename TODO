@@ -23,7 +23,7 @@ SignalPipelineProcessor TODO
  -SignalExpander#DONE#
  -FFTRectangularToPolarConverter#Done#
  -FFTPolarToRectangularConverter#Done#
- -InverseFFtProcessor
+ -InverseFFtProcessor.#DONE#
  -MultiVectorFunctionPipe(Subtract)#DONE#
  -SelectiveElimination
  -PinkNoiseRemover

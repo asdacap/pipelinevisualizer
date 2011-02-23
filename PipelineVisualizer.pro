@@ -64,7 +64,8 @@ SOURCES += main.cpp\
     doubleindexvector.cpp \
     signalexpander.cpp \
     fftrectangulartopolarconverter.cpp \
-    fftpolartorectangularconverter.cpp
+    fftpolartorectangularconverter.cpp \
+    inversefftprocessor.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -119,7 +120,8 @@ HEADERS  += pvisual.h \
     doubleindexvector.h \
     signalexpander.h \
     fftrectangulartopolarconverter.h \
-    fftpolartorectangularconverter.h
+    fftpolartorectangularconverter.h \
+    inversefftprocessor.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui
