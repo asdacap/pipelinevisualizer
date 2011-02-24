@@ -25,6 +25,7 @@
 #include "selectivesignalelimination.h"
 #include "pinknoiseremover.h"
 #include "functionpipe.h"
+#include "signalpipe.h"
 
 int main(int argc, char *argv[])
 {
@@ -56,6 +57,7 @@ int main(int argc, char *argv[])
     w.addProvider(new SelectiveSignalEliminationProvider(&w));
     w.addProvider(new PinkNoiseRemoverProvider(&w));
     w.addProvider(new FunctionPipeProvider("OneIfZeroSignalFilter",oneifzero,&w));
+    w.addProvider(new SignalPipeProcessorProvider(&w));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);

@@ -69,7 +69,8 @@ SOURCES += main.cpp\
     selectivesignalelimination.cpp \
     vectorfunctionpipe.cpp \
     pinknoiseremover.cpp \
-    functionpipe.cpp
+    functionpipe.cpp \
+    signalpipe.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -129,7 +130,8 @@ HEADERS  += pvisual.h \
     selectivesignalelimination.h \
     vectorfunctionpipe.h \
     pinknoiseremover.h \
-    functionpipe.h
+    functionpipe.h \
+    signalpipe.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui
