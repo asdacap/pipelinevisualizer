@@ -55,6 +55,7 @@ PVisual::PVisual(QWidget *parent) :
     addSPwidget->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::MinimumExpanding);
     dock->setWidget(area);
     spwidgetLayout=new QBoxLayout(QBoxLayout::BottomToTop,this);
+    spwidgetLayout->setSpacing(1);
     addSPwidget->setLayout(spwidgetLayout);
     addDockWidget(Qt::LeftDockWidgetArea,dock);
 
