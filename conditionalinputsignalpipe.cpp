@@ -4,7 +4,64 @@
 ConditionalInputSignalPipe::ConditionalInputSignalPipe()
 {
     setOutputNum(1);
-    enableHelper(2,0,1);
+    tempbol=false;
+
+    dat1set=false;
+    dat2set=false;
+    bolset=false;
+}
+
+void ConditionalInputSignalPipe::feedBoolData(bool dat, int counter, int channel){
+    if(currentCounter==counter){
+        tempbol=dat;
+        if(tempbol){
+            if(!dat1set)return;
+            output_collection.at(0)->feedData(datchan1,counter);
+        }else{
+            if(!dat2set)return;
+            output_collection.at(0)->feedData(datchan2,counter);
+        }
+        dat1set=false;
+        dat2set=false;
+        bolset=false;
+    }else{
+        currentCounter=counter;
+        tempbol=dat;
+        bolset=true;
+    }
+}
+
+void ConditionalInputSignalPipe::feedData(QVector<double> dat, int counter, int channel){
+    if(currentCounter==counter){
+        if(!bolset){
+            if(channel==0){
+                datchan1=dat;
+                dat1set=true;
+            }else{
+                datchan2=dat;
+                dat2set=true;
+            }
+        }else{
+            if(tempbol){
+                if(channel==0){
+                    output_collection.at(0)->feedData(dat,counter);
+                }
+            }else{
+                if(channel==1){
+                    output_collection.at(0)->feedData(dat,counter);
+                }
+            }
+        }
+    }else{
+        currentCounter=counter;
+        if(channel==0){
+            datchan1=dat;
+            dat1set=true;
+        }else{
+            datchan2=dat;
+            dat2set=true;
+        }
+    }
 }
 
 void ConditionalInputSignalPipe::feedData(QVector<QVector<double> > dat, QVector<double> doubdat, QVector<bool> booldat, int counter){
