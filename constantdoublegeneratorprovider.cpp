@@ -26,5 +26,5 @@ ProcessGraphics* ConstantDoubleGeneratorProvider::newInstance(QMap<QString, QStr
     double value=QVariant(setting["Value"]).toDouble();
     DoubleGenerator* dg=new DoubleGenerator();
     dg->setValue(value);
-    return new WidgetedProcessGraphics(dg,setting["Name"],0,0,0,1,0,0,PV,this);
+    return new WidgetedProcessGraphics(dg,setting["Name"],1,0,0,1,0,0,PV,this);
 }

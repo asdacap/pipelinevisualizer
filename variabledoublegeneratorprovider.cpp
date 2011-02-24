@@ -1,5 +1,4 @@
 #include "variabledoublegeneratorprovider.h"
-#include "ui_variabledoublegeneratorprovider.h"
 #include "variabledoublegeneratorproviderdialog.h"
 #include "widgetedprocessgraphics.h"
 #include "qwt_slider.h"

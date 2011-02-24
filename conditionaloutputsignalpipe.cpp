@@ -14,8 +14,10 @@ void ConditionalOutputSignalPipe::feedData(QVector<QVector<double> > dat, QVecto
     bool thevalue=booldat.at(0);
     if(thevalue){
         output_collection.at(0)->feedData(dat1,counter);
+        output_collection.at(1)->feedData(QVector<double>(),counter);
     }else{
         output_collection.at(1)->feedData(dat1,counter);
+        output_collection.at(0)->feedData(QVector<double>(),counter);
     }
 }
 
