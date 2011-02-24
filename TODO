@@ -1,30 +1,7 @@
-SignalPipelineProcessor TODO
--Boolean PipelineVisual.#DONE#
--ProcessGraphic integration with boolean and double pipeline.#DONE#
--SignalProcessor helper method.#DONE#.
--Test the helper function#DONE#;
--Boolean and double pipeline testing.#DONE#
--Start and stop button.#DONE#
--Enable the removal of pipeline.#DONE#
--Saving technique.#DONE#
--Loading technique.#DONE#
--Tooltip technique.#DONE#
--Renaming technique.#DONE#
--Saving bug fix and PG rework.#DONE#
--UI changes.#DONE#
--Plugin support.
--Porting from Voice Analyser
- -BlockGenerator#DONE#
- -MultiVectorFunctionPipe(Concatenate)#DONE#
- -SelectiveVal.#DONE#
- -HammingWindowDivide.#DONE#
- -BlockNormalizer (remove extra resolution from block builder).#DONE#
- -FFTProcessor.#DONE#
- -SignalExpander#DONE#
- -FFTRectangularToPolarConverter#Done#
- -FFTPolarToRectangularConverter#Done#
- -InverseFFtProcessor.#DONE#
- -MultiVectorFunctionPipe(Subtract)#DONE#
- -SelectiveElimination.#DONE#
- -PinkNoiseRemover#DONE#
- -FunctionPipe(oneifzero)#DONE#
+-Use arrows instead of line.
+-make namecandidate more correct.
+-Enable the PG to be selectable and movable in group.
+-Make smarter line that will not overlap pg border.
+-Enable PG to be put back or forth.
+-SignalLengthDoubleSender
+-DoubleAdapter(Multiply)
