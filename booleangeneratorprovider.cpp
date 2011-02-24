@@ -12,9 +12,11 @@ QString BooleanGeneratorProvider::getName(){
     return "BooleanGenerator";
 }
 
-ProcessGraphics* BooleanGeneratorProvider::newInstance(QString text){
+ProcessGraphics* BooleanGeneratorProvider::newInstance(QMap<QString,QString> setting){
 
+    QString text=setting["Name"];
     BooleanGenerator* sf=new BooleanGenerator();
+    sf->setValue(setting["Checked"]=="true");
     QCheckBox* cbox=new QCheckBox(text,0);
     cbox->setChecked(sf->getValue());
     QObject::connect(cbox,SIGNAL(toggled(bool)),sf,SLOT(setValue(bool)));
@@ -22,4 +24,24 @@ ProcessGraphics* BooleanGeneratorProvider::newInstance(QString text){
                                                                                            cbox->fontMetrics().width(text)+20
                                                                                            ,15));
     return pg;
+}
+
+QMap<QString,QString> BooleanGeneratorProvider::defaultSetting(){
+    QMap<QString,QString> setting;
+    setting["Name"]=nameCandidate();
+    setting["Checked"]="true";
+    return setting;
+}
+
+QMap<QString,QString> BooleanGeneratorProvider::getSettings(ProcessGraphics *pg){
+    QMap<QString,QString> setting;
+    setting["Name"]=pg->getName();
+    WidgetedProcessGraphics* wpg=(WidgetedProcessGraphics*)pg;
+    QCheckBox* check=(QCheckBox*)wpg->getWidget();
+    if(check->isChecked()){
+        setting["Checked"]="true";
+    }else{
+        setting["Checked"]="false";
+    }
+    return setting;
 }
