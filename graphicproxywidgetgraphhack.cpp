@@ -1,5 +1,6 @@
 #include "graphicproxywidgetgraphhack.h"
 #include "iostream"
+#include "QGraphicsSceneWheelEvent"
 
 GraphicProxyWidgetGraphHack::GraphicProxyWidgetGraphHack()
 {
@@ -15,4 +16,9 @@ void GraphicProxyWidgetGraphHack::mouseReleaseEvent(QGraphicsSceneMouseEvent *ev
 
     QGraphicsProxyWidget::mouseReleaseEvent(event);
     ungrabMouse();
+}
+
+void GraphicProxyWidgetGraphHack::wheelEvent(QGraphicsSceneWheelEvent *event){
+    QGraphicsProxyWidget::wheelEvent(event);
+    event->accept();
 }
