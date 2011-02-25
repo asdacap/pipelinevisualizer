@@ -1,0 +1,2 @@
+#include "simpleprocessgraphicsprovidertemplate.h"
+
