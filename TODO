@@ -1,6 +1,6 @@
 -Use arrows instead of line.#DONE#
 -make namecandidate more correct.
--Enable the PG to be selectable and movable in group.
+-Enable the PG to be selectable and movable in group.#DONE#
 -Make smarter line that will not overlap pg border.
 -Enable PG to be put back or forth.
 -SignalLengthDoubleSender

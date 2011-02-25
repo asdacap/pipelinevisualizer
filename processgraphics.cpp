@@ -15,6 +15,8 @@ ProcessGraphics::ProcessGraphics(SignalProcessor *sp, QString name, PipeProcessG
     provider=prov;
     pv=pvi;
     PVisual* pvis=pv;
+    setFlag(ItemIsMovable,true);
+    setFlag(ItemIsSelectable,true);
 
     int i=0;
     while(i<sinput){

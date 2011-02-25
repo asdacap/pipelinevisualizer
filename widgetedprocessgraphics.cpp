@@ -20,21 +20,21 @@
 const int Margin=5;
 
 WidgetedProcessGraphics::WidgetedProcessGraphics(SignalProcessor* theprocessor,
-                                 QString name,
-                                 int inputNum,
-                                 int outputNum,
-                                 int doubleinputNum,
-                                 int doubleOutputNum,
-                                 int boolInputNum,
-                                 int boolOutputNum,
-                                 PVisual* pvis,
-                                 PipeProcessGraphicsProvider* prov,
-                                 QWidget* wid,
-                                 QRectF rect):
-ProcessGraphics(theprocessor,name,prov,inputNum,outputNum,doubleinputNum,doubleOutputNum,
+                                                 QString name,
+                                                 int inputNum,
+                                                 int outputNum,
+                                                 int doubleinputNum,
+                                                 int doubleOutputNum,
+                                                 int boolInputNum,
+                                                 int boolOutputNum,
+                                                 PVisual* pvis,
+                                                 PipeProcessGraphicsProvider* prov,
+                                                 QWidget* wid,
+                                                 QRectF rect):
+    ProcessGraphics(theprocessor,name,prov,inputNum,outputNum,doubleinputNum,doubleOutputNum,
         boolInputNum,boolOutputNum,pvis){
 
-    setFlag(ItemIsMovable,true);
+
     setFlag(ItemSendsGeometryChanges,true);
     setAcceptHoverEvents(true);
 
@@ -63,7 +63,7 @@ ProcessGraphics(theprocessor,name,prov,inputNum,outputNum,doubleinputNum,doubleO
 
 void WidgetedProcessGraphics::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
 
-        ProcessGraphics::mouseMoveEvent(event);
+    ProcessGraphics::mouseMoveEvent(event);
 
 }
 
@@ -77,7 +77,7 @@ void WidgetedProcessGraphics::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
 void WidgetedProcessGraphics::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
 
-        ProcessGraphics::mouseReleaseEvent(event);
+    ProcessGraphics::mouseReleaseEvent(event);
 
 }
 
@@ -204,6 +204,11 @@ void WidgetedProcessGraphics::paint(QPainter *painter, const QStyleOptionGraphic
     }else{
         painter->setBrush(QBrush(Qt::magenta));
     }
+    if(isSelected()){
+        painter->setPen(QPen(Qt::black,2));
+    }else{
+        painter->setPen(QPen(Qt::black,1));
+    }
     painter->drawRect(boundingRect());
 }
 
@@ -211,39 +216,45 @@ void WidgetedProcessGraphics::renameMe(){
     bool ok;
     QString cand=getName();
     QString text = QInputDialog::getText(0,QString("Name the new processor"),
-                                              QString("Processor name:"), QLineEdit::Normal,
-                                              cand, &ok);
-     if (ok && !text.isEmpty()){
-         if(pv->isExistPGName(text))return;
-         pgName=text;
-         this->text->setText(getName());
-         InitializeUi();
-     }else{
-         std::cout<<"Fail to get processor name"<<std::endl;
-         return;
-     }
+                                         QString("Processor name:"), QLineEdit::Normal,
+                                         cand, &ok);
+    if (ok && !text.isEmpty()){
+        if(pv->isExistPGName(text))return;
+        pgName=text;
+        this->text->setText(getName());
+        InitializeUi();
+    }else{
+        std::cout<<"Fail to get processor name"<<std::endl;
+        return;
+    }
 
 }
 
 QVariant WidgetedProcessGraphics::itemChange(GraphicsItemChange change, const QVariant &value){
     switch (change) {
-     case ItemPositionHasChanged:{
-         int i=0;
-         while(i<getTarget().count()){
-             getTarget().at(i)->realign();
-             i=i+1;
-         }
-         i=0;
-         while(i<getPipeProvider().count()){
-             getPipeProvider().at(i)->realign();
-             i=i+1;
-         }
-         break;}
-         default:
-         break;
-     };
+    case ItemPositionHasChanged:{
+        int i=0;
+        while(i<getTarget().count()){
+            getTarget().at(i)->realign();
+            i=i+1;
+        }
+        i=0;
+        while(i<getPipeProvider().count()){
+            getPipeProvider().at(i)->realign();
+            i=i+1;
+        }
+        break;}
+    case ItemSelectedHasChanged:{
 
-     return QGraphicsItem::itemChange(change, value);
+
+        break;
+    }
+    default:
+        break;
+
+    };
+
+    return QGraphicsItem::itemChange(change, value);
 }
 
 void WidgetedProcessGraphics::timerElapsed(){
