@@ -23,6 +23,7 @@ PVisual::PVisual(QWidget *parent) :
     scene->setItemIndexMethod(scene->NoIndex);
     view=new QGraphicsView(centralWidget());
     view->setScene(scene);
+    view->setDragMode(view->ScrollHandDrag);
 
     QToolBar* mainToolBar=new QToolBar("Main Toolbar");
     addToolBar(mainToolBar);
