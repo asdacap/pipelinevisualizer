@@ -4,6 +4,7 @@
 #include <QGraphicsEllipseItem>
 #include "targetcollection.h"
 #include "pipeprovider.h"
+#include "linearrow.h"
 
 class PipeProvider;
 
@@ -17,13 +18,14 @@ public:
     void ApplyTarget(PipeTarget* targ);
     void realign();
     void removeMe();
+    QRectF boundingRect()const{return QRectF(0,0,20,20);}
 
     TargetCollection* target_collection;
     PipeTarget* curtarget;
     PipeProvider* provider;
 private:
     void CheckAligned();
-    QGraphicsLineItem* theline;
+    LineArrow* theline;
     bool isset;
 };
 

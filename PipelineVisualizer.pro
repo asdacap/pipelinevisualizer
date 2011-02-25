@@ -70,7 +70,8 @@ SOURCES += main.cpp\
     vectorfunctionpipe.cpp \
     pinknoiseremover.cpp \
     functionpipe.cpp \
-    signalpipe.cpp
+    signalpipe.cpp \
+    linearrow.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -131,7 +132,8 @@ HEADERS  += pvisual.h \
     vectorfunctionpipe.h \
     pinknoiseremover.h \
     functionpipe.h \
-    signalpipe.h
+    signalpipe.h \
+    linearrow.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui

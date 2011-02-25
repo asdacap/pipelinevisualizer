@@ -10,7 +10,9 @@ PipeFeed::PipeFeed(PipeProvider* prov,TargetCollection* tg):QGraphicsItem()
     setFlag(ItemSendsGeometryChanges);
     setZValue(100);
 
-    theline=new QGraphicsLineItem(this);
+    theline=new LineArrow();
+    theline->setParentItem(this);
+    theline->setPos(boundingRect().width()/2,boundingRect().height()/2);
     theline->setZValue(-1);
     theline->setFlags(QGraphicsItem::ItemStacksBehindParent);
 
@@ -86,9 +88,10 @@ void PipeFeed::realign(){
     }
     QPointF transpose=mapFromScene(provider->scenePos());
     theline->setLine(
-                boundingRect().width()/2,
-                boundingRect().height()/2,
-                transpose.x()+provider->boundingRect().width()/2,
-                transpose.y()+provider->boundingRect().height()/2
-                );
+                    boundingRect().width()/2,
+                    boundingRect().height()/2,
+                    transpose.x()+provider->boundingRect().width()/2,
+                    transpose.y()+provider->boundingRect().height()/2
+                    );
+
 }
