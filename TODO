@@ -5,3 +5,4 @@
 -Enable PG to be put back or forth.
 -SignalLengthDoubleSender
 -DoubleAdapter(Multiply)
+-Plugin support.
