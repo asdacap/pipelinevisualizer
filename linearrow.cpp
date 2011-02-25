@@ -62,8 +62,6 @@ void LineArrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         angle=std::atan2(double(y2i-y1i),double(x2i-x1i));
         angle=angle/PI*180;
         angle=angle+90;
-        std::cout<<angle<<std::endl;
-        //angle=double(angle)/PI*180;
     }
 
     QTransform tr=painter->transform();
