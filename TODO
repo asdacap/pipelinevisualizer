@@ -1,4 +1,4 @@
--Use arrows instead of line.
+-Use arrows instead of line.#DONE#
 -make namecandidate more correct.
 -Enable the PG to be selectable and movable in group.
 -Make smarter line that will not overlap pg border.
