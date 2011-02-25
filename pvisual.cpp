@@ -125,6 +125,8 @@ void PVisual::addPG(ProcessGraphics* newpg){
     if(isExistPGName(newpg->getName()))return ;
     scene->addItem(newpg);
     pgraphics_list.append(newpg);
+    newpg->setPos(view->mapToScene(view->width()/2-newpg->boundingRect().width()/2
+                                   ,view->height()/2-newpg->boundingRect().height()/2));
 }
 
 void PVisual::addPG(QString providername){
