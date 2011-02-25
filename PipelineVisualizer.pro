@@ -73,7 +73,8 @@ SOURCES += main.cpp\
     signalpipe.cpp \
     linearrow.cpp \
     simpleprocessgraphicsprovidertemplate.cpp \
-    blocklengthsender.cpp
+    blocklengthsender.cpp \
+    doublemultiply.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -137,7 +138,8 @@ HEADERS  += pvisual.h \
     signalpipe.h \
     linearrow.h \
     simpleprocessgraphicsprovidertemplate.h \
-    blocklengthsender.h
+    blocklengthsender.h \
+    doublemultiply.h
 
 FORMS    += pvisual.ui \
     variabledoublegeneratorproviderdialog.ui

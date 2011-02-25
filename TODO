@@ -4,5 +4,5 @@
 -Make smarter line that will not overlap pg border.
 -Enable PG to be put back or forth.
 -SignalLengthDoubleSender#DONE#
--DoubleAdapter(Multiply)
+-DoubleAdapter(Multiply)#DONE#
 -Plugin support.
