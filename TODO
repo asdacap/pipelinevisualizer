@@ -3,6 +3,6 @@
 -Enable the PG to be selectable and movable in group.#DONE#
 -Make smarter line that will not overlap pg border.
 -Enable PG to be put back or forth.
--SignalLengthDoubleSender
+-SignalLengthDoubleSender#DONE#
 -DoubleAdapter(Multiply)
 -Plugin support.
