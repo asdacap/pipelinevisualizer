@@ -28,6 +28,7 @@ ProcessGraphics* PipeProvider::getProcessGraphics(){
 }
 
 void PipeProvider::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
+    scene()->clearSelection();
     PipeFeed* pf=getNewFeed();
     pf->grabMouse();
     pf->setPos(scenePos());
