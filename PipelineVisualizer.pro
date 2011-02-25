@@ -8,7 +8,7 @@ QT       += core gui multimedia
 
 TARGET = PipelineVisualizer
 TEMPLATE = app
-
+QMAKE_LFLAGS += -rdynamic
 
 SOURCES += main.cpp\
         pvisual.cpp \

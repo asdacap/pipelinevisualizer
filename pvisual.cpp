@@ -9,6 +9,7 @@
 #include "soundfeeder.h"
 #include "soundsink.h"
 #include "QFileDialog"
+#include "providerplugininterface.h"
 #include <iostream>
 
 PVisual::PVisual(QWidget *parent) :
@@ -42,7 +43,10 @@ PVisual::PVisual(QWidget *parent) :
     QObject::connect(loadAction,SIGNAL(triggered()),this,SLOT(loadButton()));
     saveAction=new QAction("Save",this);
     QObject::connect(saveAction,SIGNAL(triggered()),this,SLOT(saveButton()));
+    loadPluginAction=new QAction("LoadPlugin",this);
+    QObject::connect(loadPluginAction,SIGNAL(triggered()),this,SLOT(loadPlugin()));
 
+    menuBar()->addAction(loadPluginAction);
     QMenu* filemenu=menuBar()->addMenu("File");
     filemenu->addAction(loadAction);
     filemenu->addAction(saveAction);
@@ -418,6 +422,28 @@ void PVisual::zoomOut(){
     view->scale(0.8,0.8);
 }
 
+void PVisual::loadPlugin(){
+    std::cout<<"Load plugin"<<std::endl;
+    QString filepath=QFileDialog::getOpenFileName();
+    if(!filepath.isEmpty()){
+        QPluginLoader* loader=new QPluginLoader(filepath,this);
+        if(!loader->load()){
+            std::cout<<"Load plugin failed"<<std::endl;
+            std::cout<<loader->errorString().toStdString()<<std::endl;
+            return ;
+        }
+        ProviderPluginInterface* plugin=qobject_cast<ProviderPluginInterface*>(loader->instance());
+        if(plugin){
+            QList<PipeProcessGraphicsProvider*> providerlist=plugin->getProviders(this);
+            foreach (PipeProcessGraphicsProvider* provider,providerlist) {
+                addProvider(provider);
+            }
+        }else{
+            std::cout<<"Plugin empty"<<std::endl;
+        }
+    }
+}
+
 AddSPButton::AddSPButton(QString provstring, PVisual *pv):QPushButton(provstring){
     PV=pv;
     QObject::connect(this,SIGNAL(clicked()),this,SLOT(AddProv()));
@@ -426,4 +452,6 @@ AddSPButton::AddSPButton(QString provstring, PVisual *pv):QPushButton(provstring
 
 void AddSPButton::AddProv(){
     PV->addPG(text());
+
 }
+

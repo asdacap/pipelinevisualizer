@@ -3,9 +3,11 @@
 #include "pipeproviderprovider.h"
 #include "QList"
 #include "QObject"
+class PVisual;
 
 class ProviderPluginInterface{
-    virtual QList<PipeProcessGraphicsProvider*> getProviders();
+public:
+    virtual QList<PipeProcessGraphicsProvider*> getProviders(PVisual* pv)=0;
 };
 
 Q_DECLARE_INTERFACE(ProviderPluginInterface,"ProviderPluginInterface/1.0")

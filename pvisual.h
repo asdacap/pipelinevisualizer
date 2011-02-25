@@ -59,6 +59,7 @@ private:
     QAction* saveAction;
     QAction* zoomInAction;
     QAction* zoomOutAction;
+    QAction* loadPluginAction;
     double curscale;
 
     QWidget* addSPwidget;
@@ -72,6 +73,7 @@ public slots:
     void loadButton();
     void zoomIn();
     void zoomOut();
+    void loadPlugin();
 };
 
 class AddSPButton:public QPushButton{
