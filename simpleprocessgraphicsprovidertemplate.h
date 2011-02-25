@@ -30,8 +30,8 @@ public:
     PVisual* PV;
     QString getName(){return name;}
     ProcessGraphics* newInstance(QString s){
-        P prov=new P();
-        return new WidgetedProcessGraphics(prov,s,sinput,soutput,dinput,doutput,binput,boutput,PV);
+        P* prov=new P();
+        return new WidgetedProcessGraphics(prov,s,sinput,soutput,dinput,doutput,binput,boutput,PV,this);
     }
 };
 
