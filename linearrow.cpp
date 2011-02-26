@@ -39,8 +39,8 @@ void LineArrow::setLine(int x1, int y1, int x2, int y2){
 }
 
 void inline DrawArrow(QPainter* painter){
-    painter->drawLine(0,0,10,-15);
-    painter->drawLine(0,0,-10,-15);
+    painter->drawLine(0,0,5,-9);
+    painter->drawLine(0,0,-5,-9);
 }
 
 QPoint inline findMiddleCoordinate(double ratio,int x1,int y1,int x2,int y2){

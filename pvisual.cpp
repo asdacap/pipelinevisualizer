@@ -46,8 +46,8 @@ PVisual::PVisual(QWidget *parent) :
     loadPluginAction=new QAction("LoadPlugin",this);
     QObject::connect(loadPluginAction,SIGNAL(triggered()),this,SLOT(loadPlugin()));
 
-    menuBar()->addAction(loadPluginAction);
     QMenu* filemenu=menuBar()->addMenu("File");
+    menuBar()->addAction(loadPluginAction);
     filemenu->addAction(loadAction);
     filemenu->addAction(saveAction);
 
