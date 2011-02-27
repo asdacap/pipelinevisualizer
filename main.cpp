@@ -29,6 +29,7 @@
 #include "simpleprocessgraphicsprovidertemplate.h"
 #include "blocklengthsender.h"
 #include "doublemultiply.h"
+#include "harmoniccalculator.h"
 
 int main(int argc, char *argv[])
 {
@@ -63,6 +64,7 @@ int main(int argc, char *argv[])
     w.addProvider(new SignalPipeProcessorProvider(&w));
     w.addProvider(new SimpleProcessGraphicsProviderTemplate<BlockLengthSender>("BlockLengthSender",&w,1,0,0,1,0,0));
     w.addProvider(new SimpleProcessGraphicsProviderTemplate<DoubleMultiply>("DoubleMultiply",&w,0,0,2,1,0,0));
+    w.addProvider(new SimpleProcessGraphicsProviderTemplate<HarmonicCalculator>("Harmonic Calculator",&w,1,1,2,0,0,0));
     w.show();
 
     w.setWindowState(Qt::WindowMaximized);
