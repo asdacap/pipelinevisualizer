@@ -30,12 +30,13 @@
 #include "blocklengthsender.h"
 #include "doublemultiply.h"
 #include "harmoniccalculator.h"
+#include "mainprogram.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    PVisual w;
+    MainProgram w;
     w.addProvider(new GraphAbstractionProvider(&w));
     w.addProvider(new VariableDoubleGeneratorProvider(&w));
     w.addProvider(new SignalScalerProvider(&w));

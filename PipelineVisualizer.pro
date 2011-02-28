@@ -74,7 +74,8 @@ SOURCES += main.cpp\
     simpleprocessgraphicsprovidertemplate.cpp \
     blocklengthsender.cpp \
     doublemultiply.cpp \
-    harmoniccalculator.cpp
+    harmoniccalculator.cpp \
+    mainprogram.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -140,9 +141,10 @@ HEADERS  += pvisual.h \
     simpleprocessgraphicsprovidertemplate.h \
     blocklengthsender.h \
     doublemultiply.h \
-    harmoniccalculator.h
+    harmoniccalculator.h \
+    mainprogram.h
 
-FORMS    += pvisual.ui \
+FORMS    += \
     variabledoublegeneratorproviderdialog.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../qwt-5.2.1/qwt-build-desktop/lib/ -lqwt5

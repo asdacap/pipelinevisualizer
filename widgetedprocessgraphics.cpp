@@ -15,6 +15,8 @@
 #include "QGraphicsSceneContextMenuEvent"
 #include "QGraphicsProxyWidget"
 #include <iostream>
+#include <QPainter>
+#include <QStyleOptionGraphicsItem>
 #include "QInputDialog"
 
 const int Margin=5;

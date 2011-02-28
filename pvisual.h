@@ -1,89 +1,15 @@
 #ifndef PVISUAL_H
 #define PVISUAL_H
-
-#include <QWidget>
-#include <QMainWindow>
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QBoxLayout>
-#include "pipeproviderprovider.h"
-#include <QList>
-#include <QComboBox>
-#include <QLineEdit>
-#include "pipeproviderprovider.h"
 #include "targetcollection.h"
-#include "QPushButton"
-#include "tinyxml/tinyxml.h"
+#include "pipeproviderprovider.h"
 
-typedef struct PipeProcessGraphicsProvider PipeProcessGraphicsProvider;
-
-namespace Ui {
-    class PVisual;
-}
-
-class PVisual : public QMainWindow
-{
-    Q_OBJECT
-
+class PVisual{
 public:
-    explicit PVisual(QWidget *parent = 0);
-    void InitializeProvider();
-    ~PVisual();
-    void addProvider(PipeProcessGraphicsProvider* prov);
-    void addPG(ProcessGraphics* pg);
-    void addPG(QString providername);
-    void removePG(ProcessGraphics* pg);
-    bool isExistPGName(QString name);
-    bool isExistProviderName(QString name);
-
-    TargetCollection* getSignalTargetCollection();
-    TargetCollection* getDoubleTargetCollection();
-    TargetCollection* getBoolTargetCollection();
-
-private:
-    QGraphicsScene* scene;
-    QGraphicsView* view;
-    QList<PipeProcessGraphicsProvider*> provider_list;
-    QList<ProcessGraphics*> pgraphics_list;
-    Ui::PVisual *ui;
-    TargetCollection* sigcol;
-    TargetCollection* doubcol;
-    TargetCollection* boolcol;
-    void loadPg(TiXmlElement* elm);
-    void loadSignalConnection(TiXmlElement* elm);
-    void loadDoubleConnection(TiXmlElement* elm);
-    void loadBoolConnection(TiXmlElement* elm);
-    ProcessGraphics* getProcessGraphics(QString name);
-
-    QAction* loadAction;
-    QAction* saveAction;
-    QAction* zoomInAction;
-    QAction* zoomOutAction;
-    QAction* loadPluginAction;
-    double curscale;
-
-    QWidget* addSPwidget;
-    QBoxLayout* spwidgetLayout;
-
-public slots:
-    void startButton();
-    void stopButton();
-    void removeAllButton();
-    void saveButton();
-    void loadButton();
-    void zoomIn();
-    void zoomOut();
-    void loadPlugin();
-};
-
-class AddSPButton:public QPushButton{
-    Q_OBJECT
-public:
-
-    AddSPButton(QString provstring,PVisual* pv);
-    PVisual* PV;
-public slots:
-    void AddProv();
+    virtual void removePG(ProcessGraphics* )=0;
+    virtual bool isExistPGName(QString name)=0;
+    virtual TargetCollection* getSignalTargetCollection()=0;
+    virtual TargetCollection* getDoubleTargetCollection()=0;
+    virtual TargetCollection* getBoolTargetCollection()=0;
 };
 
 #endif // PVISUAL_H
