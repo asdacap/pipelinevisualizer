@@ -8,7 +8,9 @@ QT       += core gui multimedia
 
 TARGET = PVisualizer
 TEMPLATE = lib
-DESTDIR	+= ../build/
+win32:CONFIG(release, debug|release): DESTDIR	+= ../build/release/
+else:win32:CONFIG(debug, debug|release): DESTDIR	+= ../build/debug/
+else:unix: DESTDIR	+= ../build/
 OBJECTS_DIR = ../temp/
 
 SOURCES +=\
@@ -144,8 +146,8 @@ FORMS    += \
     
 
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../qwt-5.2.1/lib/ -lqwt5
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../qwt-5.2.1/lib/ -lqwt5
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../qwt-5.2.1/qwt-build-desktop/lib/ -lqwt5
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../qwt-5.2.1/qwt-build-desktop/lib/ -lqwt5
 else:symbian: LIBS += -lqwt
 else:unix: LIBS += -L$$PWD/../../../../usr/local/qwt-5.2.1/lib/ -lqwt
 
@@ -159,6 +161,4 @@ LIBS += -L$$PWD/../../fftw-3.2.2/.libs/ -lfftw3
 
 INCLUDEPATH += $$PWD/../../fftw-3.2.2/api
 DEPENDPATH += $$PWD/../../fftw-3.2.2/api
-
-
 

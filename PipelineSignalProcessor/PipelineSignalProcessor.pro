@@ -6,7 +6,10 @@
 
 QT       += core gui multimedia
 
-DESTDIR	+= ../build/
+
+win32:CONFIG(release, debug|release): DESTDIR	+= ../build/release/
+else:win32:CONFIG(debug, debug|release): DESTDIR	+= ../build/debug/
+else:unix: DESTDIR	+= ../build/
 OBJECTS_DIR = ../temp/
 
 TARGET = PipelineSignalProcessor
@@ -28,7 +31,6 @@ HEADERS  += \
 
 FORMS    +=
 
-
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build/release/ -lPVisualizer
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build/debug/ -lPVisualizer
 else:symbian: LIBS += -lPVisualizer
@@ -37,8 +39,8 @@ else:unix: LIBS += -L$$PWD/../build/ -lPVisualizer
 INCLUDEPATH += $$PWD/../PipelineVisualizer
 DEPENDPATH += $$PWD/../PipelineVisualizer
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../qwt-5.2.1/lib/ -lqwt5
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../qwt-5.2.1/lib/ -lqwt5
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../qwt-5.2.1/qwt-build-desktop/lib/ -lqwt5
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../qwt-5.2.1/qwt-build-desktop/lib/ -lqwt5
 else:symbian: LIBS += -lqwt
 else:unix: LIBS += -L$$PWD/../../../../usr/local/qwt-5.2.1/lib/ -lqwt
 

@@ -9,7 +9,9 @@ QT       += core gui
 TARGET = DefaultSignalProcessor
 TEMPLATE = lib
 CONFIG += plugin
-DESTDIR	+= ../build/
+win32:CONFIG(release, debug|release): DESTDIR	+= ../build/release/
+else:win32:CONFIG(debug, debug|release): DESTDIR	+= ../build/debug/
+else:unix: DESTDIR	+= ../build/
 OBJECTS_DIR = ../temp/
 
 SOURCES += \
@@ -28,6 +30,7 @@ HEADERS += \
     providerplugininterface.h \
     sppropertydialog.h \
     counterkeeper.h
+
 unix:!symbian {
     maemo5 {
         target.path = /opt/usr/lib
