@@ -155,10 +155,10 @@ unix:INCLUDEPATH += $$PWD/../../../../usr/local/qwt-5.2.1/include/
 unix:DEPENDPATH += $$PWD/../../../../usr/local/qwt-5.2.1/include/
 
 
-LIBS += -L$$PWD/../fftw-3.2.2/.libs/ -lfftw3
+LIBS += -L$$PWD/../../fftw-3.2.2/.libs/ -lfftw3
 
-INCLUDEPATH += $$PWD/../fftw-3.2.2/api
-DEPENDPATH += $$PWD/../fftw-3.2.2/api
+INCLUDEPATH += $$PWD/../../fftw-3.2.2/api
+DEPENDPATH += $$PWD/../../fftw-3.2.2/api
 
 
 
