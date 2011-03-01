@@ -1,0 +1,75 @@
+Muhd Amirul Ashraf (73):
+      Now that the visual has passed the sound input to output test, we may proceed.
+      Added a start and stop function signal processor.
+      Modified the signalprocessor to enable bool and double output.
+      Modified to use candidate name. And to use the debugMessage()
+      Now will not add pg if the name is used.
+      Try to port the MainWindow from the VoiceAnalyser project, and it's dependencies. Now compilable.
+      Added the pvisual into mainwindow and add a graph abstraction provider. Now usable.
+      Removed the use of static data and modified other class to suit it.
+      Changed the pipeprovider pipetarget and pipefeed to a base class to makeuse of double and boolean pipeline.
+      Just make the double pipeline class.
+      Added a todo list.
+      Sorry, todo mistake.
+      Added boolean visual pipeline feed.
+      Process graphic integration with double and boolean pipeline complete. And some header problem solved.
+      Change some todo.
+      Make some helper function at the signal processor and some process graphics geometry change.
+      The double pipeline has a bug and had been fixed.It gui seems to work. Ported the signal scaler and the double container (now called Variable Double Generator). The provider used it's own dialog.
+      Added the boolean generator provider.
+      Tested the boolean pipeline. Ported the conditional output pipe to do it.
+      Some todo modification.
+      Todo changes
+      Added a start and stop button to the PVisual. Added isStarted method on signal processor. The process graphics will change to magenta when isstarted == false. Detected strange problem on sound feeder.
+      Add a remove context menu. But we have problems with some SignalProcessor cleanup.
+      Solved the problem with pipeprovider cleanup.
+      Todo Update.
+      Added a helper function at the PipeProvider.
+      Changed the structure of processgraphics. Process graphics is now a base class.
+      added the default process graphic and now the variable double generator use widgeted processgraphics.
+      Now the graph abstraction is using the widgeted process graphics.
+      VariableDouble generator now do not use MainWindow. And the graph is now working.
+      Graph strange problem stil exist.
+      The graph panning problem solved with some hack.
+      The boolean generator now also use the widgeted process graphics. And remove it MainWindow dependencies.
+      Remove the use of the old MainWindow fully.
+      ProcessGraphics and it's provider modification and it's dependencies.
+      Code cleanup.
+      Modified the pipeprocessprovider the enable saving and loading. The default implementation only take one properties that is "name".
+      Added remove all button.
+      Variable double generator setting fix.
+      Fixed variable double generator bug.
+      Saving probably done.
+      Saving and loading is now operational but maybe buggy.
+      Tooltip technique structure is complete. It's jus a matter of implementation.
+      TODO update.
+      Some ui changes.
+      Added a conditional input signal pipe. Noticed a bug in which PGProvider name must never have spaces. And we have bugs regarding the PipeTarget and PipeProvider addressing on saving.
+      PG rework is now complete. DefaultPG is deleted. Now only use widgeted PG. the PG subclass will now only do the ui costumization.
+      Saving bug regarding Double and Boolean connection is now fixed.
+      Rename ability done.
+      UI changes done.
+      Added a property dialog to aid development.
+      Added a periodic list formatted and some bugfix on sppropertydialog.
+      Some code cleanup.
+      Sizing changes.
+      Some little pipe provider tweak.
+      Added a hamming window multiply signal processor.
+      Added a signal block builder.
+      TODO changes.
+      Plugin Prototype.
+      New provider helper function.
+      Double generator minor Change.
+      New class constant double generator provider.
+      Added Variable and constant blcok generator.
+      TODO update
+      Multivector function pipe, Concatenate and subtract is done.
+      Selective val implemented.
+      Fixed the pipefeed movable glitch.
+      Minor ui change.
+      Added hamming window divide sp.
+      Block normalizer done.
+      Added an FFTProcessor.
+      Signal expander is implemented along with it double index vector dependencies.
+      FFt Rectangular to polar converter is added.
+
