@@ -5,11 +5,13 @@
 #include "signalprocessor.h"
 #include "QComboBox"
 #include "QPushButton"
-#include "soundfeeder.h"
-#include "soundsink.h"
 #include "QFileDialog"
 #include "providerplugininterface.h"
+#include <QToolBar>
+#include <QMenuBar>
+#include <QDockWidget>
 #include <iostream>
+#include <QPluginLoader>
 
 MainProgram::MainProgram(QWidget *parent) :
     QMainWindow(parent)
@@ -97,8 +99,6 @@ void MainProgram::stopButton(){
 }
 
 void MainProgram::InitializeProvider(){
-    addProvider(new SoundSinkProvider(this));
-    addProvider(new SoundFeederProvider(this));
 }
 
 void MainProgram::addProvider(PipeProcessGraphicsProvider *prov){
