@@ -44,6 +44,8 @@ private:
     TargetCollection* sigcol;
     TargetCollection* doubcol;
     TargetCollection* boolcol;
+    void loadDefaultPlugin();
+    void loadPlugin(QString filepath);
     void loadPg(TiXmlElement* elm);
     void loadSignalConnection(TiXmlElement* elm);
     void loadDoubleConnection(TiXmlElement* elm);
@@ -55,6 +57,7 @@ private:
     QAction* zoomInAction;
     QAction* zoomOutAction;
     QAction* loadPluginAction;
+    QAction* pluginListAction;
     double curscale;
 
     QWidget* addSPwidget;
@@ -69,6 +72,7 @@ public slots:
     void zoomIn();
     void zoomOut();
     void loadPlugin();
+    void openPluginListEditor();
 };
 
 class AddSPButton:public QPushButton{

@@ -12,6 +12,9 @@
 #include <QDockWidget>
 #include <iostream>
 #include <QPluginLoader>
+#include <QTextStream>
+#include <QApplication>
+#include "pluginlisteditor.h"
 
 MainProgram::MainProgram(QWidget *parent) :
     QMainWindow(parent)
@@ -44,9 +47,12 @@ MainProgram::MainProgram(QWidget *parent) :
     QObject::connect(saveAction,SIGNAL(triggered()),this,SLOT(saveButton()));
     loadPluginAction=new QAction("LoadPlugin",this);
     QObject::connect(loadPluginAction,SIGNAL(triggered()),this,SLOT(loadPlugin()));
+    pluginListAction=new QAction("Configure Default Plugins",this);
+    QObject::connect(pluginListAction,SIGNAL(triggered()),this,SLOT(openPluginListEditor()));
 
     QMenu* filemenu=menuBar()->addMenu("File");
     menuBar()->addAction(loadPluginAction);
+    menuBar()->addAction(pluginListAction);
     filemenu->addAction(loadAction);
     filemenu->addAction(saveAction);
 
@@ -99,6 +105,7 @@ void MainProgram::stopButton(){
 }
 
 void MainProgram::InitializeProvider(){
+    loadDefaultPlugin();
 }
 
 void MainProgram::addProvider(PipeProcessGraphicsProvider *prov){
@@ -156,6 +163,19 @@ bool MainProgram::isExistPGName(QString name){
 
 MainProgram::~MainProgram()
 {
+}
+
+void MainProgram::loadDefaultPlugin(){
+    QFile plistfile("plugins.lst");
+    plistfile.open(QIODevice::ReadOnly);
+    QList<QString> pathlist;
+    QTextStream helperinstance(&plistfile);
+    while(!helperinstance.atEnd()){
+        pathlist.append(helperinstance.readLine());
+    }
+    foreach (QString filepath, pathlist) {
+        loadPlugin(filepath);
+    }
 }
 
 TargetCollection* MainProgram::getSignalTargetCollection(){
@@ -421,8 +441,13 @@ void MainProgram::zoomOut(){
 void MainProgram::loadPlugin(){
     std::cout<<"Load plugin"<<std::endl;
     QString filepath=QFileDialog::getOpenFileName();
+    loadPlugin(filepath);
+}
+
+void MainProgram::loadPlugin(QString filepath){
     if(!filepath.isEmpty()){
-        QPluginLoader* loader=new QPluginLoader(filepath,this);
+        QString abspath=QDir(QApplication::applicationDirPath()).absoluteFilePath(filepath);
+        QPluginLoader* loader=new QPluginLoader(abspath,this);
         if(!loader->load()){
             std::cout<<"Load plugin failed"<<std::endl;
             std::cout<<loader->errorString().toStdString()<<std::endl;
@@ -438,6 +463,11 @@ void MainProgram::loadPlugin(){
             std::cout<<"Plugin empty"<<std::endl;
         }
     }
+}
+
+void MainProgram::openPluginListEditor(){
+    PluginListEditor* editor=new PluginListEditor("plugins.lst");
+    editor->show();
 }
 
 AddSPButton::AddSPButton(QString provstring, MainProgram *pv):QPushButton(provstring){

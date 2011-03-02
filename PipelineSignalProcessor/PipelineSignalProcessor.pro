@@ -22,14 +22,17 @@ SOURCES += \
     tinyxml/tinyxml.cpp \
     tinyxml/tinystr.cpp \
     mainprogram.cpp \
-    main.cpp
+    main.cpp \
+    pluginlisteditor.cpp
 
 HEADERS  += \
     tinyxml/tinyxml.h \
     tinyxml/tinystr.h \
-    mainprogram.h
+    mainprogram.h \
+    pluginlisteditor.h
 
-FORMS    +=
+FORMS    += \
+    pluginlisteditor.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build/release/ -lPVisualizer
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build/debug/ -lPVisualizer
@@ -54,4 +57,3 @@ LIBS += -L$$PWD/../../fftw-3.2.2/.libs/ -lfftw3
 
 INCLUDEPATH += $$PWD/../../fftw-3.2.2/api
 DEPENDPATH += $$PWD/../../fftw-3.2.2/api
-
