@@ -34,6 +34,7 @@
 #include "harmoniccalculator.h"
 #include "soundsink.h"
 #include "soundfeeder.h"
+#include "signalrepeater.h"
 
 DefaultSignalProcessor::DefaultSignalProcessor()
 {
@@ -44,7 +45,6 @@ QList<PipeProcessGraphicsProvider*> DefaultSignalProcessor::getProviders(PVisual
     thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleMultiply>("DoubleMultiplyExternal",pv,0,0,2,1,0,0));
     thelist.append(new SoundSinkProvider(pv));
     thelist.append(new SoundFeederProvider(pv));
-
     thelist.append(new GraphAbstractionProvider(pv));
     thelist.append(new VariableDoubleGeneratorProvider(pv));
     thelist.append(new SignalScalerProvider(pv));
@@ -74,6 +74,7 @@ QList<PipeProcessGraphicsProvider*> DefaultSignalProcessor::getProviders(PVisual
     thelist.append(new SimpleProcessGraphicsProviderTemplate<BlockLengthSender>("BlockLengthSender",pv,1,0,0,1,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleMultiply>("DoubleMultiply",pv,0,0,2,1,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<HarmonicCalculator>("Harmonic Calculator",pv,1,1,2,0,0,0));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalRepeater>("SignalRepeater",pv,1,1,1,0,0,0));
 
     return thelist;
 }

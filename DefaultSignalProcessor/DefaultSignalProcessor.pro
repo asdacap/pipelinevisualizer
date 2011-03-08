@@ -17,10 +17,6 @@ OBJECTS_DIR = ../temp/
 SOURCES += \
     defaultsignalprocessor.cpp \
     doublemultiply.cpp \
-    pipeproviderprovider.cpp \
-    signalprocessor.cpp \
-    sppropertydialog.cpp \
-    counterkeeper.cpp \
     vectorfunctionpipe.cpp \
     variabledoublegeneratorproviderdialog.cpp \
     variabledoublegeneratorprovider.cpp \
@@ -53,16 +49,12 @@ SOURCES += \
     blocknormalizer.cpp \
     blocklengthsender.cpp \
     blockgenerator.cpp \
-    multivectorfunctionpipe.cpp
+    multivectorfunctionpipe.cpp \
+    signalrepeater.cpp
 
 HEADERS += \
     defaultsignalprocessor.h \
     doublemultiply.h \
-    pipeproviderprovider.h \
-    signalprocessor.h \
-    providerplugininterface.h \
-    sppropertydialog.h \
-    counterkeeper.h \
     vectorfunctionpipe.h \
     variabledoublegeneratorproviderdialog.h \
     variabledoublegeneratorprovider.h \
@@ -95,7 +87,8 @@ HEADERS += \
     blocknormalizer.h \
     blocklengthsender.h \
     blockgenerator.h \
-    multivectorfunctionpipe.h
+    multivectorfunctionpipe.h \
+    signalrepeater.h
 
 unix:!symbian {
     maemo5 {
@@ -122,8 +115,8 @@ else:unix: LIBS += -L$$PWD/../../../../usr/local/qwt-5.2.1/lib/ -lqwt
 
 win32:INCLUDEPATH += $$PWD/../../qwt-5.2.1/qwt-5.2.1/src
 win32:DEPENDPATH += $$PWD/../../qwt-5.2.1/qwt-5.2.1/src
-unix:INCLUDEPATH += $$PWD/../../../../usr/local/qwt-5.2.1/include/
-unix:DEPENDPATH += $$PWD/../../../../usr/local/qwt-5.2.1/include/
+unix:INCLUDEPATH += /usr/local/qwt-5.2.1/include/
+unix:DEPENDPATH += /usr/local/qwt-5.2.1/include/
 
 
 LIBS += -L$$PWD/../../fftw-3.2.2/.libs/ -lfftw3
