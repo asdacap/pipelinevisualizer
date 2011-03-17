@@ -19,27 +19,10 @@
 MainProgram::MainProgram(QWidget *parent) :
     QMainWindow(parent)
 {
-    QWidget* cwid=new QWidget(this);
+    pvis=new PVisual();
+    pvis->setParent(this);
+    QWidget* cwid=pvis;
     setCentralWidget(cwid);
-
-    scene=new QGraphicsScene(this);
-    scene->setItemIndexMethod(scene->NoIndex);
-    view=new QGraphicsView(centralWidget());
-    view->setScene(scene);
-    view->setDragMode(view->ScrollHandDrag);
-
-    QToolBar* mainToolBar=new QToolBar("Main Toolbar");
-    addToolBar(mainToolBar);
-    QAction* curAt=mainToolBar->addAction("StartAll");
-    QObject::connect(curAt,SIGNAL(triggered()),this,SLOT(startButton()));
-    curAt=mainToolBar->addAction("StopAll");
-    QObject::connect(curAt,SIGNAL(triggered()),this,SLOT(stopButton()));
-    curAt=mainToolBar->addAction("Clear");
-    QObject::connect(curAt,SIGNAL(triggered()),this,SLOT(removeAllButton()));
-    zoomInAction=mainToolBar->addAction("zoomIn");
-    QObject::connect(zoomInAction,SIGNAL(triggered()),this,SLOT(zoomIn()));
-    zoomOutAction=mainToolBar->addAction("zoomOut");
-    QObject::connect(zoomOutAction,SIGNAL(triggered()),this,SLOT(zoomOut()));
 
     loadAction=new QAction("Load",this);
     QObject::connect(loadAction,SIGNAL(triggered()),this,SLOT(loadButton()));
@@ -69,40 +52,10 @@ MainProgram::MainProgram(QWidget *parent) :
     addSPwidget->setLayout(spwidgetLayout);
     addDockWidget(Qt::LeftDockWidgetArea,dock);
 
-    setCentralWidget(view);
-
-    sigcol=new TargetCollection();
-    doubcol=new TargetCollection();
-    boolcol=new TargetCollection();
-
     InitializeProvider();
 
-    curscale=1;
-
 }
 
-void MainProgram::removeAllButton(){
-    int i=0;
-    while(i<pgraphics_list.count()){
-        pgraphics_list.at(i)->removeMe();
-    }
-}
-
-void MainProgram::startButton(){
-    int i=0;
-    while(i<pgraphics_list.count()){
-        pgraphics_list.at(i)->getProcessor()->start();
-        i=i+1;
-    }
-}
-
-void MainProgram::stopButton(){
-    int i=0;
-    while(i<pgraphics_list.count()){
-        pgraphics_list.at(i)->getProcessor()->stop();
-        i=i+1;
-    }
-}
 
 void MainProgram::InitializeProvider(){
     loadDefaultPlugin();
@@ -125,40 +78,13 @@ bool MainProgram::isExistProviderName(QString name){
     return false;
 }
 
-void MainProgram::addPG(ProcessGraphics* newpg){
-    if(newpg==0){
-        std::cout<<"Numll pg given"<<std::endl;
-        return ;
-    }
-    if(isExistPGName(newpg->getName()))return ;
-    scene->addItem(newpg);
-    pgraphics_list.append(newpg);
-    newpg->setPos(view->mapToScene(view->width()/2-newpg->boundingRect().width()/2
-                                   ,view->height()/2-newpg->boundingRect().height()/2));
-}
 
 void MainProgram::addPG(QString providername){
     foreach (PipeProcessGraphicsProvider* prov,provider_list) {
         if(prov->getName()==providername){
-            addPG(prov->newInstance());
+            pvis->addPG(prov->newInstance());
         }
     }
-}
-
-void MainProgram::removePG(ProcessGraphics *pg){
-    scene->removeItem(pg);
-    pgraphics_list.removeAll(pg);
-    pg->setParent(0);
-    delete pg;
-}
-
-bool MainProgram::isExistPGName(QString name){
-    int i=0;
-    while(i<pgraphics_list.count()){
-        if(pgraphics_list.at(i)->getName()==name)return true;
-        i=i+1;
-    }
-    return false;
 }
 
 MainProgram::~MainProgram()
@@ -178,17 +104,6 @@ void MainProgram::loadDefaultPlugin(){
     }
 }
 
-TargetCollection* MainProgram::getSignalTargetCollection(){
-    return sigcol;
-}
-
-TargetCollection* MainProgram::getDoubleTargetCollection(){
-    return doubcol;
-}
-
-TargetCollection* MainProgram::getBoolTargetCollection(){
-    return boolcol;
-}
 
 TiXmlElement getPGElement(ProcessGraphics* pg){
     TiXmlElement thenewel(pg->getProvider()->getName().toAscii());
@@ -272,7 +187,7 @@ void putBoolConnection(TiXmlElement* el,ProcessGraphics* pg){
 void MainProgram::saveButton(){
     TiXmlDocument mydoc("MainProgram");
     TiXmlElement PGElement("ProcessGraphics");
-
+    QList<ProcessGraphics*> pgraphics_list=pvis->getProcessGraphics();
 
     int i=0;
     while(i<pgraphics_list.count()){
@@ -324,7 +239,7 @@ void MainProgram::loadPg(TiXmlElement *elm){
             if(thenewpg!=0){
                 int xpos=(int)QVariant(setting["xPos"]).toDouble();
                 int ypos=(int)QVariant(setting["yPos"]).toDouble();
-                addPG(thenewpg);
+                pvis->addPG(thenewpg);
                 thenewpg->setPos(xpos,ypos);
             }
         }
@@ -333,14 +248,6 @@ void MainProgram::loadPg(TiXmlElement *elm){
 
 }
 
-ProcessGraphics* MainProgram::getProcessGraphics(QString name){
-    int i=0;
-    while(i<pgraphics_list.count()){
-        if(pgraphics_list.at(i)->getName()==name)return pgraphics_list.at(i);
-        i=i+1;
-    }
-    return 0;
-}
 
 void MainProgram::loadSignalConnection(TiXmlElement *elm){
     TiXmlElement* curelem=elm;
@@ -349,8 +256,8 @@ void MainProgram::loadSignalConnection(TiXmlElement *elm){
     QString targetId(curelem->Attribute("targetID"));
     QString source(curelem->Attribute("source"));
     QString sourceId(curelem->Attribute("sourceID"));
-    ProcessGraphics* targetPG=getProcessGraphics(target);
-    ProcessGraphics* sourcePG=getProcessGraphics(source);
+    ProcessGraphics* targetPG=pvis->getProcessGraphics(target);
+    ProcessGraphics* sourcePG=pvis->getProcessGraphics(source);
     int targetPGID=QVariant(targetId).toInt();
     int sourcePGID=QVariant(sourceId).toInt();
     if(targetPG!=0&&sourcePG!=0){
@@ -367,8 +274,8 @@ void MainProgram::loadDoubleConnection(TiXmlElement *elm){
     QString targetId(curelem->Attribute("targetID"));
     QString source(curelem->Attribute("source"));
     QString sourceId(curelem->Attribute("sourceID"));
-    ProcessGraphics* targetPG=getProcessGraphics(target);
-    ProcessGraphics* sourcePG=getProcessGraphics(source);
+    ProcessGraphics* targetPG=pvis->getProcessGraphics(target);
+    ProcessGraphics* sourcePG=pvis->getProcessGraphics(source);
     int targetPGID=QVariant(targetId).toInt();
     int sourcePGID=QVariant(sourceId).toInt();
     if(targetPG!=0&&sourcePG!=0){
@@ -384,8 +291,8 @@ void MainProgram::loadBoolConnection(TiXmlElement *elm){
     QString targetId(curelem->Attribute("targetID"));
     QString source(curelem->Attribute("source"));
     QString sourceId(curelem->Attribute("sourceID"));
-    ProcessGraphics* targetPG=getProcessGraphics(target);
-    ProcessGraphics* sourcePG=getProcessGraphics(source);
+    ProcessGraphics* targetPG=pvis->getProcessGraphics(target);
+    ProcessGraphics* sourcePG=pvis->getProcessGraphics(source);
     int targetPGID=QVariant(targetId).toInt();
     int sourcePGID=QVariant(sourceId).toInt();
     if(targetPG!=0&&sourcePG!=0){
@@ -403,7 +310,7 @@ void MainProgram::loadButton(){
         std::cout<<mydoc.ErrorDesc()<<std::endl;
         return;
     }
-    removeAllButton();
+    pvis->removeAllButton();
     TiXmlElement* pgelement=(TiXmlElement*)mydoc.FirstChildElement("ProcessGraphics");
     TiXmlElement* currentEle=pgelement->FirstChildElement();
     while(currentEle!=0){
@@ -430,14 +337,6 @@ void MainProgram::loadButton(){
     }
 }
 
-void MainProgram::zoomIn(){
-    view->scale(1.2,1.2);
-}
-
-void MainProgram::zoomOut(){
-    view->scale(0.8,0.8);
-}
-
 void MainProgram::loadPlugin(){
     std::cout<<"Load plugin"<<std::endl;
     QString filepath=QFileDialog::getOpenFileName();
@@ -455,7 +354,7 @@ void MainProgram::loadPlugin(QString filepath){
         }
         ProviderPluginInterface* plugin=qobject_cast<ProviderPluginInterface*>(loader->instance());
         if(plugin){
-            QList<PipeProcessGraphicsProvider*> providerlist=plugin->getProviders(this);
+            QList<PipeProcessGraphicsProvider*> providerlist=plugin->getProviders(pvis);
             foreach (PipeProcessGraphicsProvider* provider,providerlist) {
                 addProvider(provider);
             }

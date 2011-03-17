@@ -2,14 +2,44 @@
 #define PVISUAL_H
 #include "targetcollection.h"
 #include "pipeproviderprovider.h"
+#include "QWidget"
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QBoxLayout>
+#include <QList>
 
-class PVisual{
+class PVisual:public QWidget{
+    Q_OBJECT
+
 public:
-    virtual void removePG(ProcessGraphics* )=0;
-    virtual bool isExistPGName(QString name)=0;
-    virtual TargetCollection* getSignalTargetCollection()=0;
-    virtual TargetCollection* getDoubleTargetCollection()=0;
-    virtual TargetCollection* getBoolTargetCollection()=0;
+    PVisual();
+    void addPG(ProcessGraphics* pg);
+    void removePG(ProcessGraphics* );
+    bool isExistPGName(QString name);
+    ProcessGraphics* getProcessGraphics(QString name);
+    QList<ProcessGraphics*> getProcessGraphics(){return pgraphics_list;}
+    TargetCollection* getSignalTargetCollection();
+    TargetCollection* getDoubleTargetCollection();
+    TargetCollection* getBoolTargetCollection();
+
+private:
+
+    QAction* zoomInAction;
+    QAction* zoomOutAction;
+    QGraphicsScene* scene;
+    QGraphicsView* view;
+    TargetCollection* sigcol;
+    TargetCollection* doubcol;
+    TargetCollection* boolcol;
+    QList<ProcessGraphics*> pgraphics_list;
+
+public slots:
+
+    void zoomIn();
+    void zoomOut();
+    void startButton();
+    void stopButton();
+    void removeAllButton();
 };
 
 #endif // PVISUAL_H
