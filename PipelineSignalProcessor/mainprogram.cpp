@@ -14,7 +14,7 @@
 #include <QPluginLoader>
 #include <QTextStream>
 #include <QApplication>
-#include "pluginlisteditor.h"
+#include <stringlisteditor.h>
 
 MainProgram::MainProgram(QWidget *parent) :
     QMainWindow(parent)
@@ -358,8 +358,27 @@ void MainProgram::loadPlugin(QString filepath){
 }
 
 void MainProgram::openPluginListEditor(){
-    PluginListEditor* editor=new PluginListEditor("plugins.lst");
-    editor->show();
+    QList<QString> currentPlugin;
+    QString path="plugins.lst";
+    QString filepath=path;
+    QFile thefile(path);
+    thefile.open(QIODevice::ReadOnly);
+    QTextStream reader(&thefile);
+    while(!reader.atEnd()){
+        currentPlugin.append(reader.readLine());
+    }
+    thefile.close();
+    StringlistEditor theditor(currentPlugin,this);
+    if(theditor.exec()==theditor.Accepted){
+        thefile.open(QIODevice::WriteOnly);
+        QList<QString> newstring=theditor.currentList();
+        QTextStream writer(&thefile);
+        foreach(QString var,newstring){
+            writer<<var;
+            writer<<"\n";
+        }
+        thefile.close();
+    }
 }
 
 void MainProgram::listDoubleClicked(QListWidgetItem *theitem){

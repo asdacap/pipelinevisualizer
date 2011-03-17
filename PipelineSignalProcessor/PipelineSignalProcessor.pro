@@ -23,16 +23,17 @@ SOURCES += \
     tinyxml/tinystr.cpp \
     mainprogram.cpp \
     main.cpp \
-    pluginlisteditor.cpp
+    stringlisteditor.cpp
 
 HEADERS  += \
     tinyxml/tinyxml.h \
     tinyxml/tinystr.h \
     mainprogram.h \
-    pluginlisteditor.h
+    stringlisteditor.h
 
 FORMS    += \
-    pluginlisteditor.ui
+    pluginlisteditor.ui \
+    stringlisteditor.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build/release/ -lPVisualizer
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build/debug/ -lPVisualizer
