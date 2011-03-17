@@ -39,18 +39,13 @@ MainProgram::MainProgram(QWidget *parent) :
     filemenu->addAction(loadAction);
     filemenu->addAction(saveAction);
 
-    addSPwidget=new QWidget();
+    addSPwidget=new QListWidget();
     QDockWidget* dock=new QDockWidget("Add signal processor");
     dock->setFeatures(dock->DockWidgetMovable|dock->DockWidgetFloatable);
-    QScrollArea* area=new QScrollArea();
-    area->setWidget(addSPwidget);
-    addSPwidget->setMinimumSize(300,600);
-    addSPwidget->setSizePolicy(QSizePolicy::MinimumExpanding,QSizePolicy::MinimumExpanding);
-    dock->setWidget(area);
-    spwidgetLayout=new QBoxLayout(QBoxLayout::BottomToTop,this);
-    spwidgetLayout->setSpacing(1);
-    addSPwidget->setLayout(spwidgetLayout);
+    dock->setWidget(addSPwidget);
     addDockWidget(Qt::LeftDockWidgetArea,dock);
+
+    connect(addSPwidget,SIGNAL(itemDoubleClicked(QListWidgetItem*)),SLOT(listDoubleClicked(QListWidgetItem*)));
 
     InitializeProvider();
 
@@ -64,9 +59,7 @@ void MainProgram::InitializeProvider(){
 void MainProgram::addProvider(PipeProcessGraphicsProvider *prov){
     if(isExistProviderName(prov->getName()))return;
     provider_list.append(prov);
-    AddSPButton* newbu=new AddSPButton(prov->getName(),this);
-    newbu->setParent(addSPwidget);
-    spwidgetLayout->addWidget(newbu);
+    addSPwidget->addItem(prov->getName());
 }
 
 bool MainProgram::isExistProviderName(QString name){
@@ -369,14 +362,7 @@ void MainProgram::openPluginListEditor(){
     editor->show();
 }
 
-AddSPButton::AddSPButton(QString provstring, MainProgram *pv):QPushButton(provstring){
-    PV=pv;
-    QObject::connect(this,SIGNAL(clicked()),this,SLOT(AddProv()));
-    setFlat(true);
+void MainProgram::listDoubleClicked(QListWidgetItem *theitem){
+    QString thename=theitem->text();
+    addPG(thename);
 }
-
-void AddSPButton::AddProv(){
-    PV->addPG(text());
-
-}
-

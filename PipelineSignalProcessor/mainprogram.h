@@ -10,6 +10,7 @@
 #include "QPushButton"
 #include "tinyxml/tinyxml.h"
 #include "pvisual.h"
+#include "QListWidget"
 
 typedef struct PipeProcessGraphicsProvider PipeProcessGraphicsProvider;
 
@@ -41,8 +42,7 @@ private:
     QAction* loadPluginAction;
     QAction* pluginListAction;
 
-    QWidget* addSPwidget;
-    QBoxLayout* spwidgetLayout;
+    QListWidget* addSPwidget;
 
 public slots:
     void saveButton();
@@ -50,16 +50,8 @@ public slots:
 
     void loadPlugin();
     void openPluginListEditor();
-};
 
-class AddSPButton:public QPushButton{
-    Q_OBJECT
-public:
-
-    AddSPButton(QString provstring,MainProgram* pv);
-    MainProgram* PV;
-public slots:
-    void AddProv();
+    void listDoubleClicked(QListWidgetItem* theitem);
 };
 
 #endif // MAINPROGRAM_H
