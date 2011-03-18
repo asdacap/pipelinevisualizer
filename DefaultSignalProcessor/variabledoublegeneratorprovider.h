@@ -25,10 +25,6 @@
 #include "doublegenerator.h"
 #include "pvisual.h"
 
-namespace Ui {
-    class VariableDoubleGeneratorProvider;
-}
-
 class VariableDoubleGeneratorProvider : public PipeProcessGraphicsProvider
 {
 public:
@@ -40,6 +36,8 @@ public:
     QString getName();
     ProcessGraphics* newInstance(QMap<QString,QString> setting);
     QMap<QString,QString> getSettings(ProcessGraphics *pg);
+
+    QMap<QString,QString> defaultSetting();
 
 private:
     PVisual* PV;

@@ -9,16 +9,13 @@ QT       += core gui multimedia
 TARGET = DefaultSignalProcessor
 TEMPLATE = lib
 CONFIG += plugin
-win32:CONFIG(release, debug|release): DESTDIR	+= ../build/release/
-else:win32:CONFIG(debug, debug|release): DESTDIR	+= ../build/debug/
-else:unix: DESTDIR	+= ../build/
+DESTDIR	+= ../build/
 OBJECTS_DIR = ../temp/
 
 SOURCES += \
     defaultsignalprocessor.cpp \
     doublemultiply.cpp \
     vectorfunctionpipe.cpp \
-    variabledoublegeneratorproviderdialog.cpp \
     variabledoublegeneratorprovider.cpp \
     soundsink.cpp \
     soundfeeder.cpp \
@@ -56,7 +53,6 @@ HEADERS += \
     defaultsignalprocessor.h \
     doublemultiply.h \
     vectorfunctionpipe.h \
-    variabledoublegeneratorproviderdialog.h \
     variabledoublegeneratorprovider.h \
     soundsink.h \
     soundfeeder.h \
@@ -99,11 +95,7 @@ unix:!symbian {
     INSTALLS += target
 }
 
-
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build/release/ -lPVisualizer
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build/debug/ -lPVisualizer
-else:symbian: LIBS += -lPVisualizer
-else:unix: LIBS += -L$$PWD/../build/ -lPVisualizer
+LIBS += -L$$PWD/../build/ -lPVisualizer
 
 INCLUDEPATH += $$PWD/../PipelineVisualizer
 DEPENDPATH += $$PWD/../PipelineVisualizer

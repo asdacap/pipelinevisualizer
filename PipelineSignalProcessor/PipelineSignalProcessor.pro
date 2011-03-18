@@ -5,13 +5,8 @@
 #-------------------------------------------------
 
 QT       += core gui multimedia
-
-
-win32:CONFIG(release, debug|release): DESTDIR	+= ../build/release/
-else:win32:CONFIG(debug, debug|release): DESTDIR	+= ../build/debug/
-else:unix: DESTDIR	+= ../build/
+DESTDIR	+= ../build/
 OBJECTS_DIR = ../temp/
-
 TARGET = PipelineSignalProcessor
 TEMPLATE = app
 
@@ -35,10 +30,7 @@ FORMS    += \
     pluginlisteditor.ui \
     stringlisteditor.ui
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build/release/ -lPVisualizer
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build/debug/ -lPVisualizer
-else:symbian: LIBS += -lPVisualizer
-else:unix: LIBS += -L$$PWD/../build/ -lPVisualizer
+LIBS += -L$$PWD/../build/ -lPVisualizer
 
 INCLUDEPATH += $$PWD/../PipelineVisualizer
 DEPENDPATH += $$PWD/../PipelineVisualizer
