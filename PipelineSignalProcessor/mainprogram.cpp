@@ -231,7 +231,7 @@ void MainProgram::saveButton(){
     mydoc.InsertEndChild(ConnectionElement);
 
 
-    QString filename=QFileDialog::getSaveFileName();
+    QString filename=QFileDialog::getSaveFileName(this,"Save pipeline","","PipelineVisualizer file(*.pvl)");
     if(filename.isEmpty())return;
     mydoc.SaveFile(filename.toAscii());
 }
@@ -315,7 +315,7 @@ void MainProgram::loadBoolConnection(TiXmlElement *elm){
 }
 
 void MainProgram::loadButton(){
-    QString path=QFileDialog::getOpenFileName();
+    QString path=QFileDialog::getOpenFileName(this,"Open project file","","PipelineVisualizer file (*.pvl)");
     TiXmlDocument mydoc;
     if(!mydoc.LoadFile(path.toAscii())){
         std::cout<<"Unable to load xml"<<std::endl;

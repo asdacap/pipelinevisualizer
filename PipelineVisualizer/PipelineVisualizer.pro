@@ -8,9 +8,6 @@ QT       += core gui multimedia
 
 TARGET = PVisualizer
 TEMPLATE = lib
-#win32:CONFIG(release, debug|release): DESTDIR	+= ../build/release/
-#else:win32:CONFIG(debug, debug|release): DESTDIR	+= ../build/debug/
-#else:unix: DESTDIR	+= ../build/
 DESTDIR	+= ../build/
 OBJECTS_DIR = ../temp/
 
