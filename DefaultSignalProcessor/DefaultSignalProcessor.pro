@@ -103,7 +103,7 @@ DEPENDPATH += $$PWD/../PipelineVisualizer
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../qwt-5.2.1/qwt-build-desktop/lib/ -lqwt5
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../qwt-5.2.1/qwt-build-desktop/lib/ -lqwt5
 else:symbian: LIBS += -lqwt
-else:unix: LIBS += -L$$PWD/../../../../usr/local/qwt-5.2.1/lib/ -lqwt
+else:unix: LIBS += -L../../qwt-5.2.1/lib/ -lqwt
 
 win32:INCLUDEPATH += $$PWD/../../qwt-5.2.1/qwt-5.2.1/src
 win32:DEPENDPATH += $$PWD/../../qwt-5.2.1/qwt-5.2.1/src
