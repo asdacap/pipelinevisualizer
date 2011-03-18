@@ -46,7 +46,6 @@
 #include "selectivesignalelimination.h"
 #include "pinknoiseremover.h"
 #include "functionpipe.h"
-#include "signalpipe.h"
 #include "simpleprocessgraphicsprovidertemplate.h"
 #include "blocklengthsender.h"
 #include "doublemultiply.h"
@@ -54,6 +53,7 @@
 #include "soundsink.h"
 #include "soundfeeder.h"
 #include "signalrepeater.h"
+#include "plainsignalpipe.h"
 
 DefaultSignalProcessor::DefaultSignalProcessor()
 {
@@ -89,7 +89,7 @@ QList<PipeProcessGraphicsProvider*> DefaultSignalProcessor::getProviders(PVisual
     thelist.append(new SelectiveSignalEliminationProvider(pv));
     thelist.append(new PinkNoiseRemoverProvider(pv));
     thelist.append(new FunctionPipeProvider("OneIfZeroSignalFilter",oneifzero,pv));
-    thelist.append(new SignalPipeProcessorProvider(pv));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<PlainSignalPipe>("PlainSignalPipe",pv,1,1,0,0,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<BlockLengthSender>("BlockLengthSender",pv,1,0,0,1,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleMultiply>("DoubleMultiply",pv,0,0,2,1,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<HarmonicCalculator>("Harmonic Calculator",pv,1,1,2,0,0,0));

@@ -47,7 +47,8 @@ SOURCES += \
     blocklengthsender.cpp \
     blockgenerator.cpp \
     multivectorfunctionpipe.cpp \
-    signalrepeater.cpp
+    signalrepeater.cpp \
+    plainsignalpipe.cpp
 
 HEADERS += \
     defaultsignalprocessor.h \
@@ -84,7 +85,8 @@ HEADERS += \
     blocklengthsender.h \
     blockgenerator.h \
     multivectorfunctionpipe.h \
-    signalrepeater.h
+    signalrepeater.h \
+    plainsignalpipe.h
 
 unix:!symbian {
     maemo5 {

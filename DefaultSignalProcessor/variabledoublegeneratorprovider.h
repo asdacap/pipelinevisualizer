@@ -28,15 +28,11 @@
 class VariableDoubleGeneratorProvider : public PipeProcessGraphicsProvider
 {
 public:
-    explicit VariableDoubleGeneratorProvider(
-                                             PVisual* pv);
+    explicit VariableDoubleGeneratorProvider(PVisual* pv);
     ~VariableDoubleGeneratorProvider();
-
-    ProcessGraphics* newInstance();
     QString getName();
     ProcessGraphics* newInstance(QMap<QString,QString> setting);
     QMap<QString,QString> getSettings(ProcessGraphics *pg);
-
     QMap<QString,QString> defaultSetting();
 
 private:
