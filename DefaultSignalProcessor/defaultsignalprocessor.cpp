@@ -50,8 +50,6 @@
 #include "blocklengthsender.h"
 #include "doublemultiply.h"
 #include "harmoniccalculator.h"
-#include "soundsink.h"
-#include "soundfeeder.h"
 #include "signalrepeater.h"
 #include "plainsignalpipe.h"
 
@@ -62,8 +60,6 @@ DefaultSignalProcessor::DefaultSignalProcessor()
 QList<PipeProcessGraphicsProvider*> DefaultSignalProcessor::getProviders(PVisual *pv){
     QList<PipeProcessGraphicsProvider*> thelist;
     thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleMultiply>("DoubleMultiply",pv,0,0,2,1,0,0));
-    thelist.append(new SoundSinkProvider(pv));
-    thelist.append(new SoundFeederProvider(pv));
     thelist.append(new GraphAbstractionProvider(pv));
     thelist.append(new VariableDoubleGeneratorProvider(pv));
     thelist.append(new SignalScalerProvider(pv));

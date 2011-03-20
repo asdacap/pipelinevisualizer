@@ -17,8 +17,6 @@ SOURCES += \
     doublemultiply.cpp \
     vectorfunctionpipe.cpp \
     variabledoublegeneratorprovider.cpp \
-    soundsink.cpp \
-    soundfeeder.cpp \
     simplelinegraph.cpp \
     signalscaler.cpp \
     signalexpander.cpp \
@@ -55,8 +53,6 @@ HEADERS += \
     doublemultiply.h \
     vectorfunctionpipe.h \
     variabledoublegeneratorprovider.h \
-    soundsink.h \
-    soundfeeder.h \
     simplelinegraph.h \
     signalscaler.h \
     signalexpander.h \
