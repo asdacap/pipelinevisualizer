@@ -3,4 +3,5 @@ CONFIG += ordered
 SUBDIRS=PipelineVisualizer \
 	PipelineSignalProcessor\
         DefaultSignalProcessor\
-        SoundPlugin
+        SoundPlugin\
+        FFtPlugin

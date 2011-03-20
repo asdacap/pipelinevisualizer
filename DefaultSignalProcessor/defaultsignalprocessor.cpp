@@ -38,11 +38,7 @@
 #include "selectivevaluepipe.h"
 #include "hammingwindowdividesp.h"
 #include "blocknormalizer.h"
-#include "fftprocessor.h"
 #include "signalexpander.h"
-#include "fftrectangulartopolarconverter.h"
-#include "fftpolartorectangularconverter.h"
-#include "inversefftprocessor.h"
 #include "selectivesignalelimination.h"
 #include "pinknoiseremover.h"
 #include "functionpipe.h"
@@ -77,11 +73,7 @@ QList<PipeProcessGraphicsProvider*> DefaultSignalProcessor::getProviders(PVisual
     thelist.append(new SelectiveValuePipeProvider(pv));
     thelist.append(new HammingWindowDivideSPProvider(pv));
     thelist.append(new BlockNormalizerProvider(pv));
-    thelist.append(new FFTProcessorProvider(pv));
     thelist.append(new SignalExpanderProvider(pv));
-    thelist.append(new FFTRectangularToPolarConverterProvider(pv));
-    thelist.append(new FFTPolarToRectangularConverterProvider(pv));
-    thelist.append(new InverseFFtProcessorProvider(pv));
     thelist.append(new SelectiveSignalEliminationProvider(pv));
     thelist.append(new PinkNoiseRemoverProvider(pv));
     thelist.append(new FunctionPipeProvider("OneIfZeroSignalFilter",oneifzero,pv));

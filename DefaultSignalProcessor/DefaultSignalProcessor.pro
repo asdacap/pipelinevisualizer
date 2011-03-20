@@ -24,15 +24,11 @@ SOURCES += \
     selectivesignalelimination.cpp \
     pinknoiseremover.cpp \
     periodiclistformatter.cpp \
-    inversefftprocessor.cpp \
     harmoniccalculator.cpp \
     hammingwindowmultiplysp.cpp \
     hammingwindowdividesp.cpp \
     graphabstractionprovider.cpp \
     graphabstraction.cpp \
-    fftrectangulartopolarconverter.cpp \
-    fftprocessor.cpp \
-    fftpolartorectangularconverter.cpp \
     doublegenerator.cpp \
     constantdoublegeneratorprovider.cpp \
     conditionaloutputsignalpipe.cpp \
@@ -57,15 +53,11 @@ HEADERS += \
     selectivesignalelimination.h \
     pinknoiseremover.h \
     periodiclistformatter.h \
-    inversefftprocessor.h \
     harmoniccalculator.h \
     hammingwindowmultiplysp.h \
     hammingwindowdividesp.h \
     graphabstractionprovider.h \
     graphabstraction.h \
-    fftrectangulartopolarconverter.h \
-    fftprocessor.h \
-    fftpolartorectangularconverter.h \
     doublegenerator.h \
     constantdoublegeneratorprovider.h \
     conditionaloutputsignalpipe.h \
@@ -102,10 +94,5 @@ win32:DEPENDPATH += $$PWD/../../qwt-5.2.1/qwt-5.2.1/src
 unix:INCLUDEPATH += /usr/local/qwt-5.2.1/include/
 unix:DEPENDPATH += /usr/local/qwt-5.2.1/include/
 
-
-LIBS += -L$$PWD/../../fftw-3.2.2/.libs/ -lfftw3
-
-INCLUDEPATH += $$PWD/../../fftw-3.2.2/api
-DEPENDPATH += $$PWD/../../fftw-3.2.2/api
 
 OTHER_FILES +=
