@@ -38,6 +38,9 @@ SOURCES +=\
     doubleindexvector.cpp \
     linearrow.cpp \
     simpleprocessgraphicsprovidertemplate.cpp \
+    functionpipe.cpp \
+    multivectorfunctionpipe.cpp \
+    vectorfunctionpipe.cpp
 
 HEADERS  += pvisual.h \
     pipefeed.h \
@@ -68,9 +71,8 @@ HEADERS  += pvisual.h \
     doubleindexvector.h \
     linearrow.h \
     simpleprocessgraphicsprovidertemplate.h \
+    functionpipe.h \
+    multivectorfunctionpipe.h \
+    vectorfunctionpipe.h
     
     
-
-
-
-

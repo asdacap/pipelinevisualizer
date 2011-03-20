@@ -15,7 +15,6 @@ OBJECTS_DIR = ../temp/
 SOURCES += \
     defaultsignalprocessor.cpp \
     doublemultiply.cpp \
-    vectorfunctionpipe.cpp \
     variabledoublegeneratorprovider.cpp \
     simplelinegraph.cpp \
     signalscaler.cpp \
@@ -31,7 +30,6 @@ SOURCES += \
     hammingwindowdividesp.cpp \
     graphabstractionprovider.cpp \
     graphabstraction.cpp \
-    functionpipe.cpp \
     fftrectangulartopolarconverter.cpp \
     fftprocessor.cpp \
     fftpolartorectangularconverter.cpp \
@@ -44,14 +42,12 @@ SOURCES += \
     blocknormalizer.cpp \
     blocklengthsender.cpp \
     blockgenerator.cpp \
-    multivectorfunctionpipe.cpp \
     signalrepeater.cpp \
     plainsignalpipe.cpp
 
 HEADERS += \
     defaultsignalprocessor.h \
     doublemultiply.h \
-    vectorfunctionpipe.h \
     variabledoublegeneratorprovider.h \
     simplelinegraph.h \
     signalscaler.h \
@@ -67,7 +63,6 @@ HEADERS += \
     hammingwindowdividesp.h \
     graphabstractionprovider.h \
     graphabstraction.h \
-    functionpipe.h \
     fftrectangulartopolarconverter.h \
     fftprocessor.h \
     fftpolartorectangularconverter.h \
@@ -80,7 +75,6 @@ HEADERS += \
     blocknormalizer.h \
     blocklengthsender.h \
     blockgenerator.h \
-    multivectorfunctionpipe.h \
     signalrepeater.h \
     plainsignalpipe.h
 
