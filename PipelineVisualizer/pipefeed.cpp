@@ -55,7 +55,7 @@ QVariant PipeFeed::itemChange(GraphicsItemChange change, const QVariant &value){
      return QGraphicsItem::itemChange(change, value);
 }
 
-void PipeFeed::mousePressEvent(QGraphicsSceneMouseEvent *event){
+void PipeFeed::mousePressEvent(QGraphicsSceneMouseEvent*){
     if(isset){
         curtarget->removeFeed(this);
         isset=false;

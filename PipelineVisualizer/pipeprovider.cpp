@@ -46,7 +46,7 @@ ProcessGraphics* PipeProvider::getProcessGraphics(){
     return pgraph;
 }
 
-void PipeProvider::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
+void PipeProvider::mouseMoveEvent(QGraphicsSceneMouseEvent *){
     scene()->clearSelection();
     PipeFeed* pf=getNewFeed();
     pf->grabMouse();
@@ -69,10 +69,10 @@ void PipeProvider::FeedFail(PipeFeed *feed){
     feedlist.removeAll(feed);
 }
 
-void PipeProvider::mousePressEvent(QGraphicsSceneMouseEvent *event){
+void PipeProvider::mousePressEvent(QGraphicsSceneMouseEvent *){
 }
 
-void PipeProvider::dragEnterEvent(QGraphicsSceneDragDropEvent *event){
+void PipeProvider::dragEnterEvent(QGraphicsSceneDragDropEvent *){
     std::cout<<"mouse drag event"<<std::endl;
 }
 

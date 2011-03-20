@@ -102,7 +102,7 @@ QRectF ProcessGraphics::boundingRect() const{
     return QRectF();
 }
 
-void ProcessGraphics::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
+void ProcessGraphics::paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*){
 
 }
 
