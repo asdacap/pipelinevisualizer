@@ -42,7 +42,7 @@ QMap<QString,QString> VariableDoubleGeneratorProvider::defaultSetting(){
 }
 
 QString VariableDoubleGeneratorProvider::getName(){
-    return "VariableDoubleGeneratorProvider";
+    return "VariableDoubleGenerator";
 }
 
 QMap<QString,QString> VariableDoubleGeneratorProvider::getSettings(ProcessGraphics *pg){
