@@ -29,7 +29,9 @@
 #include "QPushButton"
 #include "tinyxml/tinyxml.h"
 #include "pvisual.h"
+#include "QTreeView"
 #include "QListWidget"
+#include "spproviderlistmodel.h"
 
 typedef struct PipeProcessGraphicsProvider PipeProcessGraphicsProvider;
 
@@ -61,7 +63,8 @@ private:
     QAction* loadPluginAction;
     QAction* pluginListAction;
 
-    QListWidget* addSPwidget;
+    QTreeView* addSPwidget;
+    SPProviderListModel* providerlistmodel;
 
 public slots:
     void saveButton();
@@ -70,7 +73,7 @@ public slots:
     void loadPlugin();
     void openPluginListEditor();
 
-    void listDoubleClicked(QListWidgetItem* theitem);
+    void listDoubleClicked(QModelIndex modeindex);
 };
 
 #endif // MAINPROGRAM_H

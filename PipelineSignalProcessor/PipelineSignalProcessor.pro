@@ -18,13 +18,15 @@ SOURCES += \
     tinyxml/tinystr.cpp \
     mainprogram.cpp \
     main.cpp \
-    stringlisteditor.cpp
+    stringlisteditor.cpp \
+    spproviderlistmodel.cpp
 
 HEADERS  += \
     tinyxml/tinyxml.h \
     tinyxml/tinystr.h \
     mainprogram.h \
-    stringlisteditor.h
+    stringlisteditor.h \
+    spproviderlistmodel.h
 
 FORMS    += \
     pluginlisteditor.ui \
@@ -34,4 +36,3 @@ LIBS += -L$$PWD/../build/ -lPVisualizer
 
 INCLUDEPATH += $$PWD/../PipelineVisualizer
 DEPENDPATH += $$PWD/../PipelineVisualizer
-

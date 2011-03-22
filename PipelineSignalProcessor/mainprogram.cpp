@@ -58,13 +58,26 @@ MainProgram::MainProgram(QWidget *parent) :
     filemenu->addAction(loadAction);
     filemenu->addAction(saveAction);
 
-    addSPwidget=new QListWidget();
+    providerlistmodel=new SPProviderListModel();
+    addSPwidget=new QTreeView();
+    addSPwidget->setModel(providerlistmodel);
+    addSPwidget->setSortingEnabled(true);
+
+    QWidget* interdocwidget=new QWidget();
+    QVBoxLayout* thelayout=new QVBoxLayout();
+    QLineEdit* alinedit=new QLineEdit();
+    interdocwidget->setLayout(thelayout);
+    thelayout->addWidget(alinedit);
+    thelayout->addWidget(addSPwidget);
+
+    connect(alinedit,SIGNAL(textChanged(QString)),providerlistmodel,SLOT(filterWithString(QString)));
+
     QDockWidget* dock=new QDockWidget("Add signal processor");
     dock->setFeatures(dock->DockWidgetMovable|dock->DockWidgetFloatable);
-    dock->setWidget(addSPwidget);
+    dock->setWidget(interdocwidget);
     addDockWidget(Qt::LeftDockWidgetArea,dock);
 
-    connect(addSPwidget,SIGNAL(itemDoubleClicked(QListWidgetItem*)),SLOT(listDoubleClicked(QListWidgetItem*)));
+    connect(addSPwidget,SIGNAL(doubleClicked(QModelIndex)),SLOT(listDoubleClicked(QModelIndex)));
 
     InitializeProvider();
 
@@ -78,7 +91,7 @@ void MainProgram::InitializeProvider(){
 void MainProgram::addProvider(PipeProcessGraphicsProvider *prov){
     if(isExistProviderName(prov->getName()))return;
     provider_list.append(prov);
-    addSPwidget->addItem(prov->getName());
+    providerlistmodel->addProvider(prov);
 }
 
 bool MainProgram::isExistProviderName(QString name){
@@ -400,7 +413,6 @@ void MainProgram::openPluginListEditor(){
     }
 }
 
-void MainProgram::listDoubleClicked(QListWidgetItem *theitem){
-    QString thename=theitem->text();
-    addPG(thename);
+void MainProgram::listDoubleClicked(QModelIndex theindex){
+    addPG(providerlistmodel->data(theindex,Qt::DisplayRole).toString());
 }
