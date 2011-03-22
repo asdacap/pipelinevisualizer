@@ -67,7 +67,6 @@ HEADERS  += pvisual.h \
     graphicproxywidgetgraphhack.h \
     sppropertydialog.h \
     providerplugininterface.h \
-    blockgenerator.h \
     doubleindexvector.h \
     linearrow.h \
     simpleprocessgraphicsprovidertemplate.h \

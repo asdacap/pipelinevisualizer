@@ -22,11 +22,7 @@ SOURCES += \
     signalblockbuilder.cpp \
     selectivevaluepipe.cpp \
     selectivesignalelimination.cpp \
-    pinknoiseremover.cpp \
     periodiclistformatter.cpp \
-    harmoniccalculator.cpp \
-    hammingwindowmultiplysp.cpp \
-    hammingwindowdividesp.cpp \
     graphabstractionprovider.cpp \
     graphabstraction.cpp \
     doublegenerator.cpp \
@@ -51,11 +47,7 @@ HEADERS += \
     signalblockbuilder.h \
     selectivevaluepipe.h \
     selectivesignalelimination.h \
-    pinknoiseremover.h \
     periodiclistformatter.h \
-    harmoniccalculator.h \
-    hammingwindowmultiplysp.h \
-    hammingwindowdividesp.h \
     graphabstractionprovider.h \
     graphabstraction.h \
     doublegenerator.h \

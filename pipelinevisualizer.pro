@@ -4,4 +4,5 @@ SUBDIRS=PipelineVisualizer \
 	PipelineSignalProcessor\
         DefaultSignalProcessor\
         SoundPlugin\
+	ExtraSignalProcessingPlugin\
         FFtPlugin
