@@ -1,1 +1,4 @@
+libSoundPlugin.so
+libFFtPlugin.so
+libExtraSignalProcessingPlugin.so
 libDefaultSignalProcessor.so
