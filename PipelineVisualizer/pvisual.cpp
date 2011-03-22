@@ -53,6 +53,9 @@ PVisual::PVisual(){
     sigcol=new TargetCollection();
     doubcol=new TargetCollection();
     boolcol=new TargetCollection();
+
+    connect(scene,SIGNAL(selectionChanged()),SLOT(theSelectedHasChanged()));
+
 }
 
 void PVisual::removeAllButton(){
@@ -93,6 +96,7 @@ void PVisual::addPG(ProcessGraphics* newpg){
 void PVisual::removePG(ProcessGraphics *pg){
     scene->removeItem(pg);
     pgraphics_list.removeAll(pg);
+    prevselectedlist.removeAll((ProcessGraphics*)pg);
     pg->setParent(0);
     delete pg;
 }
@@ -133,4 +137,16 @@ void PVisual::zoomIn(){
 
 void PVisual::zoomOut(){
     view->scale(0.8,0.8);
+}
+
+void PVisual::theSelectedHasChanged(){
+    foreach(QGraphicsItem* theitem,prevselectedlist){
+        ProcessGraphics* pg=(ProcessGraphics*)theitem;
+        pg->realign();
+    }
+    prevselectedlist=scene->selectedItems();
+    foreach(QGraphicsItem* theitem,prevselectedlist){
+        ProcessGraphics* pg=(ProcessGraphics*)theitem;
+        pg->realign();
+    }
 }

@@ -29,7 +29,7 @@ PipeFeed::PipeFeed(PipeProvider* prov,TargetCollection* tg):QGraphicsItem()
     setFlag(ItemSendsGeometryChanges);
     setZValue(100);
 
-    theline=new LineArrow();
+    theline=new LineArrow(prov->parentItem(),prov->parentItem());
     theline->setParentItem(this);
     theline->setPos(boundingRect().width()/2,boundingRect().height()/2);
     theline->setZValue(-1);
@@ -81,6 +81,7 @@ void PipeFeed::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
 void PipeFeed::ApplyTarget(PipeTarget *colled){
     if(colled->ApplyFeed(this)){
     isset=true;
+    theline->secondItem=colled->parentItem();
     curtarget=colled;
     }else{
         removeMe();
@@ -101,7 +102,7 @@ void PipeFeed::removeMe(){
 }
 
 void PipeFeed::realign(){
-    if(isset){
+    if(isset&&curtarget!=0){
         curtarget->realign();
 
     }
@@ -112,5 +113,4 @@ void PipeFeed::realign(){
                     transpose.x()+provider->boundingRect().width()/2,
                     transpose.y()+provider->boundingRect().height()/2
                     );
-
 }

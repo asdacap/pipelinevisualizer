@@ -24,7 +24,7 @@
 class LineArrow:public QGraphicsItem
 {
 public:
-    LineArrow();
+    LineArrow(QGraphicsItem* firstItem,QGraphicsItem* secondItem);
     double width;
     double height;
     int x1i;
@@ -32,6 +32,8 @@ public:
     int x2i;
     int y2i;
     bool diagonaldown;
+    QGraphicsItem* firstItem;
+    QGraphicsItem* secondItem;
     void setLine(int x1,int y1,int x2,int y2);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

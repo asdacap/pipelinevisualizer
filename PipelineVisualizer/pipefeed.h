@@ -38,6 +38,10 @@ public:
     void realign();
     void removeMe();
     QRectF boundingRect()const{return QRectF(0,0,20,20);}
+    void iupdate(){
+        update();
+        theline->update();
+    }
 
     TargetCollection* target_collection;
     PipeTarget* curtarget;

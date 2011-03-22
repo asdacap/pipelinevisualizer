@@ -84,6 +84,8 @@ public:
         return boolProviderCollection;
     }
 
+    void realign();
+
 private:
     SignalProcessor* processor;
     PipeProcessGraphicsProvider* provider;
@@ -98,6 +100,7 @@ private:
 protected:
     QString pgName;
     PVisual* pv;
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 };
 
 #endif // PROCESSGRAPHICS_H

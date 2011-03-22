@@ -25,6 +25,7 @@
 #include "booleanpipetarget.h"
 #include "booleanpipeprovider.h"
 #include "pvisual.h"
+#include "iostream"
 
 ProcessGraphics::ProcessGraphics(SignalProcessor *sp, QString name, PipeProcessGraphicsProvider *prov,
                                  int sinput, int soutput, int dinput, int doutput, int binput, int boutput,
@@ -118,4 +119,21 @@ void ProcessGraphics::removeMe(){
         i=i+1;
     }
     pv->removePG(this);
+}
+
+void ProcessGraphics::realign(){
+    int i=0;
+    while(i<targetCollection.count()){
+        targetCollection.at(i)->realign();
+        i=i+1;
+    }
+    i=0;
+    while(i<providerCollection.count()){
+        providerCollection.at(i)->realign();
+        i=i+1;
+    }
+}
+
+QVariant ProcessGraphics::itemChange(GraphicsItemChange change, const QVariant &value){
+    return QGraphicsItem::itemChange(change, value);
 }

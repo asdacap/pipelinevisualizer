@@ -51,9 +51,10 @@ private:
     TargetCollection* doubcol;
     TargetCollection* boolcol;
     QList<ProcessGraphics*> pgraphics_list;
+    QList<QGraphicsItem*> prevselectedlist;
 
 public slots:
-
+    void theSelectedHasChanged();
     void zoomIn();
     void zoomOut();
     void startButton();

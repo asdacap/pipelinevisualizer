@@ -69,6 +69,7 @@ void PipeTarget::realign(){
     if(isAvail)return;
         PipeFeed* feed=currentFeed;
         feed->setPos(feed->mapToParent(feed->mapFromScene(mapToScene(0,0))));
+        feed->iupdate();
 
 }
 

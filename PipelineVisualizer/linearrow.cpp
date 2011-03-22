@@ -24,8 +24,10 @@
 #define PI 3.142857143
 
 
-LineArrow::LineArrow()
+LineArrow::LineArrow(QGraphicsItem* fItem,QGraphicsItem* secItem)
 {
+    firstItem=fItem;
+    secondItem=secItem;
     width=0;
     height=0;
     x1i=0;
@@ -70,6 +72,11 @@ QPoint inline findMiddleCoordinate(double ratio,int x1,int y1,int x2,int y2){
 
 void LineArrow::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget){
 
+    if(firstItem->isSelected()|secondItem->isSelected()){
+        painter->setPen(QColor(0,0,0,250));
+    }else{
+        painter->setPen(QColor(0,0,0,50));
+    }
     painter->drawLine(x1i,y1i,x2i,y2i);
 
 
