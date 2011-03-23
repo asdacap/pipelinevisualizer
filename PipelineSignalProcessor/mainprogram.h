@@ -32,6 +32,7 @@
 #include "QTreeView"
 #include "QListWidget"
 #include "spproviderlistmodel.h"
+#include <pipelineprofile.h>
 
 typedef struct PipeProcessGraphicsProvider PipeProcessGraphicsProvider;
 
@@ -52,10 +53,6 @@ private:
     QList<PipeProcessGraphicsProvider*> provider_list;
     void loadDefaultPlugin();
     void loadPlugin(QString filepath);
-    void loadPg(TiXmlElement* elm);
-    void loadSignalConnection(TiXmlElement* elm);
-    void loadDoubleConnection(TiXmlElement* elm);
-    void loadBoolConnection(TiXmlElement* elm);
 
     PVisual* pvis;
     QAction* loadAction;

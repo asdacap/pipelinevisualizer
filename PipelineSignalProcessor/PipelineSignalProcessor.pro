@@ -19,14 +19,16 @@ SOURCES += \
     mainprogram.cpp \
     main.cpp \
     stringlisteditor.cpp \
-    spproviderlistmodel.cpp
+    spproviderlistmodel.cpp \
+    pipelineprofile.cpp
 
 HEADERS  += \
     tinyxml/tinyxml.h \
     tinyxml/tinystr.h \
     mainprogram.h \
     stringlisteditor.h \
-    spproviderlistmodel.h
+    spproviderlistmodel.h \
+    pipelineprofile.h
 
 FORMS    += \
     pluginlisteditor.ui \

@@ -249,83 +249,6 @@ void MainProgram::saveButton(){
     mydoc.SaveFile(filename.toAscii());
 }
 
-void MainProgram::loadPg(TiXmlElement *elm){
-    QString name(elm->Value());
-    QMap<QString,QString> setting;
-    TiXmlAttribute* atrr=elm->FirstAttribute();
-    while(atrr!=NULL){
-        setting[QString(atrr->Name())]=QString(atrr->Value());
-        atrr=atrr->Next();
-    }
-    int i=0;
-    while(i<provider_list.count()){
-        if(provider_list.at(i)->getName()==name){
-            ProcessGraphics* thenewpg=provider_list.at(i)->newInstance(setting);
-            if(thenewpg!=0){
-                int xpos=(int)QVariant(setting["xPos"]).toDouble();
-                int ypos=(int)QVariant(setting["yPos"]).toDouble();
-                pvis->addPG(thenewpg);
-                thenewpg->setPos(xpos,ypos);
-            }
-        }
-        i=i+1;
-    }
-
-}
-
-
-void MainProgram::loadSignalConnection(TiXmlElement *elm){
-    TiXmlElement* curelem=elm;
-
-    QString target(curelem->Attribute("target"));
-    QString targetId(curelem->Attribute("targetID"));
-    QString source(curelem->Attribute("source"));
-    QString sourceId(curelem->Attribute("sourceID"));
-    ProcessGraphics* targetPG=pvis->getProcessGraphics(target);
-    ProcessGraphics* sourcePG=pvis->getProcessGraphics(source);
-    int targetPGID=QVariant(targetId).toInt();
-    int sourcePGID=QVariant(sourceId).toInt();
-    if(targetPG!=0&&sourcePG!=0){
-        sourcePG->getSignalPipeProvider()[sourcePGID]->getNewFeed()->ApplyTarget(
-                    targetPG->getSignalTarget()[targetPGID]);
-    }
-
-}
-
-void MainProgram::loadDoubleConnection(TiXmlElement *elm){
-    TiXmlElement* curelem=elm;
-
-    QString target(curelem->Attribute("target"));
-    QString targetId(curelem->Attribute("targetID"));
-    QString source(curelem->Attribute("source"));
-    QString sourceId(curelem->Attribute("sourceID"));
-    ProcessGraphics* targetPG=pvis->getProcessGraphics(target);
-    ProcessGraphics* sourcePG=pvis->getProcessGraphics(source);
-    int targetPGID=QVariant(targetId).toInt();
-    int sourcePGID=QVariant(sourceId).toInt();
-    if(targetPG!=0&&sourcePG!=0){
-        sourcePG->getDoublePipeProvider()[sourcePGID]->getNewFeed()->ApplyTarget(
-                    targetPG->getDoublePipeTarget()[targetPGID]);
-    }
-
-}
-void MainProgram::loadBoolConnection(TiXmlElement *elm){
-    TiXmlElement* curelem=elm;
-
-    QString target(curelem->Attribute("target"));
-    QString targetId(curelem->Attribute("targetID"));
-    QString source(curelem->Attribute("source"));
-    QString sourceId(curelem->Attribute("sourceID"));
-    ProcessGraphics* targetPG=pvis->getProcessGraphics(target);
-    ProcessGraphics* sourcePG=pvis->getProcessGraphics(source);
-    int targetPGID=QVariant(targetId).toInt();
-    int sourcePGID=QVariant(sourceId).toInt();
-    if(targetPG!=0&&sourcePG!=0){
-        sourcePG->getBoolPipeProvider()[sourcePGID]->getNewFeed()->ApplyTarget(
-                    targetPG->getBoolPipeTarget()[targetPGID]);
-    }
-
-}
 
 void MainProgram::loadButton(){
     QString path=QFileDialog::getOpenFileName(this,"Open project file","","PipelineVisualizer file (*.pvl)");
@@ -336,30 +259,8 @@ void MainProgram::loadButton(){
         return;
     }
     pvis->removeAllButton();
-    TiXmlElement* pgelement=(TiXmlElement*)mydoc.FirstChildElement("ProcessGraphics");
-    TiXmlElement* currentEle=pgelement->FirstChildElement();
-    while(currentEle!=0){
-        loadPg(currentEle);
-        currentEle=currentEle->NextSiblingElement();
-    }
-    pgelement=(TiXmlElement*)mydoc.FirstChildElement("SignalConnection");
-    currentEle=pgelement->FirstChildElement();
-    while(currentEle!=0){
-        loadSignalConnection(currentEle);
-        currentEle=currentEle->NextSiblingElement();
-    }
-    pgelement=(TiXmlElement*)mydoc.FirstChildElement("DoubleConnection");
-    currentEle=pgelement->FirstChildElement();
-    while(currentEle!=0){
-        loadDoubleConnection(currentEle);
-        currentEle=currentEle->NextSiblingElement();
-    }
-    pgelement=(TiXmlElement*)mydoc.FirstChildElement("BoolConnection");
-    currentEle=pgelement->FirstChildElement();
-    while(currentEle!=0){
-        loadBoolConnection(currentEle);
-        currentEle=currentEle->NextSiblingElement();
-    }
+    PipelineProfile theprofile(&mydoc);
+    theprofile.InitializeIt(pvis,provider_list);
 }
 
 void MainProgram::loadPlugin(){
