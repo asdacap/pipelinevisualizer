@@ -73,7 +73,7 @@ void SPProviderListModel::sort(int column, Qt::SortOrder order){
 
 QVariant SPProviderListModel::headerData(int section, Qt::Orientation orientation, int role) const{
     if(orientation==Qt::Horizontal&&role==Qt::DisplayRole){
-        return QVariant("Provider name");
+        return QVariant("SignalProcessor Name");
     }
     return QVariant();
 }
