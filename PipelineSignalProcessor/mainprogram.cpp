@@ -161,7 +161,7 @@ void MainProgram::loadTemplate(QString path){
     }
     PipelineProfile* theprofile=new PipelineProfile(&mydoc);
     QFileInfo theinfo(path);
-    TemplateProcessorProvider* theprovider=new TemplateProcessorProvider(theinfo.fileName(),theprofile,&provider_list,pvis);
+    TemplateProcessorProvider* theprovider=new TemplateProcessorProvider(theinfo.baseName(),theprofile,&provider_list,pvis);
     addProvider(theprovider);
 }
 
