@@ -33,20 +33,26 @@ double HarmonicCalculator::sumIt(DoubleIndexVector* ind,double index){
     double startcalc=herzToFreq(50);
     double endcalc=herzToFreq(5000);
 
-    int maxcalc=7;
+    int maxcalc=20;
 
     double i=0;
     double cur=0;
+    double div=1;
     int counter=0;
     int count=ind->data.count();
     while(i<count && counter<maxcalc){
         if(i>startcalc && i<endcalc){
             cur=cur+ind->at(i);
+            if(i!=0){
+            double thedif=ind->at(i)-ind->at(i-1);
+            if(thedif<0)thedif=thedif*-1;
+            div=div+thedif;
+            }
             counter=counter+1;
         }
         i=i+index;
     }
-    return cur/counter;
+    return cur/div;
 }
 
 void HarmonicCalculator::feedData(QVector<QVector<double> > datat, QVector<double> doubdat, QVector<bool> booldat, int counter){
