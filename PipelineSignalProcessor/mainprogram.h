@@ -53,6 +53,8 @@ private:
     QList<PipeProcessGraphicsProvider*> provider_list;
     void loadDefaultPlugin();
     void loadPlugin(QString filepath);
+    void loadDefaultTemplate();
+    void loadTemplate(QString path);
 
     PVisual* pvis;
     QAction* loadAction;
@@ -71,6 +73,7 @@ public slots:
     void openPluginListEditor();
 
     void loadTemplate();
+    void openTemplateListEditor();
 
     void listDoubleClicked(QModelIndex modeindex);
 };
