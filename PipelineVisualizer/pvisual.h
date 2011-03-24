@@ -32,6 +32,7 @@ class PVisual:public QWidget{
 
 public:
     PVisual();
+    ~PVisual();
     void addPG(ProcessGraphics* pg);
     void removePG(ProcessGraphics* );
     bool isExistPGName(QString name);

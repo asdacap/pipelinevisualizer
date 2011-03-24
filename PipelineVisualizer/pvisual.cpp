@@ -58,6 +58,13 @@ PVisual::PVisual(){
 
 }
 
+PVisual::~PVisual(){
+    removeAllButton();
+    delete sigcol;
+    delete doubcol;
+    delete boolcol;
+}
+
 void PVisual::removeAllButton(){
     int i=0;
     while(i<pgraphics_list.count()){
