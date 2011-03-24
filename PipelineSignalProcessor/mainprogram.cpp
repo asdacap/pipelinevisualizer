@@ -58,13 +58,17 @@ MainProgram::MainProgram(QWidget *parent) :
     QAction* loadTemplateSettingAction=new QAction("Configure default Templates",this);
     this->connect(loadTemplateSettingAction,SIGNAL(triggered()),SLOT(openTemplateListEditor()));
 
+
     QMenu* filemenu=menuBar()->addMenu("File");
-    menuBar()->addAction(loadPluginAction);
-    menuBar()->addAction(pluginListAction);
-    menuBar()->addAction(loadTemplateAction);
-    menuBar()->addAction(loadTemplateSettingAction);
     filemenu->addAction(loadAction);
     filemenu->addAction(saveAction);
+
+    QMenu* toolmenu=menuBar()->addMenu("Tools");
+    toolmenu->addAction(loadPluginAction);
+    toolmenu->addAction(pluginListAction);
+    toolmenu->addAction(loadTemplateAction);
+    toolmenu->addAction(loadTemplateSettingAction);
+
 
     providerlistmodel=new SPProviderListModel();
     addSPwidget=new QTreeView();
