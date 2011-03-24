@@ -34,6 +34,8 @@
 #include <QTextStream>
 #include <QApplication>
 #include <stringlisteditor.h>
+#include <templateproxy.h>
+#include <templateprocessor.h>
 
 MainProgram::MainProgram(QWidget *parent) :
     QMainWindow(parent)
@@ -51,10 +53,13 @@ MainProgram::MainProgram(QWidget *parent) :
     QObject::connect(loadPluginAction,SIGNAL(triggered()),this,SLOT(loadPlugin()));
     pluginListAction=new QAction("Configure Default Plugins",this);
     QObject::connect(pluginListAction,SIGNAL(triggered()),this,SLOT(openPluginListEditor()));
+    QAction* loadTemplateAction=new QAction("Load Template",this);
+    this->connect(loadTemplateAction,SIGNAL(triggered()),SLOT(loadTemplate()));
 
     QMenu* filemenu=menuBar()->addMenu("File");
     menuBar()->addAction(loadPluginAction);
     menuBar()->addAction(pluginListAction);
+    menuBar()->addAction(loadTemplateAction);
     filemenu->addAction(loadAction);
     filemenu->addAction(saveAction);
 
@@ -86,6 +91,7 @@ MainProgram::MainProgram(QWidget *parent) :
 
 void MainProgram::InitializeProvider(){
     loadDefaultPlugin();
+    addProvider(new TemplateProxyProvider(pvis));
 }
 
 void MainProgram::addProvider(PipeProcessGraphicsProvider *prov){
@@ -316,4 +322,20 @@ void MainProgram::openPluginListEditor(){
 
 void MainProgram::listDoubleClicked(QModelIndex theindex){
     addPG(providerlistmodel->data(theindex,Qt::DisplayRole).toString());
+}
+
+void MainProgram::loadTemplate(){
+
+    QString path=QFileDialog::getOpenFileName(this,"Open template/project file","","PipelineVisualizer file (*.pvl)");
+    TiXmlDocument mydoc;
+    if(!mydoc.LoadFile(path.toAscii())){
+        std::cout<<"Unable to load xml"<<std::endl;
+        std::cout<<mydoc.ErrorDesc()<<std::endl;
+        return;
+    }
+    PipelineProfile* theprofile=new PipelineProfile(&mydoc);
+    QFileInfo theinfo(path);
+    TemplateProcessorProvider* theprovider=new TemplateProcessorProvider(theinfo.fileName(),theprofile,&provider_list,pvis);
+    addProvider(theprovider);
+
 }

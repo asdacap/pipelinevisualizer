@@ -70,6 +70,8 @@ public slots:
     void loadPlugin();
     void openPluginListEditor();
 
+    void loadTemplate();
+
     void listDoubleClicked(QModelIndex modeindex);
 };
 

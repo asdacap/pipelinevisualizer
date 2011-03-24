@@ -20,7 +20,9 @@ SOURCES += \
     main.cpp \
     stringlisteditor.cpp \
     spproviderlistmodel.cpp \
-    pipelineprofile.cpp
+    pipelineprofile.cpp \
+    templateprocessor.cpp \
+    templateproxy.cpp
 
 HEADERS  += \
     tinyxml/tinyxml.h \
@@ -28,10 +30,11 @@ HEADERS  += \
     mainprogram.h \
     stringlisteditor.h \
     spproviderlistmodel.h \
-    pipelineprofile.h
+    pipelineprofile.h \
+    templateprocessor.h \
+    templateproxy.h
 
 FORMS    += \
-    pluginlisteditor.ui \
     stringlisteditor.ui
 
 LIBS += -L$$PWD/../build/ -lPVisualizer
