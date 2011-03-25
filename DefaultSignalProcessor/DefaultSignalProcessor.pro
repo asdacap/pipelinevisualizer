@@ -36,7 +36,8 @@ SOURCES += \
     blockgenerator.cpp \
     signalrepeater.cpp \
     plainsignalpipe.cpp \
-    booleanand.cpp
+    booleanand.cpp \
+    booleanor.cpp
 
 HEADERS += \
     defaultsignalprocessor.h \
@@ -62,7 +63,8 @@ HEADERS += \
     blockgenerator.h \
     signalrepeater.h \
     plainsignalpipe.h \
-    booleanand.h
+    booleanand.h \
+    booleanor.h
 
 unix:!symbian {
     maemo5 {
