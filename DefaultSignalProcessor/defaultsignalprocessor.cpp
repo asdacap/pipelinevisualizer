@@ -46,6 +46,13 @@
 #include "plainsignalpipe.h"
 #include "booleanand.h"
 #include "booleanor.h"
+#include "booleanxor.h"
+#include "booleaninvert.h"
+#include "doubledivide.h"
+#include "doubleinverse.h"
+#include "doubleplus.h"
+#include "doubleminus.h"
+#include "integerdivide.h"
 
 DefaultSignalProcessor::DefaultSignalProcessor()
 {
@@ -78,6 +85,14 @@ QList<PipeProcessGraphicsProvider*> DefaultSignalProcessor::getProviders(PVisual
     thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalRepeater>("SignalRepeater",pv,1,1,1,0,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<BooleanAnd>("BooleanAnd",pv,0,0,0,0,2,1));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<BooleanOr>("BooleanOr",pv,0,0,0,0,2,1));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<BooleanXOr>("BooleanXOr",pv,0,0,0,0,2,1));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<BooleanInvert>("BooleanInvert",pv,0,0,0,0,1,1));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleDivide>("DoubleDivide",pv,0,0,2,1,0,0));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleInverse>("DoubleInverse",pv,0,0,1,1,0,0));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<DoublePlus>("DoublePlus",pv,0,0,2,1,0,0));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleMinus>("DoubleMinus",pv,0,0,2,1,0,0));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<IntegerDivide>("IntegerDivide",pv,0,0,2,2,0,0));
+
 
     return thelist;
 }

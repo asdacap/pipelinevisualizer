@@ -37,7 +37,14 @@ SOURCES += \
     signalrepeater.cpp \
     plainsignalpipe.cpp \
     booleanand.cpp \
-    booleanor.cpp
+    booleanor.cpp \
+    booleanxor.cpp \
+    booleaninvert.cpp \
+    doubledivide.cpp \
+    doubleinverse.cpp \
+    doubleplus.cpp \
+    doubleminus.cpp \
+    integerdivide.cpp
 
 HEADERS += \
     defaultsignalprocessor.h \
@@ -64,7 +71,14 @@ HEADERS += \
     signalrepeater.h \
     plainsignalpipe.h \
     booleanand.h \
-    booleanor.h
+    booleanor.h \
+    booleanxor.h \
+    booleaninvert.h \
+    doubledivide.h \
+    doubleinverse.h \
+    doubleplus.h \
+    doubleminus.h \
+    integerdivide.h
 
 unix:!symbian {
     maemo5 {
