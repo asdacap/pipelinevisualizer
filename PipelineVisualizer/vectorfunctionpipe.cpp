@@ -18,7 +18,27 @@
 */
 
 #include "vectorfunctionpipe.h"
+#include "widgetedprocessgraphics.h"
 
-VectorFunctionPipe::VectorFunctionPipe()
+VectorFunctionPipe::VectorFunctionPipe(QVector<double> (*func)(QVector<double> ))
 {
+    thefunc=func;
+    setOutputNum(1);
+}
+
+void VectorFunctionPipe::feedData(QVector<double> data, int counter, int channel){
+    output_collection.at(0)->feedData(thefunc(data),counter);
+}
+
+VectorFunctionPipeProvider::VectorFunctionPipeProvider(
+    QString name,
+    QVector<double>  (*func)(QVector<double> ), PVisual *pv){
+    thename=name;
+    thefunc=func;
+    PV=pv;
+}
+
+ProcessGraphics* VectorFunctionPipeProvider::newInstance(QString name){
+    VectorFunctionPipe* mvfp=new VectorFunctionPipe(thefunc);
+    return new WidgetedProcessGraphics(mvfp,name,1,1,0,0,0,0,PV,this);
 }

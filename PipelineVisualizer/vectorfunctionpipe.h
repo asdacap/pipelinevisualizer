@@ -19,11 +19,28 @@
 
 #ifndef VECTORFUNCTIONPIPE_H
 #define VECTORFUNCTIONPIPE_H
+#include <QVector>
+#include "signalprocessor.h"
+#include "pipeproviderprovider.h"
 
-class VectorFunctionPipe
+class VectorFunctionPipe: public SignalProcessor
 {
 public:
-    VectorFunctionPipe();
+    VectorFunctionPipe(QVector<double> (*func)(QVector<double>  dat));
+    void feedData(QVector<double> data,int counter,int channel);
+
+private:
+    QVector<double>  (*thefunc)(QVector<double> dat);
+};
+
+class VectorFunctionPipeProvider:public PipeProcessGraphicsProvider{
+public:
+    VectorFunctionPipeProvider(QString name,QVector<double> (*func)(QVector<double>  dat),PVisual* pv);
+    PVisual* PV;
+    QString thename;
+    QVector<double>  (*thefunc)(QVector<double>  dat);
+    QString getName(){return thename;}
+    ProcessGraphics* newInstance(QString name);
 };
 
 #endif // VECTORFUNCTIONPIPE_H
