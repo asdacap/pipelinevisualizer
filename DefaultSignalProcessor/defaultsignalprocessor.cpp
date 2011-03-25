@@ -53,6 +53,9 @@
 #include "doubleplus.h"
 #include "doubleminus.h"
 #include "integerdivide.h"
+#include "doubleisgreaterthan.h"
+#include "doubleislessthan.h"
+#include "doubleisequal.h"
 
 DefaultSignalProcessor::DefaultSignalProcessor()
 {
@@ -92,6 +95,9 @@ QList<PipeProcessGraphicsProvider*> DefaultSignalProcessor::getProviders(PVisual
     thelist.append(new SimpleProcessGraphicsProviderTemplate<DoublePlus>("DoublePlus",pv,0,0,2,1,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleMinus>("DoubleMinus",pv,0,0,2,1,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<IntegerDivide>("IntegerDivide",pv,0,0,2,2,0,0));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleIsGreaterThan>("DoubleIsGreaterThan",pv,0,0,2,0,0,1));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleIsLessThan>("DoubleIsLessThan",pv,0,0,2,0,0,1));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleIsEqual>("DoubleIsEqual",pv,0,0,2,0,0,1));
 
 
     return thelist;

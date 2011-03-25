@@ -44,7 +44,10 @@ SOURCES += \
     doubleinverse.cpp \
     doubleplus.cpp \
     doubleminus.cpp \
-    integerdivide.cpp
+    integerdivide.cpp \
+    doubleisgreaterthan.cpp \
+    doubleislessthan.cpp \
+    doubleisequal.cpp
 
 HEADERS += \
     defaultsignalprocessor.h \
@@ -78,7 +81,10 @@ HEADERS += \
     doubleinverse.h \
     doubleplus.h \
     doubleminus.h \
-    integerdivide.h
+    integerdivide.h \
+    doubleisgreaterthan.h \
+    doubleislessthan.h \
+    doubleisequal.h
 
 unix:!symbian {
     maemo5 {
