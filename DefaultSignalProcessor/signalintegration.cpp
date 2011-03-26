@@ -8,11 +8,11 @@ SignalIntegration::SignalIntegration()
 void SignalIntegration::feedData(QVector<double> dat, int counter, int channel){
     QVector<double> res(dat.count());
     int i=0;
-    double counter=0;
+    double dcounter=0;
     while(i<res.count()){
-        counter=counter+dat.at(i);
-        res.replace(i,counter);
+        dcounter=dcounter+dat.at(i);
+        res.replace(i,dcounter);
         i=i+1;
     }
-    return res;
+    output_collection.at(0)->feedData(res,counter);
 }
