@@ -56,6 +56,7 @@
 #include "doubleisgreaterthan.h"
 #include "doubleislessthan.h"
 #include "doubleisequal.h"
+#include "signalmultiply.h"
 
 DefaultSignalProcessor::DefaultSignalProcessor()
 {
@@ -98,7 +99,7 @@ QList<PipeProcessGraphicsProvider*> DefaultSignalProcessor::getProviders(PVisual
     thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleIsGreaterThan>("DoubleIsGreaterThan",pv,0,0,2,0,0,1));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleIsLessThan>("DoubleIsLessThan",pv,0,0,2,0,0,1));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleIsEqual>("DoubleIsEqual",pv,0,0,2,0,0,1));
-
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalMultiply>("SignalMultiply",pv,2,1,0,0,0,0));
 
     return thelist;
 }
