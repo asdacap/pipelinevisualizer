@@ -59,6 +59,8 @@
 #include "signalmultiply.h"
 #include "signaldivide.h"
 #include "signalinverse.h"
+#include "signalplus.h"
+#include "signalminus.h"
 
 DefaultSignalProcessor::DefaultSignalProcessor()
 {
@@ -104,6 +106,9 @@ QList<PipeProcessGraphicsProvider*> DefaultSignalProcessor::getProviders(PVisual
     thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalMultiply>("SignalMultiply",pv,2,1,0,0,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalDivide>("SignalDivide",pv,2,1,0,0,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalInverse>("SignalInverse",pv,1,1,0,0,0,0));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalPlus>("SignalPlus",pv,2,1,0,0,0,0));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalMinus>("SignalMinus",pv,2,1,0,0,0,0));
+
 
     return thelist;
 }
