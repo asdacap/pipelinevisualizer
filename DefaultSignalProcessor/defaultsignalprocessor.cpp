@@ -63,6 +63,7 @@
 #include "signalminus.h"
 #include "signaldifferentation.h"
 #include "signalintegration.h"
+#include "signalsum.h"
 
 DefaultSignalProcessor::DefaultSignalProcessor()
 {
@@ -112,6 +113,7 @@ QList<PipeProcessGraphicsProvider*> DefaultSignalProcessor::getProviders(PVisual
     thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalMinus>("SignalMinus",pv,2,1,0,0,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalDifferentation>("SignalDifferentation",pv,1,1,0,0,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalIntegration>("SignalIntegration",pv,1,1,0,0,0,0));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalSum>("SignalSum",pv,1,0,0,1,0,0));
 
 
     return thelist;
