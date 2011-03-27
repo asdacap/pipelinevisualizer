@@ -56,7 +56,9 @@ SOURCES += \
     signaldifferentation.cpp \
     signalintegration.cpp \
     signalsum.cpp \
-    signaldeviation.cpp
+    signaldeviation.cpp \
+    doublesquareroot.cpp \
+    signalsquareroot.cpp
 
 HEADERS += \
     defaultsignalprocessor.h \
@@ -102,7 +104,9 @@ HEADERS += \
     signaldifferentation.h \
     signalintegration.h \
     signalsum.h \
-    signaldeviation.h
+    signaldeviation.h \
+    doublesquareroot.h \
+    signalsquareroot.h
 
 unix:!symbian {
     maemo5 {

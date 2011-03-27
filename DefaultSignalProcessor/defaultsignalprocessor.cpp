@@ -64,6 +64,9 @@
 #include "signaldifferentation.h"
 #include "signalintegration.h"
 #include "signalsum.h"
+#include "signaldeviation.h"
+#include "doublesquareroot.h"
+#include "signalsquareroot.h"
 
 DefaultSignalProcessor::DefaultSignalProcessor()
 {
@@ -114,7 +117,9 @@ QList<PipeProcessGraphicsProvider*> DefaultSignalProcessor::getProviders(PVisual
     thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalDifferentation>("SignalDifferentation",pv,1,1,0,0,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalIntegration>("SignalIntegration",pv,1,1,0,0,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalSum>("SignalSum",pv,1,0,0,1,0,0));
-
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalDeviation>("SignalDeviation",pv,1,0,0,1,0,0));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleSquareRoot>("DoubleSquareRoot",pv,0,0,1,1,0,0));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalSquareRoot>("SignalSquareRoot",pv,1,1,0,0,0,0));
 
     return thelist;
 }
