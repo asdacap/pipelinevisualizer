@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia
+QT       += core gui
 DESTDIR	+= ../build/
 OBJECTS_DIR = ../temp/
 TARGET = PipelineSignalProcessor

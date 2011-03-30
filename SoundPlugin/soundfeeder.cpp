@@ -26,80 +26,115 @@
 #include "QInputDialog"
 #include "widgetedprocessgraphics.h"
 
+#define SAMPLE_RATE (22050)
+
+int soundFeederCallback( const void *inputBuffer, void *outputBuffer,
+                      unsigned long framesPerBuffer,
+                      const PaStreamCallbackTimeInfo* timeInfo,
+                      PaStreamCallbackFlags statusFlags,
+                      void *userData )
+{
+    SoundFeeder* thefeeder=(SoundFeeder*)userData;
+    QByteArray anarray((char*)inputBuffer,framesPerBuffer*4);
+    thefeeder->write(anarray);
+    return 0;
+}
+
 SoundFeeder::SoundFeeder():QIODevice(),SignalProcessor()
 {
     setOutputNum(1);
     curcounter=0;
-    QAudioFormat format;
-   // set up the format you want, eg.
-   format.setFrequency(SAMPLING_FREQ);
-   format.setChannels(1);
-   format.setSampleSize(16);
-   format.setCodec("audio/pcm");
-   format.setByteOrder(QAudioFormat::BigEndian);
-   format.setSampleType(QAudioFormat::SignedInt);
+    timer=new QTimer();
+    timer->setSingleShot(false);
+    timer->setInterval(100);
+    QObject::connect(timer,SIGNAL(timeout()),this,SLOT(timerElapsed()));
+    timer->start();
+    open(QIODevice::ReadWrite);
+    PaError err;
+    PaDeviceIndex theinputindex=Pa_GetDefaultInputDevice();
+    const PaDeviceInfo* dinfo=Pa_GetDeviceInfo(theinputindex);
+    PaStreamParameters* theparam=new PaStreamParameters();
+    theparam->channelCount=1;
+    theparam->device=theinputindex;
+    theparam->sampleFormat=paFloat32;
+    theparam->suggestedLatency=dinfo->defaultLowInputLatency;
+    err = Pa_OpenStream( &thestream,
+                               (const PaStreamParameters*)theparam,
+                               0,
+                               SAMPLE_RATE,
+                               0,
+                               0,
+                               soundFeederCallback,
+                               this );
+    if( err != paNoError ) {
+        std::cout<<"Fail to initialize stream errorcode "<<err<<std::endl;
+        isStreamOk=false;
+    }else{
+        isStreamOk=true;
+    }
 
-   QAudioDeviceInfo info = QAudioDeviceInfo::defaultInputDevice();
-   if (!info.isFormatSupported(format)) {
-       std::cout<<"Unsopported format"<<std::endl;
-       format = info.nearestFormat(format);
-   }
-
-
-    inputAu=new QAudioInput(format,this);
-    QObject::connect(inputAu,SIGNAL(stateChanged(QAudio::State)),this,SLOT(auStateChanged(QAudio::State)));
+    open(QBuffer::ReadWrite);
 
 }
 
 void SoundFeeder::start(){
+    if(!isStreamOk)return;
     debugMessage("Start");
-    open(QBuffer::WriteOnly);
-    inputAu->start(this);
+    open(QBuffer::ReadWrite);
+    Pa_StartStream(thestream);
 }
 
 qint64 SoundFeeder::writeData(const char *data, qint64 len){
-    long bytegiven=len;
-    double* doubdata=new double[len/2];
-    intToDouble((qint16*)data,len/2,doubdata);
-
-    int length=bytegiven/2;
-    QVector<double> dat(length);
     int i=0;
-    while(i<dat.count()){
-        dat.replace(i,doubdata[i]);
+    while(i<len){
+        mydata.enqueue(data[i]);
         i=i+1;
     }
-    output_collection.at(0)->feedData(dat,curcounter);
-    delete []doubdata;
-
-    curcounter=curcounter+1;
     return len;
+
 }
 
 qint64 SoundFeeder::readData(char *data, qint64 maxlen){
-    return 0;
-}
-
-void SoundFeeder::auStateChanged(QAudio::State s){
-
-    QString message;
-    switch(s){
-    case QAudio::ActiveState:message="active";break;
-    case QAudio::SuspendedState:message="suspended";break;
-    case QAudio::StoppedState:message="stopped";break;
-    case QAudio::IdleState:message="idle";break;
+    int i=0;
+    while(i<maxlen&&mydata.count()!=0){
+        data[i]=mydata.dequeue();
+        i=i+1;
     }
-    debugMessage("state changed:"+QString(message));
+
+    return i;
 }
 
 void SoundFeeder::stop(){
+    if(!isStreamOk)return;
     debugMessage("Stopped");
-    inputAu->stop();
+    Pa_StopStream(thestream);
 }
 
 bool SoundFeeder::isStarted(){
+    if(!isStreamOk)return false;
+    return Pa_IsStreamActive(thestream);
+}
 
-    return (inputAu->state()==QAudio::ActiveState);
+void SoundFeeder::timerElapsed(){
+
+    if(bytesAvailable()<4)return;
+    QVector<double> thedoubles;
+    int i=0;
+    while(bytesAvailable()>=4){
+        float rnum=0;
+        char* cpointer=(char*)&rnum;
+        readData(cpointer,4);
+        thedoubles.append((double)rnum);
+        i=i+4;
+    }
+
+    output_collection.at(0)->feedData(thedoubles,curcounter);
+
+    curcounter=curcounter+1;
+}
+
+qint64 SoundFeeder::bytesAvailable(){
+    return mydata.count()+QIODevice::bytesAvailable();
 }
 
 SoundFeederProvider::SoundFeederProvider(PVisual *pvs){
@@ -121,3 +156,4 @@ ProcessGraphics* SoundFeederProvider::newInstance(QString text){
 QString SoundFeederProvider::getToolTip(){
     return "Sound feeder will output sound on signal output sound from the sistem default microphone";
 }
+

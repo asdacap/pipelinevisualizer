@@ -21,58 +21,74 @@
 #include <iostream>
 #include "QInputDialog"
 #include "widgetedprocessgraphics.h"
+#define SAMPLE_RATE (22050)
+
+int soundSinkCallback( const void *inputBuffer, void *outputBuffer,
+                      unsigned long framesPerBuffer,
+                      const PaStreamCallbackTimeInfo* timeInfo,
+                      PaStreamCallbackFlags statusFlags,
+                      void *userData )
+{
+    SoundSink* thesink=(SoundSink*)userData;
+    if(thesink->bytesAvailable()/4<framesPerBuffer){
+        return paContinue;
+    }
+    thesink->readData((char*)outputBuffer,framesPerBuffer*4);
+    return 0;
+}
 
 SoundSink::SoundSink():QIODevice(),SignalProcessor()
 {
-    QAudioFormat format;
-   // set up the format you want, eg.
-   format.setFrequency(SAMPLING_FREQ);
-   //format.setSampleRate(SAMPLING_FREQ);
-   format.setChannels(1);
-   format.setSampleSize(16);
-   format.setCodec("audio/pcm");
-   format.setByteOrder(QAudioFormat::BigEndian);
-   format.setSampleType(QAudioFormat::SignedInt);
-
-   QAudioDeviceInfo info = QAudioDeviceInfo::defaultOutputDevice();
-   if (!info.isFormatSupported(format)) {
-       std::cout<<"Unsopported format"<<std::endl;
-       format = info.nearestFormat(format);
-   }
-   timer=new QTimer();
-   timer->setSingleShot(false);
-   timer->setInterval(500);
-   QObject::connect(timer,SIGNAL(timeout()),this,SLOT(timerElapsed()));
-   timer->start();
-   enable=true;
-    out=new QAudioOutput(format,this);
-    //out->setBufferSize(1024*20);
+    timer=new QTimer();
+    timer->setSingleShot(false);
+    timer->setInterval(500);
+    QObject::connect(timer,SIGNAL(timeout()),this,SLOT(timerElapsed()));
+    timer->start();
+    enable=true;
     open(QIODevice::ReadWrite);
+    PaError err;
+    PaDeviceIndex theinputindex=Pa_GetDefaultOutputDevice();
+    const PaDeviceInfo* dinfo=Pa_GetDeviceInfo(theinputindex);
+    PaStreamParameters* theparam=new PaStreamParameters();
+    theparam->channelCount=1;
+    theparam->device=theinputindex;
+    theparam->sampleFormat=paFloat32;
+    theparam->suggestedLatency=dinfo->defaultLowOutputLatency;
+    err = Pa_OpenStream( &thestream,
+                               0,
+                               (const PaStreamParameters*)theparam,
+                               SAMPLE_RATE,
+                               0,
+                               0,
+                               soundSinkCallback,
+                               this );
+    if( err != paNoError ) {
+        std::cout<<"Fail to initialize stream errorcode "<<err<<std::endl;
+    }
+
+    open(QBuffer::WriteOnly);
 }
 
 SoundSink::~SoundSink(){
-    //out->stop();
-    //close();
+
 }
 
 bool SoundSink::isStarted(){
-    return (out->state()==QAudio::ActiveState);
+    return Pa_IsStreamActive(thestream);
 }
 
 void SoundSink::start(){
-    out->start(this);
+    Pa_StartStream(thestream);
+    debugMessage("Start");
 }
 
 void SoundSink::stop(){
-    out->stop();
+    Pa_StopStream(thestream);
+    debugMessage("Stop");
 }
 
 void SoundSink::timerElapsed(){
-    if(out->error()==QAudio::NoError){
-    }else{
-        debugMessage("error"+out->error());
-        out->start(this);
-    }
+    //Handle periodic error detection.
 }
 
 void SoundSink::feedData(QVector<double> dat, int counter, int channel){
@@ -84,10 +100,12 @@ void SoundSink::feedData(QVector<double> dat, int counter, int channel){
     int i=0;
     double* rdat=dat.data();
     while(i<dat.count()){
-        qint16 cdat=(qint16)(int)rdat[i];
+        float cdat=(float)rdat[i];
         char* rawc=(char*)&cdat;
         mydata.enqueue(rawc[0]);
         mydata.enqueue(rawc[1]);
+        mydata.enqueue(rawc[2]);
+        mydata.enqueue(rawc[3]);
         i=i+1;
     }
     //std::cout<<"feeding sound"<<std::endl;
@@ -135,3 +153,5 @@ ProcessGraphics* SoundSinkProvider::newInstance(QString text){
     ProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,1,0,0,0,0,0,pv,this);
     return pg;
 }
+
+

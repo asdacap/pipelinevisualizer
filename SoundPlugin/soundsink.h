@@ -22,7 +22,8 @@
 #include "signalprocessor.h"
 #include "constSetting.h"
 #include "pipeproviderprovider.h"
-#include <QtMultimedia>
+#include "QtCore"
+#include "portaudio.h"
 
 class SoundSink: public QIODevice, public SignalProcessor
 {
@@ -42,7 +43,8 @@ private:
     QQueue<char> mydata;
     QTimer* timer;
     bool enable;
-    QAudioOutput* out;
+    PaStream* thestream;
+
 public slots:
     void setEnabled(bool en);
     void timerElapsed();
