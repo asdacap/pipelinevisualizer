@@ -78,7 +78,7 @@ QList<PipeProcessGraphicsProvider*> DefaultSignalProcessor::getProviders(PVisual
     thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleMultiply>("DoubleMultiply",pv,0,0,2,1,0,0));
     thelist.append(new GraphAbstractionProvider(pv));
     thelist.append(new VariableDoubleGeneratorProvider(pv));
-    thelist.append(new SignalScalerProvider(pv));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalScaler>("SignalScaler",pv,1,1,1,0,0,0));
     thelist.append(new BooleanGeneratorProvider(pv));
     thelist.append(new ConditionalOutputSignalPipeProvider(pv));
     thelist.append(new ConditionalInputSignalPipeProvider(pv));

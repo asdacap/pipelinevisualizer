@@ -39,19 +39,3 @@ void SignalScaler::feedData(QVector<QVector<double> > dat, QVector<double> doubd
 
     output_collection.at(0)->feedData(res,counter);
 }
-
-SignalScalerProvider::SignalScalerProvider(PVisual *pv){
-    PV=pv;
-}
-
-QString SignalScalerProvider::getName(){
-    return "SignalScale";
-}
-
-ProcessGraphics* SignalScalerProvider::newInstance(QString text){
-
-     SignalScaler* sf=new SignalScaler();
-     ProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,1,1,1,0,0,0,PV,this);
-     return pg;
-
-}
