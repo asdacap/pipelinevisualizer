@@ -1,5 +1,5 @@
-SoundPlugin.dll
-FFtPlugin.dll
-ExtraSignalProcessingPlugin.dll
-DefaultSignalProcessor.dll
+libExtraSignalProcessingPlugin.so
+libSoundPlugin.so
+libFFtPlugin.so
+libDefaultSignalProcessor.so
 

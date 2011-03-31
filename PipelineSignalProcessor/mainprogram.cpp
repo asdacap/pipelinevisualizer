@@ -103,6 +103,10 @@ void MainProgram::InitializeProvider(){
 }
 
 void MainProgram::addProvider(PipeProcessGraphicsProvider *prov){
+    if(prov==0){
+        std::cout<<"Warning: Empty provider given"<<std::endl;
+        return;
+    }
     if(isExistProviderName(prov->getName()))return;
     provider_list.append(prov);
     providerlistmodel->addProvider(prov);

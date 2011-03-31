@@ -94,6 +94,7 @@ ProcessGraphics* SignalBlockBuilderProvider::newInstance(){
     if(settingdialog->exec()==settingdialog->Accepted){
         return newInstance(settingdialog->getSetting());
     }
+    return 0;
 }
 
 QMap<QString,QString> SignalBlockBuilderProvider::getSettings(ProcessGraphics *pg){
