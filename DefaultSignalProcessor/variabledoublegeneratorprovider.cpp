@@ -22,7 +22,7 @@
 #include "qwt_slider.h"
 
 VariableDoubleGeneratorProvider::VariableDoubleGeneratorProvider( PVisual* pv)
-
+    :PipeProcessGraphicsProvider(pv)
 {
     PV=pv;
 }
