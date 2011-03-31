@@ -22,7 +22,7 @@
 #include "QInputDialog"
 #include <iostream>
 
-GraphAbstractionProvider::GraphAbstractionProvider(PVisual* pvs){
+GraphAbstractionProvider::GraphAbstractionProvider(PVisual* pvs):PipeProcessGraphicsProvider(pvs){
 
     pv=pvs;
 }
