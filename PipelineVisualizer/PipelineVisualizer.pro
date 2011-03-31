@@ -8,7 +8,8 @@ QT       += core gui
 
 TARGET = PVisualizer
 TEMPLATE = lib
-DESTDIR	+= ../build/
+win32:DESTDIR	+= ../win32build/
+else:unix:DESTDIR	+= ../unixbuild/
 OBJECTS_DIR = ../temp/
 
 SOURCES +=\

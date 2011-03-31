@@ -3,7 +3,8 @@ QT       += core
 TARGET = FFtPlugin
 TEMPLATE = lib
 CONFIG += plugin
-DESTDIR	+= ../build/
+win32:DESTDIR	+= ../win32build/
+else:unix:DESTDIR	+= ../unixbuild/
 OBJECTS_DIR = ../temp/
 
 SOURCES += \
@@ -20,7 +21,8 @@ HEADERS += \
     inversefftprocessor.h \
     fftplugin.h
 
-LIBS += -L$$PWD/../build/ -lPVisualizer
+win32:LIBS += -L$$PWD/../win32build/ -lPVisualizer
+else:unix:LIBS += -L$$PWD/../unixbuild/ -lPVisualizer
 
 INCLUDEPATH += $$PWD/../PipelineVisualizer
 DEPENDPATH += $$PWD/../PipelineVisualizer
