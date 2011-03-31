@@ -18,7 +18,6 @@
 */
 
 #include "conditionalinputsignalpipe.h"
-#include "widgetedprocessgraphics.h"
 
 ConditionalInputSignalPipe::ConditionalInputSignalPipe()
 {
@@ -94,16 +93,3 @@ void ConditionalInputSignalPipe::feedData(QVector<QVector<double> > dat, QVector
     }
 }
 
-QString ConditionalInputSignalPipeProvider::getName(){
-    return "ConditionalInputSignalPipe";
-}
-
-ConditionalInputSignalPipeProvider::ConditionalInputSignalPipeProvider(PVisual *pv){
-    PV=pv;
-}
-
-ProcessGraphics* ConditionalInputSignalPipeProvider::newInstance(QString name)
-{
-    ConditionalInputSignalPipe* sf=new ConditionalInputSignalPipe();
-    return new WidgetedProcessGraphics(sf,name,2,1,0,0,1,0,PV,this);
-}

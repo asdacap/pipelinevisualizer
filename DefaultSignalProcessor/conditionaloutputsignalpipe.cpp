@@ -18,9 +18,6 @@
 */
 
 #include "conditionaloutputsignalpipe.h"
-#include <QInputDialog>
-#include <iostream>
-#include "widgetedprocessgraphics.h"
 
 ConditionalOutputSignalPipe::ConditionalOutputSignalPipe():SignalProcessor()
 {
@@ -38,21 +35,4 @@ void ConditionalOutputSignalPipe::feedData(QVector<QVector<double> > dat, QVecto
         output_collection.at(1)->feedData(dat1,counter);
         //output_collection.at(0)->feedData(QVector<double>(dat1.count()),counter);
     }
-}
-
-ConditionalOutputSignalPipeProvider::ConditionalOutputSignalPipeProvider(PVisual *pv){
-    PV=pv;
-}
-
-QString ConditionalOutputSignalPipeProvider::getName(){
-    return "ConditionalOutputSignalPipe";
-}
-
-ProcessGraphics* ConditionalOutputSignalPipeProvider::newInstance(QString text){
-
-     ConditionalOutputSignalPipe* sf=new ConditionalOutputSignalPipe();
-
-     ProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,1,2,0,0,1,0,PV,this);
-     return pg;
-
 }

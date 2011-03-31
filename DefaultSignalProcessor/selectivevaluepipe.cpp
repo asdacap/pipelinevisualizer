@@ -76,14 +76,3 @@ void SelectiveValuePipe::feedData(QVector<QVector<double> > sdat, QVector<double
             output_collection.at(0)->feedData(res,counter);
         }
 }
-
-#include "widgetedprocessgraphics.h"
-
-SelectiveValuePipeProvider::SelectiveValuePipeProvider(PVisual *pv){
-    PV=pv;
-}
-
-ProcessGraphics* SelectiveValuePipeProvider::newInstance(QString name){
-    SelectiveValuePipe* sp=new SelectiveValuePipe();
-    return new WidgetedProcessGraphics(sp,name,1,1,2,0,1,0,PV,this);
-}
