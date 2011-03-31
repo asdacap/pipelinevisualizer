@@ -137,7 +137,7 @@ qint64 SoundFeeder::bytesAvailable(){
     return mydata.count()+QIODevice::bytesAvailable();
 }
 
-SoundFeederProvider::SoundFeederProvider(PVisual *pvs){
+SoundFeederProvider::SoundFeederProvider(PVisual *pvs):PipeProcessGraphicsProvider(pvs){
     pv=pvs;
 }
 

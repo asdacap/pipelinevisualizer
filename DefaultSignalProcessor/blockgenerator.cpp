@@ -51,7 +51,7 @@ void BlockGenerator::feedData(QVector<QVector<double> > dat,
     output_collection.at(0)->feedData(QVector<double>(length,value),counter);
 }
 
-VariableBlockGenerator::VariableBlockGenerator(PVisual *pv){
+VariableBlockGenerator::VariableBlockGenerator(PVisual *pv):PipeProcessGraphicsProvider(pv){
     PV=pv;
 }
 
@@ -60,7 +60,7 @@ ProcessGraphics* VariableBlockGenerator::newInstance(QString name){
     return new WidgetedProcessGraphics(bg,name,1,1,2,0,0,0,PV,this);
 }
 
-ConstantBlockGenerator::ConstantBlockGenerator(PVisual *pv){
+ConstantBlockGenerator::ConstantBlockGenerator(PVisual *pv):PipeProcessGraphicsProvider(pv){
     PV=pv;
 }
 

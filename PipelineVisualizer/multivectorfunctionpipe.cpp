@@ -39,7 +39,7 @@ void MultiVectorFunctionPipe::feedData(QVector<QVector<double> > dat, QVector<do
 
 MultiVectorFunctionPipeProvider::MultiVectorFunctionPipeProvider(
     QString name, int in, int on,
-    QVector<QVector<double> > (*func)(QVector<QVector<double> >), PVisual *pv){
+    QVector<QVector<double> > (*func)(QVector<QVector<double> >), PVisual *pv):PipeProcessGraphicsProvider(pv){
     thename=name;
     inputNum=in;
     outputNum=on;

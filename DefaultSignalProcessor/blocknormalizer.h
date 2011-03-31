@@ -39,7 +39,7 @@ private:
 
 class BlockNormalizerProvider:public PipeProcessGraphicsProvider{
 public:
-    BlockNormalizerProvider(PVisual* pv){PV=pv;}
+    BlockNormalizerProvider(PVisual* pv):PipeProcessGraphicsProvider(pv){PV=pv;}
     PVisual* PV;
     QString getName(){return "BlockNormalizer";}
     QMap<QString,QString> defaultSetting();

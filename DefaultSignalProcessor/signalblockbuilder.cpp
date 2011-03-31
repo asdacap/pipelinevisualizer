@@ -77,7 +77,7 @@ int* SignalBlockBuilder::getCounter(){
     return &ct;
 }
 
-SignalBlockBuilderProvider::SignalBlockBuilderProvider(PVisual *pv){
+SignalBlockBuilderProvider::SignalBlockBuilderProvider(PVisual *pv):PipeProcessGraphicsProvider(pv){
     PV=pv;
 }
 

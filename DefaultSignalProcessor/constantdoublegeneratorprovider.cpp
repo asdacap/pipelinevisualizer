@@ -21,7 +21,7 @@
 #include "processgraphics.h"
 #include "widgetedprocessgraphics.h"
 
-ConstantDoubleGeneratorProvider::ConstantDoubleGeneratorProvider(PVisual* pv)
+ConstantDoubleGeneratorProvider::ConstantDoubleGeneratorProvider(PVisual* pv):PipeProcessGraphicsProvider(pv)
 {
     PV=pv;
 }

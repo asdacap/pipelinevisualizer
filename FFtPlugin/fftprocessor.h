@@ -32,7 +32,7 @@ public:
 
 class FFTProcessorProvider:public PipeProcessGraphicsProvider{
 public:
-    FFTProcessorProvider(PVisual* pv){PV=pv;}
+    FFTProcessorProvider(PVisual* pv):PipeProcessGraphicsProvider(pv){PV=pv;}
     PVisual* PV;
     QString getName(){return "FFTProcessor";}
     ProcessGraphics* newInstance(QString text);

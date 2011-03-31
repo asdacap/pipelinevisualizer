@@ -32,7 +32,7 @@ public:
 
 class FFTRectangularToPolarConverterProvider:public PipeProcessGraphicsProvider{
 public:
-    FFTRectangularToPolarConverterProvider(PVisual* pv){
+    FFTRectangularToPolarConverterProvider(PVisual* pv):PipeProcessGraphicsProvider(pv){
         PV=pv;
     }
 

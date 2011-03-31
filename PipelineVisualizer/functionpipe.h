@@ -36,7 +36,7 @@ class FunctionPipeProvider:public PipeProcessGraphicsProvider{
 public:
     QString name;
     PVisual* PV;
-    FunctionPipeProvider(QString thename,double (*funct)(double),PVisual* pv){
+    FunctionPipeProvider(QString thename,double (*funct)(double),PVisual* pv):PipeProcessGraphicsProvider(pv){
         name=thename;
         thefunct=funct;
         PV=pv;

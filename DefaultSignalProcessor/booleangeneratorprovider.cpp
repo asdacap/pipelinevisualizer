@@ -23,7 +23,7 @@
 #include "widgetedprocessgraphics.h"
 #include "QCheckBox"
 
-BooleanGeneratorProvider::BooleanGeneratorProvider( PVisual *pv){
+BooleanGeneratorProvider::BooleanGeneratorProvider( PVisual *pv):PipeProcessGraphicsProvider(pv){
     PV=pv;
 }
 

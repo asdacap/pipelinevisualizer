@@ -51,7 +51,7 @@ void PeriodicListFormatter::feedBuffer(double dat){
     offset=offset+1;
 }
 
-PeriodicListFormatterProvider::PeriodicListFormatterProvider(PVisual *pv){
+PeriodicListFormatterProvider::PeriodicListFormatterProvider(PVisual *pv):PipeProcessGraphicsProvider(pv){
     PV=pv;
 }
 

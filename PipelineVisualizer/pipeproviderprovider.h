@@ -28,7 +28,7 @@ class PVisual;
 class PipeProcessGraphicsProvider
 {
 public:
-    PipeProcessGraphicsProvider(PVisual* pv=0);
+    PipeProcessGraphicsProvider(PVisual* pvusr);
     virtual QString getName()=0;
     virtual QMap<QString,QString> defaultSetting();
     virtual ProcessGraphics* newInstance();

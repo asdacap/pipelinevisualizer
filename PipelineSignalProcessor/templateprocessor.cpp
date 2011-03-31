@@ -53,7 +53,8 @@ void TemplateProcessor::feedBoolData(bool dat, int counter, int channel){
     theproxy->bool_output_collection.at(channel)->feedBoolData(dat,counter);
 }
 
-TemplateProcessorProvider::TemplateProcessorProvider(QString name,PipelineProfile* profile,QList<PipeProcessGraphicsProvider*>* provlist,PVisual* pv){
+TemplateProcessorProvider::TemplateProcessorProvider(QString name,PipelineProfile* profile,QList<PipeProcessGraphicsProvider*>* provlist,PVisual* pv):
+PipeProcessGraphicsProvider(pv){
     thename=name;
     theprofile=profile;
     PV=pv;

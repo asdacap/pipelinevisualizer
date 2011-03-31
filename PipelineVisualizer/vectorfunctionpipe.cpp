@@ -32,7 +32,7 @@ void VectorFunctionPipe::feedData(QVector<double> data, int counter, int channel
 
 VectorFunctionPipeProvider::VectorFunctionPipeProvider(
     QString name,
-    QVector<double>  (*func)(QVector<double> ), PVisual *pv){
+    QVector<double>  (*func)(QVector<double> ), PVisual *pv):PipeProcessGraphicsProvider(pv){
     thename=name;
     thefunc=func;
     PV=pv;

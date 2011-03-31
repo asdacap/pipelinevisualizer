@@ -32,7 +32,7 @@ public:
 
 class PinkNoiseRemoverProvider:public PipeProcessGraphicsProvider{
 public:
-    PinkNoiseRemoverProvider(PVisual* pv){
+    PinkNoiseRemoverProvider(PVisual* pv):PipeProcessGraphicsProvider(pv){
         PV=pv;
     }
 

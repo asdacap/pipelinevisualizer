@@ -54,7 +54,7 @@ private:
 class TemplateProxyProvider:public PipeProcessGraphicsProvider{
 public:
     PVisual* pv;
-    TemplateProxyProvider(PVisual* pv){this->pv=pv;}
+    TemplateProxyProvider(PVisual* pv):PipeProcessGraphicsProvider(pv){this->pv=pv;}
     QMap<QString,QString> getSettings(ProcessGraphics *pg);
     QMap<QString,QString> defaultSetting();
     ProcessGraphics* newInstance(QMap<QString, QString> setting);

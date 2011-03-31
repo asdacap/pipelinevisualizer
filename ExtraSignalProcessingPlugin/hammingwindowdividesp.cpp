@@ -41,7 +41,7 @@ void HammingWindowDivideSP::feedData(QVector<QVector<double> > dat, QVector<doub
     output_collection.at(0)->feedData(res,counter);
 }
 
-HammingWindowDivideSPProvider::HammingWindowDivideSPProvider(PVisual *pv){
+HammingWindowDivideSPProvider::HammingWindowDivideSPProvider(PVisual *pv):PipeProcessGraphicsProvider(pv){
     PV=pv;
 }
 

@@ -139,7 +139,7 @@ qint64 SoundSink::bytesAvailable(){
     return mydata.count()+QIODevice::bytesAvailable();
 }
 
-SoundSinkProvider::SoundSinkProvider(PVisual *pvs){
+SoundSinkProvider::SoundSinkProvider(PVisual *pvs):PipeProcessGraphicsProvider(pvs){
     pv=pvs;
 }
 

@@ -32,7 +32,7 @@ public:
 
 class InverseFFtProcessorProvider:public PipeProcessGraphicsProvider{
 public:
-    InverseFFtProcessorProvider(PVisual* pv){
+    InverseFFtProcessorProvider(PVisual* pv):PipeProcessGraphicsProvider(pv){
         PV=pv;
     }
 

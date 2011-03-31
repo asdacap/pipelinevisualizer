@@ -13,7 +13,7 @@ public:
 
 class SignalPipeProcessorProvider:public PipeProcessGraphicsProvider{
 public:
-    SignalPipeProcessorProvider(PVisual* pv){
+    SignalPipeProcessorProvider(PVisual* pv):PipeProcessGraphicsProvider(pv){
         PV=pv;
     }
 
