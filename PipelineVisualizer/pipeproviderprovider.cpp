@@ -23,9 +23,11 @@
 #include "QVariant"
 #include "processgraphics.h"
 #include "sppropertydialog.h"
+#include "pvisual.h"
 
-PipeProcessGraphicsProvider::PipeProcessGraphicsProvider(){
+PipeProcessGraphicsProvider::PipeProcessGraphicsProvider(PVisual* pv){
     counter=0;
+    this->pv=pv;
 }
 
 QMap<QString,QString> PipeProcessGraphicsProvider::defaultSetting(){
@@ -50,8 +52,18 @@ ProcessGraphics* PipeProcessGraphicsProvider::newInstance(QString name){
 }
 
 QString PipeProcessGraphicsProvider::nameCandidate(){
-    counter=counter+1;
-    return getName()+QVariant(counter).toString();
+    if(pv==0){
+        counter=counter+1;
+        return getName()+QVariant(counter).toString();
+    }else{
+        counter=counter+1;
+        QString curname=getName()+QVariant(counter).toString();
+        while(pv->isExistPGName(curname)){
+            counter=counter+1;
+            curname=getName()+QVariant(counter).toString();
+        }
+        return curname;
+    }
 }
 
 QMap<QString,QString> PipeProcessGraphicsProvider::getSettings(ProcessGraphics *pg){

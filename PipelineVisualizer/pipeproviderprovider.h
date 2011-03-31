@@ -28,7 +28,7 @@ class PVisual;
 class PipeProcessGraphicsProvider
 {
 public:
-    PipeProcessGraphicsProvider();
+    PipeProcessGraphicsProvider(PVisual* pv=0);
     virtual QString getName()=0;
     virtual QMap<QString,QString> defaultSetting();
     virtual ProcessGraphics* newInstance();
@@ -40,6 +40,7 @@ public:
     virtual QString getTargetToolTip(int id);
     QString nameCandidate();
 private:
+    PVisual* pv;
     int counter;
 };
 

@@ -28,7 +28,8 @@ class SimpleProcessGraphicsProviderTemplate:public PipeProcessGraphicsProvider
 public:
     SimpleProcessGraphicsProviderTemplate(QString name,PVisual* pv,
                                           int sin,int sout,int din,int dout,
-                                          int bin,int bout){
+                                          int bin,int bout):
+    PipeProcessGraphicsProvider(pv){
         this->name=name;
         PV=pv;
         sinput=sin;
