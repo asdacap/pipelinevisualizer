@@ -42,6 +42,7 @@ public:
     int getId();
     ProcessGraphics* getProcessGraphics();
     void removeAllFeed();
+    QList<PipeFeed*> getFeedlist(){return feedlist;}
 
 protected:
     int cid;

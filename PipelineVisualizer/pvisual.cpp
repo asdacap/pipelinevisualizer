@@ -23,6 +23,7 @@
 #include "QAction"
 #include "processgraphics.h"
 #include <iostream>
+#include "pipeprovider.h"
 
 PVisual::PVisual(){
     QVBoxLayout* thelayout=new QVBoxLayout();
@@ -95,6 +96,12 @@ void PVisual::addPG(ProcessGraphics* newpg){
     }
     if(isExistPGName(newpg->getName()))return ;
     scene->addItem(newpg);
+    foreach(PipeProvider* provider,newpg->getPipeProvider()){
+        foreach(PipeFeed* feed,provider->getFeedlist()){
+            scene->addItem(feed);
+        }
+    }
+
     pgraphics_list.append(newpg);
     newpg->setPos(view->mapToScene(view->width()/2-newpg->boundingRect().width()/2
                                    ,view->height()/2-newpg->boundingRect().height()/2));

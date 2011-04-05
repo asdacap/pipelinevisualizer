@@ -38,5 +38,6 @@ ProcessGraphics* GraphAbstractionProvider::newInstance(QString name){
     SimpleLineGraph* slg=new SimpleLineGraph();
     slg->setGraphData(sf);
     WidgetedProcessGraphics* pg=new WidgetedProcessGraphics(sf,text,2,1,0,0,0,0,pv,this,slg,QRect(0,0,400,400));
+    pg->getSignalPipeProvider().at(0)->getNewFeed()->ApplyTarget(pg->getSignalTarget().at(1));
     return pg;
 }

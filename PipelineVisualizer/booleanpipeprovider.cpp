@@ -34,7 +34,9 @@ QRectF BooleanPipeProvider::boundingRect() const{
 PipeFeed* BooleanPipeProvider::getNewFeed(){
     PipeFeed* pf=new BooleanPipeFeed(this,target_collection);
     pf->setPos(scenePos());
-    scene()->addItem(pf);
+    if(scene()){
+        scene()->addItem(pf);
+    }
     feedlist.append(pf);
     return pf;
 }

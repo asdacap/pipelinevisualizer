@@ -34,7 +34,9 @@ QRectF SignalPipeProvider::boundingRect() const{
 PipeFeed* SignalPipeProvider::getNewFeed(){
     PipeFeed* pf=new SignalPipeFeed(this,target_collection);
     pf->setPos(scenePos());
-    scene()->addItem(pf);
+    if(scene()){
+        scene()->addItem(pf);
+    }
     feedlist.append(pf);
     return pf;
 }

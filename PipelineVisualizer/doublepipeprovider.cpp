@@ -34,7 +34,9 @@ QRectF DoublePipeProvider::boundingRect() const{
 PipeFeed* DoublePipeProvider::getNewFeed(){
     PipeFeed* pf=new DoublePipeFeed(this,target_collection);
     pf->setPos(scenePos());
-    scene()->addItem(pf);
+    if(scene()){
+        scene()->addItem(pf);
+    }
     feedlist.append(pf);
     return pf;
 }
