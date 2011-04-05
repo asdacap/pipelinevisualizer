@@ -60,7 +60,8 @@ SOURCES += \
     signaldeviation.cpp \
     doublesquareroot.cpp \
     signalsquareroot.cpp \
-    signalmedian.cpp
+    signalmedian.cpp \
+    signalindex.cpp
 
 HEADERS += \
     defaultsignalprocessor.h \
@@ -109,7 +110,8 @@ HEADERS += \
     signaldeviation.h \
     doublesquareroot.h \
     signalsquareroot.h \
-    signalmedian.h
+    signalmedian.h \
+    signalindex.h
 
 unix:!symbian {
     maemo5 {

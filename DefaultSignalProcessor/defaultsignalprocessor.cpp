@@ -68,6 +68,7 @@
 #include "doublesquareroot.h"
 #include "signalsquareroot.h"
 #include "signalmedian.h"
+#include "signalindex.h"
 
 DefaultSignalProcessor::DefaultSignalProcessor()
 {
@@ -122,6 +123,7 @@ QList<PipeProcessGraphicsProvider*> DefaultSignalProcessor::getProviders(PVisual
     thelist.append(new SimpleProcessGraphicsProviderTemplate<DoubleSquareRoot>("DoubleSquareRoot",pv,0,0,1,1,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalSquareRoot>("SignalSquareRoot",pv,1,1,0,0,0,0));
     thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalMedian>("SignalMedian",pv,1,0,0,1,0,0));
+    thelist.append(new SimpleProcessGraphicsProviderTemplate<SignalIndex>("SignalIndex",pv,1,1,0,0,0,0));
 
     return thelist;
 }
