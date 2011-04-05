@@ -31,6 +31,12 @@ int soundSinkCallback( const void *inputBuffer, void *outputBuffer,
 {
     SoundSink* thesink=(SoundSink*)userData;
     if(thesink->bytesAvailable()/4<framesPerBuffer){
+        int i=0;
+        char* inchar=(char*)outputBuffer;
+        while(i<framesPerBuffer*4){
+            inchar[i]=0;
+            i=i+1;
+        }
         return paContinue;
     }
     thesink->readData((char*)outputBuffer,framesPerBuffer*4);

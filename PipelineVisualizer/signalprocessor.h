@@ -51,20 +51,20 @@ class SignalProcessor
 public:
     SignalProcessor();
     //1D method
-    virtual void setOutput(int outchannel,SignalProcessor* proc,int inchannel);
-    virtual void unsetOutput(int outchannel,SignalProcessor* proc,int inchannel);
+    void setOutput(int outchannel,SignalProcessor* proc,int inchannel);
+    void unsetOutput(int outchannel,SignalProcessor* proc,int inchannel);
     virtual void feedData(QVector<double> dat,int counter,int channel);
-    virtual void setOutputNum(int num);
+    void setOutputNum(int num);
     //Boolean Method
-    virtual void setBoolOutput(int outchannel,SignalProcessor* proc,int inchannel);
-    virtual void unsetBoolOutput(int outchannel,SignalProcessor* proc,int inchannel);
+    void setBoolOutput(int outchannel,SignalProcessor* proc,int inchannel);
+    void unsetBoolOutput(int outchannel,SignalProcessor* proc,int inchannel);
     virtual void feedBoolData(bool dat,int counter,int channel);
-    virtual void setBoolOutputNum(int num);
+    void setBoolOutputNum(int num);
     //Double Method
-    virtual void setDoubleOutput(int outchannel,SignalProcessor* proc,int inchannel);
-    virtual void unsetDoubleOutput(int outchannel,SignalProcessor* proc,int inchannel);
+    void setDoubleOutput(int outchannel,SignalProcessor* proc,int inchannel);
+    void unsetDoubleOutput(int outchannel,SignalProcessor* proc,int inchannel);
     virtual void feedDoubleData(double dat,int counter,int channel);
-    virtual void setDoubleOutputNum(int num);
+    void setDoubleOutputNum(int num);
 
     //Helper method
     virtual void feedData(QVector<QVector<double> > dat,QVector<double> doubdat,QVector<bool> booldat,int counter);
