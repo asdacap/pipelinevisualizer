@@ -23,7 +23,8 @@ SOURCES += \
     spproviderlistmodel.cpp \
     pipelineprofile.cpp \
     templateprocessor.cpp \
-    templateproxy.cpp
+    templateproxy.cpp \
+    proccessgraphicspropertymodel.cpp
 
 HEADERS  += \
     tinyxml/tinyxml.h \
@@ -33,7 +34,8 @@ HEADERS  += \
     spproviderlistmodel.h \
     pipelineprofile.h \
     templateprocessor.h \
-    templateproxy.h
+    templateproxy.h \
+    proccessgraphicspropertymodel.h
 
 FORMS    += \
     stringlisteditor.ui

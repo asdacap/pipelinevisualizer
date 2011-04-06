@@ -33,7 +33,7 @@ class PVisual:public QWidget{
 public:
     PVisual();
     ~PVisual();
-    void addPG(ProcessGraphics* pg);
+    void addPG(ProcessGraphics* pg,bool checkname=true);
     void removePG(ProcessGraphics* );
     bool isExistPGName(QString name);
     ProcessGraphics* getProcessGraphics(QString name);
@@ -61,6 +61,9 @@ public slots:
     void startButton();
     void stopButton();
     void removeAllButton();
+
+signals:
+    void PGSelected(ProcessGraphics* pg);
 };
 
 #endif // PVISUAL_H

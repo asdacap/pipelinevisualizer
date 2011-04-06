@@ -33,6 +33,7 @@
 #include "QListWidget"
 #include "spproviderlistmodel.h"
 #include <pipelineprofile.h>
+#include "proccessgraphicspropertymodel.h"
 
 typedef struct PipeProcessGraphicsProvider PipeProcessGraphicsProvider;
 
@@ -65,6 +66,8 @@ private:
     QTreeView* addSPwidget;
     SPProviderListModel* providerlistmodel;
 
+    ProccessGraphicsPropertyModel* thepropertymodel;
+    ProcessGraphics* selectedPG;
 public slots:
     void saveButton();
     void loadButton();
@@ -76,6 +79,9 @@ public slots:
     void openTemplateListEditor();
 
     void listDoubleClicked(QModelIndex modeindex);
+
+    void PGSelected(ProcessGraphics* pg);
+    void PropertyChangeSuggested(QMap<QString,QString> thenewsetting);
 };
 
 #endif // MAINPROGRAM_H

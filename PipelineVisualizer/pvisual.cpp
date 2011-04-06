@@ -89,12 +89,12 @@ void PVisual::stopButton(){
     }
 }
 
-void PVisual::addPG(ProcessGraphics* newpg){
+void PVisual::addPG(ProcessGraphics* newpg,bool checkname){
     if(newpg==0){
         std::cout<<"Numll pg given"<<std::endl;
         return ;
     }
-    if(isExistPGName(newpg->getName()))return ;
+    if(checkname&&isExistPGName(newpg->getName()))return ;
     scene->addItem(newpg);
     foreach(PipeProvider* provider,newpg->getPipeProvider()){
         foreach(PipeFeed* feed,provider->getFeedlist()){
@@ -162,5 +162,11 @@ void PVisual::theSelectedHasChanged(){
     foreach(QGraphicsItem* theitem,prevselectedlist){
         ProcessGraphics* pg=(ProcessGraphics*)theitem;
         pg->realign();
+    }
+
+    if(prevselectedlist.count()==0){
+        emit PGSelected(0);
+    }else{
+        emit PGSelected((ProcessGraphics*)prevselectedlist.at(0));
     }
 }

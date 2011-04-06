@@ -35,7 +35,9 @@
 #include <QApplication>
 #include <stringlisteditor.h>
 #include <templateproxy.h>
+#include <QTableView>
 #include <templateprocessor.h>
+#include <QSplitter>
 
 MainProgram::MainProgram(QWidget *parent) :
     QMainWindow(parent)
@@ -82,14 +84,24 @@ MainProgram::MainProgram(QWidget *parent) :
     thelayout->addWidget(alinedit);
     thelayout->addWidget(addSPwidget);
 
+    QTableView* propertytableview=new QTableView();
+    thepropertymodel=new ProccessGraphicsPropertyModel();
+    propertytableview->setModel(thepropertymodel);
+
     connect(alinedit,SIGNAL(textChanged(QString)),providerlistmodel,SLOT(filterWithString(QString)));
 
+    QSplitter* docksplitter=new QSplitter(Qt::Vertical);
+    docksplitter->addWidget(interdocwidget);
+    docksplitter->addWidget(propertytableview);
     QDockWidget* dock=new QDockWidget("Add signal processor");
     dock->setFeatures(dock->DockWidgetMovable|dock->DockWidgetFloatable);
-    dock->setWidget(interdocwidget);
+    dock->setWidget(docksplitter);
     addDockWidget(Qt::LeftDockWidgetArea,dock);
 
     connect(addSPwidget,SIGNAL(doubleClicked(QModelIndex)),SLOT(listDoubleClicked(QModelIndex)));
+
+    connect(pvis,SIGNAL(PGSelected(ProcessGraphics*)),SLOT(PGSelected(ProcessGraphics*)));
+    connect(thepropertymodel,SIGNAL(PropertySuggested(QMap<QString,QString>)),SLOT(PropertyChangeSuggested(QMap<QString,QString>)));
 
     InitializeProvider();
 
@@ -390,4 +402,60 @@ void MainProgram::loadTemplate(){
     QString path=QFileDialog::getOpenFileName(this,"Open template/project file","","PipelineVisualizer file (*.pvl)");
     loadTemplate(path);
 
+}
+
+void MainProgram::PGSelected(ProcessGraphics *pg){
+    selectedPG=pg;
+    if(pg==0){
+        thepropertymodel->setPGProperty(QMap<QString,QString>());
+    }else{
+        thepropertymodel->setPGProperty(pg->getProvider()->getSettings(pg));
+    }
+}
+
+void MainProgram::PropertyChangeSuggested(QMap<QString, QString> thenewsetting){
+    if(selectedPG==0)return;
+    QString newname=thenewsetting["Name"];
+    int i=0;
+    QList<ProcessGraphics*> thepg=pvis->getProcessGraphics();
+    thepg.removeAll(selectedPG);
+    foreach(ProcessGraphics* pg,thepg){
+        if(pg->getName()==newname){
+            return;
+        }
+    }
+    ProcessGraphics* thenewone=selectedPG->getProvider()->newInstance(thenewsetting);
+    ProcessGraphics* thenewpg=thenewone;
+    if(thenewpg!=0){
+                    int xpos=selectedPG->x();
+                    int ypos=selectedPG->y();
+                    pvis->addPG(thenewpg,false);
+                    thenewpg->setPos(xpos,ypos);
+    }else{
+        return;
+    }
+    QList<PipeTarget*> thetargets=selectedPG->getTarget();
+    i=0;
+    while(i<thetargets.count()){
+        if(!thetargets.at(i)->isAvailable()){
+            thetargets.at(i)->getFeed()->ApplyTarget(thenewone->getTarget().at(i));
+        }
+        i=i+1;
+    }
+    QList<PipeProvider*> providers=selectedPG->getPipeProvider();
+    i=0;
+    while(i<providers.count()){
+        QList<PipeFeed*> thefeeds=providers.at(i)->getFeedlist();
+        foreach(PipeFeed* feed,thefeeds){
+            PipeTarget* thetarget=feed->curtarget;
+            feed->removeMe();
+            thenewone->getPipeProvider().at(i)->getNewFeed()->ApplyTarget(thetarget);
+        }
+
+        i=i+1;
+    }
+    selectedPG->removeMe();
+    selectedPG=thenewone;
+    thenewone->setSelected(true);
+    thepropertymodel->setPGProperty(thenewsetting);
 }
