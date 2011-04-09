@@ -38,10 +38,10 @@ void SelectiveSignalElimination::feedData(QVector<QVector<double> > data, QVecto
 
     while(i<res.count()){
 
-        if(i <= ofs){
+        if(i < ofs){
             res.replace(i,dat.at(i));
         }else
-            if(i > (ofs+len)){
+            if(i >= (ofs+len)){
                 res.replace(i,dat.at(i));
             }else{
                 res.replace(i,0);
