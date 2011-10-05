@@ -21,13 +21,13 @@
 #include <QPainter>
 #include <iostream>
 #include <QGridLayout>
-#include "qwt_plot_canvas.h"
-#include "qwt_wheel.h"
-#include "qwt_plot_panner.h"
-#include "qwt_plot_magnifier.h"
+#include "qwt/qwt_plot_canvas.h"
+#include "qwt/qwt_wheel.h"
+#include "qwt/qwt_plot_panner.h"
+#include "qwt/qwt_plot_magnifier.h"
 #include <QAction>
-#include "qwt_scale_div.h"
-#include "qwt_plot_zoomer.h"
+#include "qwt/qwt_scale_div.h"
+#include "qwt/qwt_plot_zoomer.h"
 
 SimpleLineGraph::SimpleLineGraph(QWidget *parent) :
     QWidget(parent)
@@ -51,7 +51,6 @@ SimpleLineGraph::SimpleLineGraph(QWidget *parent) :
 
     ploter->setAutoReplot(true);
     //ploter->canvas()->setPaintAttribute(QwtPlotCanvas::PaintCached, false);
-    ploter->canvas()->setPaintAttribute(QwtPlotCanvas::PaintPacked, false);
 
     QwtPlotPanner* panner=new QwtPlotPanner(ploter->canvas());
    // QwtPlotZoomer* zomer=new QwtPlotZoomer(ploter->canvas());
@@ -117,7 +116,8 @@ void SimpleLineGraph::timerElapsed(){
     if(!enab)return;
 
     gdata->lock();
-    cCurve->setData(gdata->xdata,gdata->ydata);
+    QwtCPointerData thedata(gdata->xdata.data(),gdata->ydata.data(),gdata->xdata.size()>gdata->ydata.size()?gdata->ydata.size():gdata->xdata.size());
+    cCurve->setData(&thedata);
     gdata->unlock();
     ploter->repaint();
 }

@@ -21,8 +21,8 @@
 #define SIMPLELINEGRAPH_H
 
 #include <QWidget>
-#include "qwt_plot.h"
-#include "qwt_plot_curve.h"
+#include "qwt/qwt_plot.h"
+#include "qwt/qwt_plot_curve.h"
 #include <QTimer>
 #include <QToolButton>
 #include "counterkeeper.h"

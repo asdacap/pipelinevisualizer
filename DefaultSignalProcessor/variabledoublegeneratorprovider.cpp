@@ -19,7 +19,7 @@
 
 #include "variabledoublegeneratorprovider.h"
 #include "widgetedprocessgraphics.h"
-#include "qwt_slider.h"
+#include "qwt/qwt_slider.h"
 
 VariableDoubleGeneratorProvider::VariableDoubleGeneratorProvider( PVisual* pv)
     :PipeProcessGraphicsProvider(pv)
@@ -65,9 +65,8 @@ ProcessGraphics* VariableDoubleGeneratorProvider::newInstance(QMap<QString, QStr
     double cur=QVariant(setting["Current"]).toDouble();
     DoubleGenerator* dg=new DoubleGenerator();
     //
-    QwtSlider* propslider=new QwtSlider(0,Qt::Horizontal,QwtSlider::TopScale,QwtSlider::BgTrough);
+    QwtSlider* propslider=new QwtSlider(0,Qt::Horizontal,QwtSlider::TopScale,QwtSlider::Trough);
     propslider->setRange(min,max,increm,1);
-    propslider->setThumbWidth(10);
     propslider->setToolTip(name);
     QObject::connect(propslider,SIGNAL(valueChanged(double)),dg,SLOT(setValue(double)));
     propslider->setValue(cur);
