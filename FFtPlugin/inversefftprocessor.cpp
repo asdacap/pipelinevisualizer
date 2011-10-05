@@ -29,7 +29,7 @@ InverseFFtProcessor::InverseFFtProcessor()
 
 void InverseFFtProcessor::feedData(QVector<QVector<double> > dat, QVector<double> doubdat, QVector<bool> booldat, int counter){
     QVector<double> realdata=dat.at(0);
-    QVector<double> imaginarydat=dat.at(0);
+    QVector<double> imaginarydat=dat.at(1);
     QVector<double>* realdat=&realdata;
     QVector<double>* imagdat=&imaginarydat;
     if(realdat->count()==imagdat->count()){
