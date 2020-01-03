@@ -1,4 +1,4 @@
-PROJECT(ExtraSignalProcessing)
+PROJECT(ExtraSignalProcessingPlugin)
 FIND_PACKAGE(QWT5 REQUIRED)
 ADD_DEFINITIONS(-DQT_PLUGIN)
 ADD_DEFINITIONS(-DQT_NO_DEBUG)
@@ -20,6 +20,6 @@ SET(ESP_HEADERS
         extrasignalprocessor.h)
 
 QT4_WRAP_CPP(ESP_HEADERS_MOC ${ESP_HEADERS})
-ADD_LIBRARY(ExtraSignalProcessing SHARED ${ESP_SOURCES} ${ESP_HEADERS_MOC})
+ADD_LIBRARY(ExtraSignalProcessingPlugin SHARED ${ESP_SOURCES} ${ESP_HEADERS_MOC})
 
-target_link_libraries(ExtraSignalProcessing PVisualizer ${Qwt5_Qt4_LIBRARY})
+target_link_libraries(ExtraSignalProcessingPlugin PVisualizer ${Qwt5_Qt4_LIBRARY})

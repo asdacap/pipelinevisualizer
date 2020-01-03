@@ -180,3 +180,6 @@ fabric.properties
 
 .idea/
 /bin/
+
+*.cbp
+

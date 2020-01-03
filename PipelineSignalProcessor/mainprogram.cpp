@@ -329,7 +329,7 @@ void MainProgram::loadPlugin(QString filepath){
         QString abspath=QDir(QApplication::applicationDirPath()).absoluteFilePath(filepath);
         QPluginLoader* loader=new QPluginLoader(abspath,this);
         if(!loader->load()){
-            std::cout<<"Load plugin failed"<<std::endl;
+            std::cout<<"Load plugin failed for plugin: "<<filepath.toStdString()<<std::endl;
             std::cout<<loader->errorString().toStdString()<<std::endl;
             return ;
         }
