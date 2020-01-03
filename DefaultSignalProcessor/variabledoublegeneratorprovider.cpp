@@ -50,9 +50,9 @@ QMap<QString,QString> VariableDoubleGeneratorProvider::getSettings(ProcessGraphi
     QwtSlider* slider=(QwtSlider*)widgeted->getWidget();
     QMap<QString,QString> setting;
     setting["Name"]=pg->getName();
-    setting["Maximum"]=QVariant(slider->maxValue()).toString();
-    setting["Minimum"]=QVariant(slider->minValue()).toString();
-    setting["Increment"]=QVariant(slider->step()).toString();
+    setting["Maximum"]=QVariant(slider->maximum()).toString();
+    setting["Minimum"]=QVariant(slider->minimum()).toString();
+    setting["Increment"]=QVariant(slider->scaleStepSize()).toString();
     setting["Current"]=QVariant(slider->value()).toString();
     return setting;
 }
@@ -65,8 +65,9 @@ ProcessGraphics* VariableDoubleGeneratorProvider::newInstance(QMap<QString, QStr
     double cur=QVariant(setting["Current"]).toDouble();
     DoubleGenerator* dg=new DoubleGenerator();
     //
-    QwtSlider* propslider=new QwtSlider(0,Qt::Horizontal,QwtSlider::TopScale,QwtSlider::Trough);
-    propslider->setRange(min,max,increm,1);
+    QwtSlider* propslider=new QwtSlider(Qt::Horizontal);
+    propslider->setScale(min,max);
+    propslider->setScaleStepSize(increm);
     propslider->setToolTip(name);
     QObject::connect(propslider,SIGNAL(valueChanged(double)),dg,SLOT(setValue(double)));
     propslider->setValue(cur);

@@ -116,8 +116,7 @@ void SimpleLineGraph::timerElapsed(){
     if(!enab)return;
 
     gdata->lock();
-    QwtCPointerData thedata(gdata->xdata.data(),gdata->ydata.data(),gdata->xdata.size()>gdata->ydata.size()?gdata->ydata.size():gdata->xdata.size());
-    cCurve->setData(&thedata);
+    cCurve->setSamples(gdata->xdata.data(),gdata->ydata.data(),gdata->xdata.size()>gdata->ydata.size()?gdata->ydata.size():gdata->xdata.size());
     gdata->unlock();
     ploter->repaint();
 }
@@ -133,9 +132,9 @@ void SimpleLineGraph::resetTrigger(bool act){
 }
 
 void SimpleLineGraph::resetTrigger1(bool act){
-    QwtScaleDiv* divis=ploter->axisScaleDiv(0);
-    double min=divis->interval().minValue();
-    double max=divis->interval().maxValue();
+    QwtScaleDiv divis=ploter->axisScaleDiv(0);
+    double min=divis.interval().minValue();
+    double max=divis.interval().maxValue();
     double mid=(min+max)/2;
     double dmin=min-mid;
     double dmax=max-mid;
@@ -146,9 +145,9 @@ void SimpleLineGraph::resetTrigger1(bool act){
 }
 
 void SimpleLineGraph::resetTrigger2(bool act){
-    QwtScaleDiv* divis=ploter->axisScaleDiv(0);
-    double min=divis->interval().minValue();
-    double max=divis->interval().maxValue();
+    QwtScaleDiv divis=ploter->axisScaleDiv(0);
+    double min=divis.interval().minValue();
+    double max=divis.interval().maxValue();
     double mid=(min+max)/2;
     double dmin=min-mid;
     double dmax=max-mid;
@@ -159,9 +158,9 @@ void SimpleLineGraph::resetTrigger2(bool act){
 }
 
 void SimpleLineGraph::resetTrigger3(bool act){
-    QwtScaleDiv* divis=ploter->axisScaleDiv(0);
-    double min=divis->interval().minValue();
-    double max=divis->interval().maxValue();
+    QwtScaleDiv divis=ploter->axisScaleDiv(0);
+    double min=divis.interval().minValue();
+    double max=divis.interval().maxValue();
     double mid=(min+max)/2;
     double dmin=min-mid;
     double dmax=max-mid;
@@ -172,9 +171,9 @@ void SimpleLineGraph::resetTrigger3(bool act){
 }
 
 void SimpleLineGraph::resetTrigger4(bool act){
-    QwtScaleDiv* divis=ploter->axisScaleDiv(0);
-    double min=divis->interval().minValue();
-    double max=divis->interval().maxValue();
+    QwtScaleDiv divis=ploter->axisScaleDiv(0);
+    double min=divis.interval().minValue();
+    double max=divis.interval().maxValue();
     double mid=(min+max)/2;
     double dmin=min-mid;
     double dmax=max-mid;
